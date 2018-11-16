@@ -17,7 +17,7 @@ var respecConfig = {
   wgURI: "https://www.w3.org/2011/04/webrtc/",
   wgPublicList: "public-webrtc",
   wgPatentURI:  "https://www.w3.org/2004/01/pp-impl/47318/status",
-  issueBase: "https://github.com/w3c/webrtc-pc/issues",
+  issueBase: "https://github.com/w3c/webrtc-svc/issues",
   otherLinks: [
     {
       key: "Participate",
