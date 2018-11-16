@@ -1,5 +1,6 @@
 # webrtc-svc
-W3C Scalable Video Coding (SVC) Extension for WebRTC
+This document defines a set of ECMAScript APIs in WebIDL to extend the WebRTC 1.0
+API to enable support for Scalable Video Coding (SVC).
 
 ### Published Versions
 
