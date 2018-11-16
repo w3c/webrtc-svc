@@ -1,7 +1,7 @@
 var respecConfig = {
   specStatus: "ED",
   // if there a publicly available Editor's Draft, this is the link
-  edDraftURI: "https://rawgit.com/w3c/webrtc-pc/master/svc.html",
+  edDraftURI: "https://w3c.github.io/webrtc-svc/",
   shortName: "webrtc-svc",
   editors:  [
     //              { name: "Your Name", url: "http://example.org/",
@@ -28,7 +28,7 @@ var respecConfig = {
         },
         {
           value: "Browse open issues",
-          href: "https://github.com/w3c/webrtc-pc/issues"
+          href: "https://github.com/w3c/webrtc-svc/issues"
         },
         {
           "value": "IETF RTCWEB Working Group",
