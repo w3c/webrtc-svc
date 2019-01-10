@@ -50,7 +50,7 @@ var respecConfig = {
         "Peter de Rivaz",
         "Jack Haughton"
       ],
-      "status": "June 25, 2018",
+      "status": "January 9, 2019",
       "publisher": "Alliance for Open Media"
     },
     "JSEP": {
