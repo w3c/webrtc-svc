@@ -634,10 +634,30 @@ var encodings = [
 ]
 </pre>
     </section>
+        <section class="informative" id="sfu-getcapabilities-example*">
+       <h4>SFU Capabilities</h4>
+       <pre class="example highlight">
+// RTCRtpReceiver.getCapabilities('video').codecs[] returned by 
+// SFU that can only forward VP8 and VP9 temporal scalability modes
+ "codecs": [
+    {
+      "clockRate": 90000,
+      "mimeType": "video/VP8",
+      "scalabilityModes": ["L1T2","L1T3"]
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/VP9",
+      "scalabilityModes": ["L1T2","L1T3","L1T2h","L1T3h"]
+    }
+]
+</pre>
+    </section>
     <section class="informative" id="receiver-getcapabilities-example*">
        <h4>SVC Decoder Capabilities</h4>
        <pre class="example highlight">
-// Capabilities returned by RTCRtpReceiver.getCapabilities('video').codecs[]
+// RTCRtpReceiver.getCapabilities('video').codecs[] returned by a browser that can
+// support all scalability modes within the VP8 and VP9 codecs.
   "codecs": [
     { 
       "clockRate": 90000,
