@@ -527,7 +527,7 @@ var encodings = [
   {scalabilityMode: 'L1T2'}
 ];
 
-// Example of 2 spatial layers + 3 temporal layers
+// Example of 2 spatial layers (with 2:1 ratio) + 3 temporal layers
 var encodings = [
   {scalabilityMode: 'L2T3'}
 ];
@@ -551,7 +551,7 @@ var encodings = [
     {
       "clockRate": 90000,
       "mimeType": "video/VP9",
-      "scalabilityModes": ["L1T2","L1T3","L2T1","L2T2","L2T3","L1T2h","L1T3h","L2T1h","L2T2h","L2T3h"]
+      "scalabilityModes": ["L1T2","L1T3","L2T1","L2T2","L2T3","L3T1","L3T2","L3T3","L1T2h","L1T3h","L2T1h","L2T2h","L2T3h"]
     },
     {
       "clockRate": 90000,
@@ -636,6 +636,13 @@ var encodings = [
     </section>
         <section class="informative" id="sfu-getcapabilities-example*">
        <h4>SFU Capabilities</h4>
+<p>While the browser's SVC capabilities are assumed to be static, this may not be the case for a Selective
+   Forwarding Unit (SFU).  For example, an SFU's ability to forward SVC modes may depend on the negotiated
+   header extensions.  For example, if the SFU cannot parse codec payloads (either because it is not designed
+   to do so, or because the payload is confidential), then without negotiating an RTP header extension, the
+   SFU may not be able to forward any SVC modes.  As a result, an application may wish to exchange supported
+   SVC modes with an SFU after the initial offer/answer negotiation, so that it can properly compute the
+   intersection of supported SVC modes.</p>
        <pre class="example highlight">
 // RTCRtpReceiver.getCapabilities('video').codecs[] returned by 
 // SFU that can only forward VP8 and VP9 temporal scalability modes
