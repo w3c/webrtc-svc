@@ -250,6 +250,14 @@
               omit the <code>scalabilityModes</code> member. However, decoders that only support
               decoding of a subset of scalability modes MUST return a sequence of the scalability
               modes supported by that codec.</p>
+              <p class="note">
+                The <code>scalabilityModes</code> sequence represents the scalability modes supported
+                by a user agent. While it is not affected by negotiation, the scalability modes supported
+                by a Scalable Forwarding Unit (SFU) may depend on the negotiated header extensions. For
+                example, if end-to-end payload encryption [[DOUBLE]] is negotiated without a header
+                extension (such as [[FRAME-MARKING]]), then the SFU will not have access to the RTP
+                payload and may not be able to forward packets.
+              </p>
             </dd>
           </dl>
         </section>
