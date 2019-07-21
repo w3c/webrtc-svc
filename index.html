@@ -95,7 +95,7 @@
     the <dfn>RTCRtpReceiveParameters</dfn> dictionary (defined in Section 5.2.3),
     the <dfn>RTCRtpCodingParameters</dfn> dictionary (defined in Section 5.2.4),
     the <dfn>RTCRtpEncodingParameters</dfn> dictionary (defined in Section 5.2.6),
-    the <dfn>RTCRtpCodecCapabilities</dfn> dictionary (defined in Section 5.2.13),
+    the <dfn>RTCRtpCodecCapability</dfn> dictionary (defined in Section 5.2.13),
     the <dfn>RTCRtpTransceiver</dfn> object including
     its <dfn>[[\Sender]]</dfn> and <dfn>[[\Receiver]]</dfn> internal slots (defined
     in Section 5.4), the <dfn>RTCRtpSender</dfn> object, including its
@@ -142,7 +142,7 @@
     "<code><a>setParameters</a></code> does not cause SDP renegotiation and can only be used to
     change what the media stack is sending or receiving within the envelope negotiated by Offer/Answer."</p> 
     <p>In order to provide support for SVC, this specification extends the <code><a>RTCRtpEncodingParameters</a></code>
-    and <code><a>RTCRtpCodecCapabilities</a></code> dictionaries, but does not
+    and <code><a>RTCRtpCodecCapability</a></code> dictionaries, but does not
     change the role of <code><a>addTransceiver</a></code>, <code><a>addTrack</a></code> and
     <code><a>setParameters</a></code> methods, so that the restrictions imposed
     in [[!WEBRTC]] Section 5.2 remain.</p>
@@ -217,23 +217,23 @@
             <dd>
               <p>An identifier of the scalability mode to be used for this stream.
               The <code>scalabilityMode</code> selected MUST be one of the scalability modes
-              supported for the codec, as indicated in <code>RTCRtpCodecCapabilities</code>.
+              supported for the codec, as indicated in <code>RTCRtpCodecCapability</code>.
               Scalability modes are defined in Section 6.</p>
             </dd>
           </dl>
         </section>
       </div>
     </section>
-    <section id="rtcrtpcodeccapabilities">
-      <h3>RTCRtpCodecCapabilities Dictionary Extensions</h3>
+    <section id="rtcrtpcodeccapability*">
+      <h3>RTCRtpCodecCapability Dictionary Extensions</h3>
       <div>
-        <pre class="idl">partial dictionary RTCRtpCodecCapabilities {
+        <pre class="idl">partial dictionary RTCRtpCodecCapability {
              sequence&lt;DOMString&gt;           scalabilityModes;
 };</pre>
         <section>
-          <h2>Dictionary <a class="idlType">RTCRtpCodecCapabilities</a> Members</h2>
-          <dl data-link-for="RTCRtpCodecCapabilities" data-dfn-for=
-          "RTCRtpCodecCapabilities" class="dictionary-members">
+          <h2>Dictionary <a class="idlType">RTCRtpCodecCapability</a> Members</h2>
+          <dl data-link-for="RTCRtpCodecCapability" data-dfn-for=
+          "RTCRtpCodecCapability" class="dictionary-members">
             <dt><dfn data-idl><code>scalabilityModes</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>DOMString</a>&gt</span></dt>
             <dd>
