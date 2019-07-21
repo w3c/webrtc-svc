@@ -32,8 +32,13 @@ stream that is being sent.
 
 ## Non-goals
 
-This is not [UDP Socket API](https://www.w3.org/TR/raw-sockets/).  We must have
-encrypted and congestion-controlled communication.
+To enable applications to configure arbitrary SVC dependency structures
+beyond the scalabilityModes defined in the specification.  For example,
+current scalabilityModes enable video resolutions to vary by 1.5:1 or
+2:1 between layers.  For example if 3 spatial layers of video are
+desired with the highest resolution being 1280 x 960, the L3T1
+mode would yield 3 layers corresponding to resolution of 
+1280 x 960, 640 x 480 and 320 x 240.
 
 ## Key use-cases
 
