@@ -21,14 +21,12 @@ the encoder to utilize SVC.
 
 ## Goals
 
-- Provide a way for an application to discover the supported SVC modes
-(known as scalabiltyModes) for each video codec.
+- Extend the RTCRtpCodecCapability dictionary to allow an application to discover
+the supported SVC modalities (known as scalabiltyModes) for each video codec.
 
-- Provide an API to configure an RtpSender with the scalabilityMode of each video
-stream to be sent.
-
-- Provide an API to retrieve the scalabilityMode settings for each video 
-stream that is being sent.
+- Extend the RTCRtpEncodings dictionary to enable an application to configure an
+RtpSender with the scalabilityMode of each video stream to be sent, as well 
+as to retrieve the scalabilityMode of each video stream that is being sent.
 
 ## Non-goals
 
