@@ -87,6 +87,7 @@
     and H.264/SVC [[RFC6190]].</p>
     <p>This specification references objects, methods, internal slots and dictionaries defined in
     [[!WEBRTC]], including the <dfn>RTCPeerConnection</dfn> object (defined in Section 4.4),
+    the <dfn>RTCError</dfn> object (defined in Section 11.1),
     the <dfn>addTrack</dfn> and <dfn>addTransceiver</dfn> methods (defined in Section 5.1),
     the <dfn>setCodecPreferences</dfn> method (defined in Section 5.4),
     the <dfn>getParameters</dfn> and <dfn>setParameters</dfn> methods (defined in Section 5.2), 
@@ -157,6 +158,12 @@
     using <code><a>addTransceiver</a></code>.</p>
     <section id="error-conditions">
       <h2>Error conditions</h2>
+      <p>[[!WEBRTC]] Section 5.2 describes how the user agent handles an
+      attempt to set <code>scalabilityMode</code> to an 
+      invalid value via <code><a>setParameters</a></code>:
+      "If an error occurred due to a hardware encoder not supporting <code>parameters</code>,
+      reject <code>p</code> with a newly created <code><a>RTCError</a></code> whose
+      <code>errorDetail</code> is set to "hardware-encoder-error"....".</p>
       <p>Since the <code><a>addTransceiver</a></code> and <code><a>setCodecPreferences</a></code>
       methods are called before the Offer/Answer negotiation has concluded, the
       negotiated codec and its capabilities may not be known and it is
