@@ -162,10 +162,10 @@
         <code>setParameters</code>, including use of <code><a>RTCError</a></code>
         to indicate a "hardware-encoder-error" due to an unsupported encoding
         parameter, as well as <code>OperationError</code> for other errors.
-        Implementations of this specification should similarly utilize
-        <code><a>RTCError</a></code> and <code>OperationError</code> in both
-        <code>setParameters</code> and <code>addTranscever</code> when
-        an invalid <code>scalabilityMode</code> is encountered.
+        Implementations of this specification utilize <code><a>RTCError</a></code>
+        and <code>OperationError</code> in the prescribed manner when an invalid
+        <code>scalabilityMode</code> is provided to 
+        <code>setParameters</code> or <code>addTranscever</code>.
       </p>
       <p>
         Note that since the <code><a>addTransceiver</a></code> and
@@ -198,21 +198,24 @@
         if any of these codecs were negotiated. In the event that H.264/AVC was
         negotiated, temporal scalability would not be available, but
         simulcast with different resolutions would be applied. If this was
-        unsatisfactory, a subsequent call to <code><a>setParameters</a></code> could
-        be used to adjust the parameters within the envelope negotiated in
-        Offer/Answer.
+        unsatisfactory, a subsequent call to <code><a>setParameters</a></code>
+        could be used to adjust the parameters within the envelope negotiated
+        in Offer/Answer.
       </p>
-      <p>In situations where the decoder cannot necessarily decode anything that an
-      encoder can send (e.g. an H.264/SVC decoder), the <code>getCapabilities</code> method
-      can be used to retrieve the scalability modes supported by the decoder and encoder.
-      By exchanging capabilities, the application can compute the intersection of the
-      <code>scalabilityModes</code> supported by the local and remote peers, enabling it to configure
-      <code>scalabilityMode</code> values supported by both the local and remote peers using the
-      <code><a>addTransceiver</a></code> and <code><a>setParameters</a></code> methods.
-      However, in situations where SVC modes are negotiated in SDP Offer/Answer,
-      <code><a>setParameters</a></code> can only change <code>scalabilityMode</code> values
-      within the envelope negotiated by Offer/Answer, resulting in an error if the requested
-      <code>scalabilityMode</code> values are outside this envelope.</p>
+      <p>
+        In situations where the decoder cannot necessarily decode anything that an
+        encoder can send (e.g. an H.264/SVC decoder), the <code>getCapabilities</code>
+        method can be used to retrieve the scalability modes supported by the decoder
+        and encoder. By exchanging capabilities, the application can compute the
+        intersection of the <code>scalabilityMode</code> values supported by the
+        local and remote peers, enabling it to configure <code>scalabilityMode</code>
+        values supported by both the local and remote peers using the
+        <code><a>addTransceiver</a></code> and <code><a>setParameters</a></code> methods.
+        However, in situations where SVC modes are negotiated in SDP Offer/Answer,
+        <code><a>setParameters</a></code> can only change <code>scalabilityMode</code>
+        values within the envelope negotiated by Offer/Answer, resulting in an error
+        if the requested <code>scalabilityMode</code> value is outside this envelope.
+      </p>
   </section>
   </section>
   <section id="rtpdictionaries">
