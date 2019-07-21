@@ -1,4 +1,4 @@
-# WebTransport Explainer
+# WebRTC-SVC Explainer
 
 Updated: July 2019
 
