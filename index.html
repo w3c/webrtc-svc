@@ -289,7 +289,7 @@
   <section id="scalabilitymodes*">
      <h3>Scalability modes</h3>
      <p>Scalability mode identifiers and characteristics are indicated in the table below, which is based
-     on the pre-defined scalability modes in [[AV1]] Section 6.7.5.</p>
+     on the table of pre-defined scalability modes (and dependency diagrams) in [[AV1]] Section 6.7.5.</p>
     <table style="border-width:0; width:60%" border="1">
       <tbody>
         <tr>
@@ -780,130 +780,6 @@ var encodings = [
     <p>The editors wish to thank the Working Group chairs and Team Contact,
     Harald Alvestrand, Stefan H&aring;kansson and Dominique
     Haza&euml;l-Massieux, for their support.</p>
- </section>
- <section class="informative">
-   <h2>Scalability Mode Dependency Diagrams</h2>
-   <p>Illustrations of the layer dependencies of various scalability modes are
-   provided in [[AV1]] Section 6.7.5 and are reproduced below for convenience.</p>
-   <figure>
-            <img alt="L1T2: 2-layer temporal scalability encoding" src=
-            "images/L1T2.svg" style="width:75%">
-            <figcaption>
-              L1T2: 1-layer spatial and 2-layer temporal scalability encoding
-            </figcaption>
-          </figure>    
-          <figure>
-            <img alt="L1T3: 3-layer temporal scalability encoding" src=
-            "images/L1T3.svg" style="width:75%">
-            <figcaption>
-              L1T3: 1-layer spatial and 3-layer temporal scalability encoding
-            </figcaption>
-          </figure>
-          <figure>
-            <img alt="L2T1: 2-layer spatial and 1-layer temporal scalability encoding" src=
-            "images/L2T1.svg" style="width:75%">
-            <figcaption>
-              L2T1: 2-layer spatial and 1-layer temporal scalability encoding
-            </figcaption>
-          </figure>
-          <figure>
-            <img alt="L2T2: 2-layer spatial and 2-layer temporal scalability encoding" src=
-            "images/L2T2.svg" style="width:75%">
-            <figcaption>
-              L2T2: 2-layer spatial and 2-layer temporal scalability encoding
-            </figcaption>
-          </figure>
-          <figure>
-            <img alt="S2T1: 2-layer spatial simulcast encoding" src=
-            "images/S2T1.svg" style="width:75%">
-            <figcaption>
-              S2T1: 2-layer spatial simulcast encoding
-            </figcaption>
-          </figure>
-          <figure>
-            <img alt="S2T2: 2-layer spatial simulcast and 2-layer temporal scalability encoding" src=
-            "images/S2T2.svg" style="width:75%">
-            <figcaption>
-              S2T2: 2-layer spatial simulcast and 2-layer temporal scalability encoding
-            </figcaption>
-          </figure>
-          <figure>
-            <img alt="S2T3: 2-layer spatial simulcast and 3-layer temporal scalability encoding" src=
-            "images/S2T3.png" style="width:75%">
-            <figcaption>
-              S2T3: 2-layer spatial simulcast and 3-layer temporal scalability encoding
-            </figcaption>
-          </figure>
-          <figure>
-            <img alt="L2T4_KEY: 2-layer spatial and 4-layer temporal scalability K-SVC encoding" src=
-            "images/L2T4_KEY.svg" style="width:75%">
-            <figcaption>
-              L2T4_KEY: 2-layer spatial and 4-layer temporal scalability K-SVC encoding
-            </figcaption>
-          </figure>
-          <figure>
-            <img alt="L2T4_KEY_SHIFT: 2-layer spatial and 4-layer temporal scalability K-SVC encoding with temporal shift" src=
-            "images/L2T4_KEY_SHIFT.svg" style="width:75%">
-            <figcaption>
-              L2T4_KEY_SHIFT: 2-layer spatial and 4-layer temporal scalability K-SVC encoding with temporal shift
-            </figcaption>
-          </figure>
-          <figure>
-            <img alt="L3T2_KEY: 3-layer spatial and 2-layer temporal scalability K-SVC encoding" src=
-            "images/L3T2_KEY.png" style="width:75%">
-            <figcaption>
-              L3T2_KEY: 3-layer spatial and 2-layer temporal scalability K-SVC encoding
-            </figcaption>
-          </figure>
-          <figure>
-            <img alt="L3T2_KEY_SHIFT: 3-layer spatial and 2-layer temporal scalability K-SVC encoding with temporal shift" src=
-            "images/L3T2_KEY_SHIFT.png" style="width:75%">
-            <figcaption>
-              L3T2_KEY_SHIFT: 3-layer spatial and 2-layer temporal scalability K-SVC encoding with temporal shift
-            </figcaption>
-          </figure>
-          <figure>
-            <img alt="L3T3_KEY: 3-layer spatial and 3-layer temporal scalability K-SVC encoding" src=
-            "images/L3T3_KEY.png" style="width:75%">
-            <figcaption>
-              L3T3_KEY: 3-layer spatial and 3-layer temporal scalability K-SVC encoding
-            </figcaption>
-          </figure>
-          <figure>
-            <img alt="L3T3_KEY_SHIFT: 3-layer spatial and 3-layer temporal scalability K-SVC encoding with temporal shift" src=
-            "images/L3T3_KEY_SHIFT.png" style="width:75%">
-            <figcaption>
-              L3T3_KEY_SHIFT: 3-layer spatial and 3-layer temporal scalability K-SVC encoding with temporal shift
-            </figcaption>
-          </figure>
-          <figure>
-            <img alt="L4T5_KEY: 4-layer spatial and 5-layer temporal scalability K-SVC encoding" src=
-            "images/L4T5_KEY.png" style="width:75%">
-            <figcaption>
-              L4T5_KEY: 4-layer spatial and 5-layer temporal scalability K-SVC encoding
-            </figcaption>
-          </figure>
-          <figure>
-            <img alt="L4T5_KEY_SHIFT: 4-layer spatial and 5-layer temporal scalability K-SVC encoding with temporal shift" src=
-            "images/L4T5_KEY_SHIFT.png" style="width:75%">
-            <figcaption>
-              L4T5_KEY_SHIFT: 4-layer spatial and 5-layer temporal scalability K-SVC encoding with temporal shift
-            </figcaption>
-          </figure>
-          <figure>
-            <img alt="L4T7_KEY: 4-layer spatial and 7-layer temporal scalability K-SVC encoding" src=
-            "images/L4T7_KEY.png" style="width:75%">
-            <figcaption>
-              L4T7_KEY: 4-layer spatial and 7-layer temporal scalability K-SVC encoding
-            </figcaption>
-          </figure>
-          <figure>
-            <img alt="L4T7_KEY_SHIFT: 4-layer spatial and 7-layer temporal scalability K-SVC encoding with temporal shift" src=
-            "images/L4T7_KEY_SHIFT.png" style="width:75%">
-            <figcaption>
-              L4T7_KEY_SHIFT: 4-layer spatial and 7-layer temporal scalability K-SVC encoding with temporal shift
-            </figcaption>
-          </figure>
  </section>
 </body>
 </html>
