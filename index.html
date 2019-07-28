@@ -526,23 +526,19 @@
         <section class="informative" id="simulcasttemporal-example*">
           <h4>Spatial Simulcast and Temporal Scalability</h4>
           <pre class="example highlight">
-// Example of 3 spatial simulcast layers + 3 temporal layers
+// Example of 3 spatial simulcast layers + 3 temporal layers with
+// an SSRC and RID for each simulcast layer
 var encodings = [
   {rid: 'f', scalabilityMode: 'L1T3'},
   {rid: 'h', scaleResolutionDownBy: 2.0, scalabilityMode: 'L1T3'},
   {rid: 'q', scaleResolutionDownBy: 4.0, scalabilityMode: 'L1T3'}
 ];
-</pre>
-        </section>
-        <section class="informative" id="simulcasttemporalsmode-example*">
-          <h4>Spatial Simulcast and Temporal Scalability ("S" mode)</h4>
-          <pre class="example highlight">
+
 // Example of 3 spatial simulcast layers + 3 temporal layers on a single SSRC
 var encodings = [
   {scalabilityMode: 'S3T3'}
 ];
 </pre>
-        </section>
         <section class="informative" id="spatialtemporal-examples*">
           <h4>Spatial and Temporal Scalability</h4>
           <pre class="example highlight">
