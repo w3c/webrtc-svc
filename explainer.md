@@ -25,12 +25,12 @@ as to retrieve the scalabilityMode of each video stream that is being sent.
 
 ## Non-goals
 
-To enable applications to configure arbitrary SVC dependency structures
+- To enable applications to configure arbitrary SVC dependency structures
 beyond the scalabilityModes defined in the specification.  For example,
 existing scalabilityModes only enable video resolutions to vary by 1.5:1
 or 2:1 between layers.
 
-To enable differential robustness, where retransmission, forward error
+- To enable differential robustness, where retransmission, forward error
 correction or redundant coding is applied to some scalability layers
 but not others.
 
