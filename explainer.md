@@ -10,23 +10,25 @@ Today SVC is supported within WebRTC implementations using proprietary
 mechanisms and as a result, it is not possible to write web applications
 supporting SVC that interoperate on multiple browsers.
 
-We believe that there is a need for a simple mechanism to allow an application
-to discover the SVC capabilities of supported video codecs as well as to configure
-the encoder to utilize SVC. 
+We believe that there is a need for a simple mechanism to extend the WebRTC API
+to allow an application to discover the SVC capabilities of supported video
+codecs as well as to configure an encoder to utilize SVC. 
 
 ## Goals
 
-- Extend the RTCRtpCodecCapability dictionary to allow an application to discover
-the supported SVC modalities (known as scalabiltyModes) for each video codec.
+- To extend WebRTC's RTCRtpCodecCapability dictionary to allow an application
+to discover the supported SVC modalities (known as scalabiltyModes) for each
+video codec.
 
-- Extend the RTCRtpEncodings dictionary to enable an application to configure an
-RtpSender with the scalabilityMode of each video stream to be sent, as well 
-as to retrieve the scalabilityMode of each video stream that is being sent.
+- To extend WebRTC's RTCRtpEncodingParameters dictionary to enable an
+application to configure an RTCRtpSender with the scalabilityMode of each
+video stream to be sent, as well as to retrieve the scalabilityMode of
+each video stream that is being sent.
 
 ## Non-goals
 
 - To enable applications to configure arbitrary SVC dependency structures
-beyond the scalabilityModes defined in the specification.  For example,
+beyond the scalabilityModes defined in the specification. For example,
 existing scalabilityModes only enable video resolutions to vary by 1.5:1
 or 2:1 between layers.
 
