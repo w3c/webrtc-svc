@@ -46,8 +46,7 @@ but not others.
 ## Example of setting a scalabilityMode
 
 ```javascript
-// Example of 3 spatial simulcast layers + 3 temporal layers with
-// an SSRC and RID for each simulcast layer
+// Example of 3 spatial simulcast layers + 3 temporal layers
 var encodings = [
   {rid: 'f', scalabilityMode: 'L1T3'},
   {rid: 'h', scaleResolutionDownBy: 2.0, scalabilityMode: 'L1T3'},
