@@ -6,11 +6,6 @@ Updated: July 2019
 
 Scalable Video Coding (SVC) is increasingly used in realtime communications
 applications because of the performance and reliability advantages it offers. 
-Applications such as video conferencing and gaming often need to support
-a variety of devices, each receiving video tailored to the available
-bandwidth and capabilities of the device, such as the display resolution
-or maximum framerate. 
-
 Today SVC is supported within WebRTC implementations using proprietary
 mechanisms and as a result, it is not possible to write web applications
 supporting SVC that interoperate on multiple browsers.
@@ -32,24 +27,37 @@ as to retrieve the scalabilityMode of each video stream that is being sent.
 
 To enable applications to configure arbitrary SVC dependency structures
 beyond the scalabilityModes defined in the specification.  For example,
-current scalabilityModes enable video resolutions to vary by 1.5:1 or
-2:1 between layers.  For example if 3 spatial layers of video are
-desired with the highest resolution being 1280 x 960, the L3T1
-mode would yield 3 layers corresponding to resolution of 
-1280 x 960, 640 x 480 and 320 x 240.
+existing scalabilityModes only enable video resolutions to vary by 1.5:1
+or 2:1 between layers.
+
+To enable differential robustness, where retransmission, forward error
+correction or redundant coding is applied to some scalability layers
+but not others.
 
 ## Key use-cases
 
-- Sending video to a centralized video conferencing server or game server.
+- Use of a centralized video conferencing server.
 
 ## Proposed solutions
 
-1. Addition of a scalabilityModes attribute to RTCRtpCodecCapabilities.
-2. Additoin of a scalabilityMode attribute to RTCRtpEncodingParameters.
+1. Addition of a scalabilityModes attribute to RTCRtpCodecCapability.
+2. Addition of a scalabilityMode attribute to RTCRtpEncodingParameters.
 
 ## Example of setting a scalabilityMode
 
 ```javascript
+// Example of 3 spatial simulcast layers + 3 temporal layers with
+// an SSRC and RID for each simulcast layer
+var encodings = [
+  {rid: 'f', scalabilityMode: 'L1T3'},
+  {rid: 'h', scaleResolutionDownBy: 2.0, scalabilityMode: 'L1T3'},
+  {rid: 'q', scaleResolutionDownBy: 4.0, scalabilityMode: 'L1T3'}
+];
+
+// Example of 2 spatial layers (with 2:1 ratio) + 3 temporal layers
+var encodings = [
+  {scalabilityMode: 'L2T3'}
+];
 
 ```
 
@@ -63,11 +71,10 @@ mode would yield 3 layers corresponding to resolution of
 
 This proposal has evolved from the approach to SVC support provided in the ORTC API. 
 
-- Developers utilizing ORTC to send SVC reported that while the API provided
-very detailed control over the SVC strucutres, that is was complex and error-prone.
+- Developers utilizing ORTC with SVC indicated that the API was too complex and error-prone.
 
-- As a result, developers requested that it be very simple to configure the
-RtpSender for the most frequently used SVC modes. 
+- Developers utilizing only a subset of SVC dependency structures, known as scalability
+modes desired a simple mechanism to configure an RtpSender to use them.
 
-As a result of this feedback, the WebRTC-SVC API proposal utilizes pre-defined
+As a result of this feedback, the proposal focused on supporting pre-defined
 scalability structures known as scalabilityModes.
