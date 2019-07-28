@@ -60,10 +60,134 @@ var encodings = [
 
 ```
 
-## Example of discovering the supported scalabilityModes on the sender and receiver
+## Example of discovering the scalabilityModes on a Scalable Forwarding Unit
 
 ```javascript
+// RTCRtpReceiver.getCapabilities('video').codecs[] returned by 
+// SFU that can only forward VP8 and VP9 temporal scalability modes
+ "codecs": [
+    {
+      "clockRate": 90000,
+      "mimeType": "video/VP8",
+      "scalabilityModes": ["L1T2","L1T3"]
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/VP9",
+      "scalabilityModes": ["L1T2","L1T3","L1T2h","L1T3h"]
+    }
+]
+```
 
+## Example of discovering the scalabilityModes on a sender
+```javascript
+
+// Capabilities returned by RTCRtpSender.getCapabilities('video').codecs[]
+  "codecs": [
+    {
+      "clockRate": 90000,
+      "mimeType": "video/VP8",
+      "scalabilityModes": ["L1T2","L1T3"]
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/rtx",
+      "sdpFmtpLine": "apt=96"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/VP9",
+      "scalabilityModes": ["L1T2","L1T3","L2T1","L2T2","L2T3","L3T1","L3T2","L3T3","L1T2h","L1T3h","L2T1h","L2T2h","L2T3h"]
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/rtx",
+      "sdpFmtpLine": "apt=98"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/H264",
+      "sdpFmtpLine": "packetization-mode=1;profile-level-id=42001f;level-asymmetry-allowed=1"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/rtx",
+      "sdpFmtpLine": "apt=100"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/H264",
+      "sdpFmtpLine": "packetization-mode=0;profile-level-id=42001f;level-asymmetry-allowed=1"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/rtx",
+      "sdpFmtpLine": "apt=102"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/H264",
+      "sdpFmtpLine": "level-asymmetry-allowed=1;profile-level-id=42e01f;packetization-mode=1"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/rtx",
+      "sdpFmtpLine": "apt=104"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/H264",
+      "sdpFmtpLine": "level-asymmetry-allowed=1;profile-level-id=42e01f;packetization-mode=0"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/rtx",
+      "sdpFmtpLine": "apt=106"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/H264",
+      "sdpFmtpLine": "level-asymmetry-allowed=1;profile-level-id=4d0032;packetization-mode=1"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/rtx",
+      "sdpFmtpLine": "apt=108"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/H264",
+      "sdpFmtpLine": "level-asymmetry-allowed=1;profile-level-id=640032;packetization-mode=1"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/rtx",
+      "sdpFmtpLine": "apt=110"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/red"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/rtx",
+      "sdpFmtpLine": "apt=112"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/ulpfec"
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/AV1",
+      "scalabilityModes": ["L1T2","L1T3","L2T1","L2T2","L2T3","L3T1","L3T2","L3T3","L1T2h","L1T3h","L2T1h","L2T2h","L2T3h","S2T1","S2T2","S2T3","S3T1","S3T2","S3T3","S2T1h","S2T2h","S2T3h","S3T1h","S3T2h","S3T3h"]
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/rtx",
+      "sdpFmtpLine": "apt=113"
+    }
+]
 ```
 
 ## Detailed design discussion
