@@ -106,56 +106,22 @@
   </section>
   <section id="operational-model">
     <h2>Operational model</h2>
-    <p>This specification extends [[!WEBRTC]] to enable configuration of encoding parameters
-    for SVC, as well as the discovery of the SVC capabilities of both an encoder and
-    decoder.</p>
-    <p>Encoding parameters can be configured using the <code><a>addTransceiver</a></code>
-    method of the <code><a>RTCPeerConnection</a></code> or the <code><a>setParameters</a></code>
-    method of the <code><a>RTCRtpSender</a></code> object. The <code>getCapabilities</code>
-    method of the <code><a>RTCRtpSender</a></code> and <code><a>RTCRtpReceiver</a></code>
-    objects is used to retrieve information about sender and receiver capabilities, expressed
-    using the <code>RTCRtpCapabilities</code> dictionary, which describes the supported codecs
-    and header extensions. Using the <code><a>setCodecPreferences</a></code> method of the
-    <code><a>RTCRtpTransceiver</a></code> object, the application can influence the
-    SDP subsequently produced by the <code>createOffer</code> and <code>createAnswer</code>
-    methods by configuring the preferred codecs for sending and receiving as well as
-    removing codecs from the list.</p>
-    <p>The <code><a>addTransceiver</a></code> method of the <code><a>RTCPeerConnection</a></code> object
-    allows <code>sendEncodings</code> to be provided in order to configure the
-    <a>simulcast envelope</a> as well as the desired scalability modes. After calling
-    <code><a>addTransceiver</a></code>, <code>transceiver.sender.<a>setParameters</a></code> can
-    susequently be used to update encoding parameters which are not read-only. However, the
-    <a>simulcast envelope</a> cannot be modified.</p>
-    <p>It is also possible for a remote peer to provide an Offer requesting the user-agent to send
-    simulcast to it, specifying the maximum number of simulcast streams it is willing to receive.
-    When <code>setRemoteDescription</code> is called, a <code>track</code> event being fired, providing
-    a <code><a>RTCRtpTransceiver</a></code> whose encoding parameters can be retrieved using
-    <code>transceiver.sender.<a>getParameters</a></code> and updated with scalability modes using
-    <code>transceiver.sender.<a>setParameters</a></code>.</p>
-    <p>The <code><a>addTrack</a></code> method of the <code><a>RTCPeerConnection</a></code> can also
-    be used to create or obtain an <code><a>RTCRtpTransceiver</a></code>. To configure the
-    <a>simulcast envelope</a> and encoding parameters, <code>sender.<a>setParameters</a></code> can
-    be used.</p>
-    <p>Through the exchange of SDP indicating the supported codec, formats and header extensions
-    as well as the simulcast layout, the envelope negotiated by Offer/Answer is determined.
-    After negotiation, the <code><a>setParameters</a></code> method can be used to modify or
-    set encoding parameters. However,[[!WEBRTC]] Section 5.2 states:
-    "<code><a>setParameters</a></code> does not cause SDP renegotiation and can only be used to
-    change what the media stack is sending or receiving within the envelope negotiated by Offer/Answer."</p> 
-    <p>In order to provide support for SVC, this specification extends the <code><a>RTCRtpEncodingParameters</a></code>
-    and <code><a>RTCRtpCodecCapability</a></code> dictionaries, but does not
-    change the role of <code><a>addTransceiver</a></code>, <code><a>addTrack</a></code> and
-    <code><a>setParameters</a></code> methods, so that the restrictions imposed
-    in [[!WEBRTC]] Section 5.2 remain.</p>
-    <p>Fortunately, this does not greatly restrict the configuration of SVC codecs implemented in
-    WebRTC-capable browsers. Codecs such as VP8 [[RFC6386]], VP9 [[VP9]]
-    and AV1 [[AV1]] require a compliant decoder to be able to decode any compliant
-    encoding that an encoder can send, decoder configuration (and negotiation of SVC within SDP Offer/Answer) is
-    unnecessary for these codecs, and the <code><a>setParameters</a></code>
-    method can be used to configure any <code>scalabilityMode</code> value
-    supported by th encoder without concern for the decoder's capabilities
-    or the <code>scalabilityMode</code> values previously configured
-    using <code><a>addTransceiver</a></code>.</p>
+    <p>This specification extends [[!WEBRTC]] to enable configuration of encoding
+    parameters for SVC, as well as discovery of the SVC capabilities of both an
+    encoder and decoder, by extending the <code><a>RTCRtpEncodingParameters</a></code>
+    and <code><a>RTCRtpCodecCapability</a></code> dictionaries.</p>
+    <p>Since this specification does not change the behavior of existing
+    objects and methods, restrictions relating to Offer/Answer negotiation and
+    encoding parameters remain, as described in [[!WEBRTC]] Section 5.2: 
+    "<code><a>setParameters</a></code> does not cause SDP renegotiation and can
+    only be used to change what the media stack is sending or receiving within the
+    envelope negotiated by Offer/Answer."</p>
+    <p>The configuration of SVC codecs implemented in browsers fits within
+    this restriction. Since codecs such as VP8 [[RFC6386]], VP9 [[VP9]]
+    and AV1 [[AV1]] mandate support for SVC and require a compliant decoder to be
+    able to decode any compliant encoding that an encoder can send, there is no
+    need for decoder configuration or negotiation of SVC within SDP Offer/Answer.
+    As a result, encoding parameters can be used for SVC configuration.</p>
     <section id="error-handling">
       <h2>Error handling</h2>
       <p>
