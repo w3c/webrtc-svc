@@ -120,6 +120,9 @@ var encodings = [
 ]
 ```
 
+## WPT tests
+A sample WPT test is here: https://chromium.googlesource.com/chromium/src/+/f2e338d626fbb80ac9cd10d0d8200a4323d15c4d/third_party/blink/web_tests/external/wpt/webrtc-svc/RTCRtpParameters-scalability.html
+
 ## Detailed design discussion
 
 This proposal has evolved from the approach to SVC support provided in the ORTC API. 
