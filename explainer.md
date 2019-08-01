@@ -127,10 +127,10 @@ A sample WPT test is here: https://chromium.googlesource.com/chromium/src/+/f2e3
 
 This proposal has evolved from the approach to SVC support provided in the ORTC API. 
 
-- Developers utilizing ORTC with SVC indicated that the API was too complex and error-prone.
+- Developers utilizing the ORTC SVC APIs indicated that while it achieved feature
+parity with simulcast (e.g. ability to active/inactivate layers and handle arbitrary
+scale ratios), the API was complex and error prone and also could not express KEY
+and KEY_SHIFT modes.
 
-- Developers utilizing only a subset of SVC dependency structures, known as scalability
-modes desired a simple mechanism to configure an RtpSender to use them.
-
-As a result of this feedback, the proposal focused on supporting pre-defined
-scalability structures known as scalabilityModes.
+As a result of this feedback, a new proposal was developed, focussing on pre-canned
+scalability strucutres known as scalability modes.
