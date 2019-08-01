@@ -27,23 +27,24 @@ each video stream that is being sent.
 
 ## Non-goals
 
-- To enable applications to configure arbitrary SVC dependency structures
-beyond the scalabilityModes defined in the specification. For example,
-existing scalabilityModes only enable video resolutions to vary by 1.5:1
-or 2:1 between layers.
-
 - To enable differential robustness, where retransmission, forward error
 correction or redundant coding is applied to some scalability layers
 but not others.
 
+## Outstanding issues
+
+- Whether to enable spatial scalability to utilize encoding parameters so
+to achieve feature parity with simulcast, as explained in Issue 
+https://github.com/w3c/webrtc-svc/issues/14
+
 ## Key use-cases
 
-- Use of a centralized video conferencing server.
+- Centralized video conferencing.
 
 ## Proposed solutions
 
-1. Addition of a scalabilityModes attribute to RTCRtpCodecCapability.
-2. Addition of a scalabilityMode attribute to RTCRtpEncodingParameters.
+1. Addition of a scalabilityModes attribute to the RTCRtpCodecCapability dictionary.
+2. Addition of a scalabilityMode attribute to the RTCRtpEncodingParameters dictionary.
 
 ## Example of setting a scalabilityMode
 
@@ -62,7 +63,7 @@ var encodings = [
 
 ```
 
-## Example of discovering the scalabilityModes on a Scalable Forwarding Unit
+## Example of discovering the scalabilityModes on a Scalable Forwarding Unit (SFU)
 
 ```javascript
 // RTCRtpReceiver.getCapabilities('video').codecs[] returned by 
@@ -99,7 +100,7 @@ var encodings = [
     {
       "clockRate": 90000,
       "mimeType": "video/VP9",
-      "scalabilityModes": ["L1T2","L1T3","L2T1","L2T2","L2T3","L3T1","L3T2","L3T3","L1T2h","L1T3h","L2T1h","L2T2h","L2T3h"]
+      "scalabilityModes": ["L1T2","L1T3","L2T1","L2T2","L2T3","L3T1","L3T2","L3T3","L1T2h","L1T3h","L2T1h","L2T2h","L2T3h","L3T1h","L3T2h","L3T3h"]
     },
     {
       "clockRate": 90000,
@@ -108,86 +109,13 @@ var encodings = [
     },
     {
       "clockRate": 90000,
-      "mimeType": "video/H264",
-      "sdpFmtpLine": "packetization-mode=1;profile-level-id=42001f;level-asymmetry-allowed=1"
+      "mimeType": "video/AV1",
+      "scalabilityModes": ["L1T2","L1T3","L2T1","L2T2","L2T3","L3T1","L3T2","L3T3","L1T2h","L1T3h","L2T1h","L2T2h","L2T3h","L3T1h","L3T2h","L3T3h","S2T1","S2T2","S2T3","S3T1","S3T2","S3T3","S2T1h","S2T2h","S2T3h","S3T1h","S3T2h","S3T3h"]
     },
     {
       "clockRate": 90000,
       "mimeType": "video/rtx",
       "sdpFmtpLine": "apt=100"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/H264",
-      "sdpFmtpLine": "packetization-mode=0;profile-level-id=42001f;level-asymmetry-allowed=1"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/rtx",
-      "sdpFmtpLine": "apt=102"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/H264",
-      "sdpFmtpLine": "level-asymmetry-allowed=1;profile-level-id=42e01f;packetization-mode=1"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/rtx",
-      "sdpFmtpLine": "apt=104"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/H264",
-      "sdpFmtpLine": "level-asymmetry-allowed=1;profile-level-id=42e01f;packetization-mode=0"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/rtx",
-      "sdpFmtpLine": "apt=106"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/H264",
-      "sdpFmtpLine": "level-asymmetry-allowed=1;profile-level-id=4d0032;packetization-mode=1"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/rtx",
-      "sdpFmtpLine": "apt=108"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/H264",
-      "sdpFmtpLine": "level-asymmetry-allowed=1;profile-level-id=640032;packetization-mode=1"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/rtx",
-      "sdpFmtpLine": "apt=110"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/red"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/rtx",
-      "sdpFmtpLine": "apt=112"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/ulpfec"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/AV1",
-      "scalabilityModes": ["L1T2","L1T3","L2T1","L2T2","L2T3","L3T1","L3T2","L3T3","L1T2h","L1T3h","L2T1h","L2T2h","L2T3h","S2T1","S2T2","S2T3","S3T1","S3T2","S3T3","S2T1h","S2T2h","S2T3h","S3T1h","S3T2h","S3T3h"]
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/rtx",
-      "sdpFmtpLine": "apt=113"
     }
 ]
 ```
