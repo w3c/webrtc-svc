@@ -110,18 +110,18 @@
     parameters for SVC, as well as discovery of the SVC capabilities of both an
     encoder and decoder, by extending the <code><a>RTCRtpEncodingParameters</a></code>
     and <code><a>RTCRtpCodecCapability</a></code> dictionaries.</p>
-    <p>Since this specification does not change the behavior of existing
+    <p>Since this specification does not change the behavior of WebRTC
     objects and methods, restrictions relating to Offer/Answer negotiation and
     encoding parameters remain, as described in [[!WEBRTC]] Section 5.2: 
     "<code><a>setParameters</a></code> does not cause SDP renegotiation and can
     only be used to change what the media stack is sending or receiving within the
     envelope negotiated by Offer/Answer."</p>
-    <p>The configuration of SVC codecs implemented in browsers fits within
-    this restriction. Since codecs such as VP8 [[RFC6386]], VP9 [[VP9]]
-    and AV1 [[AV1]] mandate support for SVC and require a compliant decoder to be
-    able to decode any compliant encoding that an encoder can send, there is no
-    need for decoder configuration or negotiation of SVC within SDP Offer/Answer.
-    As a result, encoding parameters can be used for SVC configuration.</p>
+    <p>The configuration of SVC-capable codecs implemented in browsers fits within this
+    restriction. Codecs such as VP8 [[RFC6386]], VP9 [[VP9]] and AV1 [[AV1]] mandate support
+    for SVC and require a compliant decoder to be able to decode any compliant encoding
+    that an encoder can send. Therefore, for these codecs there is no need to
+    configure the decoder or to negotiate SVC support within Offer/Answer, enabling
+    encoding parameters to be used for SVC configuration.</p>
     <section id="error-handling">
       <h2>Error handling</h2>
       <p>
