@@ -133,4 +133,4 @@ scale ratios), the API was complex and error prone and also could not express KE
 and KEY_SHIFT modes.
 
 As a result of this feedback, a new proposal was developed, focussing on pre-canned
-scalability strucutres known as scalability modes.
+scalability structures known as scalability modes.
