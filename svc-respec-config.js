@@ -31,8 +31,8 @@ var respecConfig = {
           href: "https://github.com/w3c/webrtc-svc/issues"
         },
         {
-          "value": "IETF RTCWEB Working Group",
-          "href": "https://tools.ietf.org/wg/rtcweb/"
+          "value": "IETF AVTCORE Working Group",
+          "href": "https://tools.ietf.org/wg/avtcore/"
         }
       ]
     }
