@@ -241,10 +241,12 @@
                   may not be the case for a Selective Forwarding Unit (SFU), whose ability to forward SVC
                   modes may depend on the negotiated header extensions.  For example, if the SFU cannot parse
                   codec payloads (either because it is not designed to do so, or because the payload is
-                  confidential), then without negotiating an RTP header extension such as [[FRAME-MARKING]],
-                  the SFU may not be able to forward any scalability modes.  As a result, an application may
-                  choose to exchange <code>scalabilityModes</code> with an SFU after the initial offer/answer
-                  negotiation, so that it can compute the intersection of supported <code>scalabilityModes</code>.
+                  confidential), then negotiation of an RTP header extension (such as the AV1 Descriptor
+                  [[AV1-RTP]] or frame marking [[FRAME-MARKING]]) may be required to forward scalability modes.
+                  As a result, an application may choose to exchange <code>scalabilityModes</code> with an
+                  SFU after the initial offer/answer negotiation, so that the SFU's supported
+                  <code>scalabilityModes</code> can be determined, allowing the application to compute
+                  the intersection of supported <code>scalabilityModes</code>.
               </p>
             </dd>
           </dl>
