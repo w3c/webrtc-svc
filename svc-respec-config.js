@@ -44,13 +44,22 @@ var respecConfig = {
       "publisher": "IANA"
     },
     "AV1": {
-      "title": "AV1 Bitstream and Decoding Process Specification",
+      "title": "AV1 Bitstream & Decoding Process Specification",
       "href": "https://aomediacodec.github.io/av1-spec/av1-spec.pdf",
       "authors": [
         "Peter de Rivaz",
         "Jack Haughton"
       ],
-      "status": "January 9, 2019",
+      "status": "January 8, 2019",
+      "publisher": "Alliance for Open Media"
+    },
+    "AV1-RTP": {
+      "title": "RTP Payload Format for AV1",
+      "href": "https://aomediacodec.github.io/av1-rtp-spec/",
+      "authors": [
+        "AV1 RTC SG"
+      ],
+      "status": "December 5, 2019",
       "publisher": "Alliance for Open Media"
     },
     "FRAME-MARKING": {
