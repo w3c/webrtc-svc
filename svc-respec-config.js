@@ -59,7 +59,7 @@ var respecConfig = {
       "authors": [
         "AV1 RTC SG"
       ],
-      "status": "December 5, 2019",
+      "status": "January 9, 2020",
       "publisher": "Alliance for Open Media"
     },
     "FRAME-MARKING": {
@@ -70,7 +70,7 @@ var respecConfig = {
         "E. Berger",
         "S. Nandakumar"
       ],
-      "status": "28 March 2019",
+      "status": "21 November 2019",
       "publisher": "IETF"
     },
     "JSEP": {
@@ -145,7 +145,7 @@ var respecConfig = {
         "A. Roach",
         "B. Campen"
       ],
-      "status": "15 May 2018. Internet Draft (work in progress)",
+      "status": "16 November 2018. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RID": {
@@ -165,7 +165,7 @@ var respecConfig = {
       "authors": [
         "E. Rescorla"
       ],
-      "status": "01 February 2019. Internet Draft (work in progress)",
+      "status": "05 July 2019. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RTCWEB-SECURITY-ARCH": {
@@ -174,7 +174,7 @@ var respecConfig = {
       "authors": [
         "E. Rescorla"
       ],
-      "status": "01 February 2019. Internet Draft (work in progress)",
+      "status": "21 July 2019. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "VP9": {
@@ -198,7 +198,7 @@ var respecConfig = {
         "J. Lennox",
         "D. Hong"
       ],
-      "status": "02 July 2018. Internet Draft (work in progress)",
+      "status": "24 July 2019. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "WEBRTC-STATS": {
@@ -208,7 +208,7 @@ var respecConfig = {
         "Harald Alvestrand",
         "Varun Singh"
       ],
-      "status": "15 May 2019 (work in progress)",
+      "status": "12 December 2019 (work in progress)",
       "publisher": "W3C"
     }
   }
