@@ -141,13 +141,13 @@
         before the Offer/Answer negotiation has concluded, the negotiated
         codec and its capabilities may not be known, and it is
         possible that the <code>scalabilityMode</code> values configured in
-        {{sendEncodings}} cannot be applied due to incompatibility with
+        <code>sendEncodings</code> cannot be applied due to incompatibility with
         the eventually selected codec. Since this cannot be determined at the
         time {{addTransceiver}} is called, an error may only
         be detected if a <code>scalabilityMode</code> value is invalid for any
         supported codec. In order for the application to determine whether the
         requested <code>scalabilityMode</code> values have been applied,  the
-        {{RTCRtpSender/getParameters}} method can be called
+        <code><a>RTCRtpSender</a>.getParameters</code> method can be called
         after negotiation has completed and the sending codec has been determined.
         If the configuration is not satisfactory, the application can utilize
         {{setParameters}} to change it.
