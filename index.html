@@ -129,7 +129,7 @@
         {{setParameters}}, including use of {{RTCError}}
         to indicate a "hardware-encoder-error" due to an unsupported encoding
         parameter, as well as <code>OperationError</code> for other errors.
-        Implementations of this specification utilize <code><a>RTCError</a></code>
+        Implementations of this specification utilize {{RTCError}}
         and <code>OperationError</code> in the prescribed manner when an invalid
         <code>scalabilityMode</code> is provided to 
         {{setParameters}} or {{addTransceiver}}.
@@ -140,13 +140,13 @@
         before the Offer/Answer negotiation has concluded, the negotiated
         codec and its capabilities may not be known, and it is
         possible that the <code>scalabilityMode</code> values configured in
-        <code>sendEncodings</code> cannot be applied due to incompatibility with
+        {{sendEncodings}} cannot be applied due to incompatibility with
         the eventually selected codec. Since this cannot be determined at the
         time {{addTransceiver}} is called, an error may only
         be detected if a <code>scalabilityMode</code> value is invalid for any
         supported codec. In order for the application to determine whether the
         requested <code>scalabilityMode</code> values have been applied,  the
-        {{RTCRtpSender/.getParameters}} method can be called
+        {{RTCRtpSender/getParameters}} method can be called
         after negotiation has completed and the sending codec has been determined.
         If the configuration is not satisfactory, the application can utilize
         {{setParameters}} to change it.
@@ -158,7 +158,7 @@
         negotiated codecs to those supporting the desired configuration.
         For example, if it is desired to support temporal scalability as well as
         spatial adaptation, when {{addTransceiver}} is called,
-        <code>sendEncodings</code> can be configured so as to send
+        {{sendEncodings}} can be configured so as to send
         multiple simulcast streams with different resolutions, with each stream
         utilizing temporal scalability. Since temporal scalability is supported
         by the VP8, VP9 and AV1 codecs, such a configuration could be applied
@@ -171,7 +171,7 @@
       </p>
       <p>
         In situations where the decoder cannot necessarily decode anything that an
-        encoder can send (e.g. an H.264/SVC decoder), the <code>getCapabilities</code>
+        encoder can send (e.g. an H.264/SVC decoder), the {{getCapabilities}}
         method can be used to retrieve the scalability modes supported by the decoder
         and encoder. By exchanging capabilities, the application can compute the
         intersection of the <code>scalabilityMode</code> values supported by the
@@ -202,7 +202,7 @@
             <dd>
               <p>An identifier of the scalability mode to be used for this stream.
               The <code>scalabilityMode</code> selected MUST be one of the scalability modes
-              supported for the codec, as indicated in <code>RTCRtpCodecCapability</code>.
+              supported for the codec, as indicated in {{RTCRtpCodecCapability}}.
               Scalability modes are defined in Section 6.</p>
             </dd>
           </dl>
@@ -224,7 +224,7 @@
             <dd>
               <p>An sequence of the scalability modes (defined in Section 6) supported by the encoder
               implementation.</p>
-              <p>In response to a call to <code>RTCRtpSender.getCapabilities(<var>kind</var>)</code>,
+              <p>In response to a call to {{RTCRtpSender/getCapabilities(<var>kind</var>)}},
               conformant implementations of this specification MUST return a sequence of
               scalability modes supported by each codec of that <var>kind</var>.  If a codec does not support
               encoding of any scalability modes, then the <code>scalabilityModes</code> member
@@ -740,8 +740,8 @@ var encodings = [
     <section>
       <h2>Persistent information</h2>
       <p>The WebRTC API exposes information about the
-      underlying media system via the <code>RTCRtpSender.getCapabilities</code>
-      and <code>RTCRtpReceiver.getCapabilities</code> methods, including
+      underlying media system via the {{RTCRtpSender/getCapabilities}}
+      and {{RTCRtpReceiver/getCapabilities}} methods, including
       detailed and ordered information about the codecs that the system is able
       to produce and consume. The WebRTC-SVC extension adds supported SVC modes
       to that information, which is in most cases persistent across time and origins,
