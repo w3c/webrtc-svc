@@ -159,7 +159,7 @@
         negotiated codecs to those supporting the desired configuration.
         For example, if it is desired to support temporal scalability as well as
         spatial adaptation, when {{addTransceiver}} is called,
-        {{sendEncodings}} can be configured so as to send
+        <code>sendEncodings</code> can be configured so as to send
         multiple simulcast streams with different resolutions, with each stream
         utilizing temporal scalability. Since temporal scalability is supported
         by the VP8, VP9 and AV1 codecs, such a configuration could be applied
@@ -172,7 +172,7 @@
       </p>
       <p>
         In situations where the decoder cannot necessarily decode anything that an
-        encoder can send (e.g. an H.264/SVC decoder), the {{getCapabilities}}
+        encoder can send (e.g. an H.264/SVC decoder), the <code>getCapabilities</code>
         method can be used to retrieve the scalability modes supported by the decoder
         and encoder. By exchanging capabilities, the application can compute the
         intersection of the <code>scalabilityMode</code> values supported by the
@@ -180,10 +180,11 @@
         values supported by both the local and remote peers using the
         {{addTransceiver}} and {{setParameters}} methods.
         However, in situations where SVC modes are negotiated in SDP Offer/Answer,
-        {{setParameters}} can only change <code><a>scalabilityMode</a></code>
+        {{setParameters}} can only change <code>scalabilityMode</code>
         values within the envelope negotiated by Offer/Answer, resulting in an error
         if the requested <code>scalabilityMode</code> value is outside this envelope.
       </p>
+  </section>
   </section>
   <section id="rtpdictionaries">
     <h2>Dictionary extensions</h2>
