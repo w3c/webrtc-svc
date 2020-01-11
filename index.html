@@ -105,6 +105,86 @@
     object (defined in Section 5.3).</p>
   </section>
   </section>
+      <section id="operational-model">
+    <h2>Operational model</h2>
+    <p>This specification extends [[!WEBRTC]] to enable configuration of encoding
+    parameters for SVC, as well as discovery of the SVC capabilities of both an
+    encoder and decoder, by extending the {{RTCRtpEncodingParameters}}
+    and {{RTCRtpCodecCapability}} dictionaries.</p>
+    <p>Since this specification does not change the behavior of WebRTC
+    objects and methods, restrictions relating to Offer/Answer negotiation and
+    encoding parameters remain, as described in [[!WEBRTC]] Section 5.2: 
+    "{{setParameters}} does not cause SDP renegotiation and can
+    only be used to change what the media stack is sending or receiving within the
+    envelope negotiated by Offer/Answer."</p>
+    <p>The configuration of SVC-capable codecs implemented in browsers fits within this
+    restriction. Codecs such as VP8 [[RFC6386]], VP9 [[VP9]] and AV1 [[AV1]] mandate support
+    for SVC and require a compliant decoder to be able to decode any compliant encoding
+    that an encoder can send. Therefore, for these codecs there is no need to
+    configure the decoder or to negotiate SVC support within Offer/Answer, enabling
+    encoding parameters to be used for SVC configuration.</p>
+    <section id="error-handling">
+      <h2>Error handling</h2>
+      <p>
+        [[!WEBRTC]] Section 5.2 describes error handling in
+        {{setParameters}}, including use of {{RTCError}}
+        to indicate a "hardware-encoder-error" due to an unsupported encoding
+        parameter, as well as <code>OperationError</code> for other errors.
+        Implementations of this specification utilize {{RTCError}}
+        and <code>OperationError</code> in the prescribed manner when an invalid
+        <code><a>scalabilityMode</a></code> is provided to 
+        {{setParameters}} or {{addTransceiver}}.
+      </p>
+      <p>
+        Note that since the {{addTransceiver}} and
+        {{setCodecPreferences}} methods can be called
+        before the Offer/Answer negotiation has concluded, the negotiated
+        codec and its capabilities may not be known, and it is
+        possible that the <code><a>scalabilityMode</a></code> values configured in
+        {{sendEncodings}} cannot be applied due to incompatibility with
+        the eventually selected codec. Since this cannot be determined at the
+        time {{addTransceiver}} is called, an error may only
+        be detected if a {{scalabilityMode}} value is invalid for any
+        supported codec. In order for the application to determine whether the
+        requested <code><a>scalabilityMode</a></code> values have been applied,  the
+        {{RTCRtpSender/getParameters}} method can be called
+        after negotiation has completed and the sending codec has been determined.
+        If the configuration is not satisfactory, the application can utilize
+        {{setParameters}} to change it.
+      </p>
+      <p>
+        To influence the Offer/Answer negotiation so as to make it more likely
+        that the desired <code><a>scalabilityMode</a></code> values can be applied,
+        {{setCodecPreferences}} can be used to limit the
+        negotiated codecs to those supporting the desired configuration.
+        For example, if it is desired to support temporal scalability as well as
+        spatial adaptation, when {{addTransceiver}} is called,
+        {{sendEncodings}} can be configured so as to send
+        multiple simulcast streams with different resolutions, with each stream
+        utilizing temporal scalability. Since temporal scalability is supported
+        by the VP8, VP9 and AV1 codecs, such a configuration could be applied
+        if any of these codecs were negotiated. In the event that H.264/AVC was
+        negotiated, temporal scalability would not be available, but
+        simulcast with different resolutions would be applied. If this was
+        unsatisfactory, a subsequent call to {{setParameters}}
+        could be used to adjust the parameters within the envelope negotiated
+        in Offer/Answer.
+      </p>
+      <p>
+        In situations where the decoder cannot necessarily decode anything that an
+        encoder can send (e.g. an H.264/SVC decoder), the {{getCapabilities}}
+        method can be used to retrieve the scalability modes supported by the decoder
+        and encoder. By exchanging capabilities, the application can compute the
+        intersection of the <code><a>scalabilityMode</a></code> values supported by the
+        local and remote peers, enabling it to configure <code><a>scalabilityMode</a></code>
+        values supported by both the local and remote peers using the
+        {{addTransceiver}} and {{setParameters}} methods.
+        However, in situations where SVC modes are negotiated in SDP Offer/Answer,
+        {{setParameters}} can only change <code><a>scalabilityMode</a></code>
+        values within the envelope negotiated by Offer/Answer, resulting in an error
+        if the requested <code><a>scalabilityMode</a></code> value is outside this envelope.
+      </p>
+  </section>
   <section id="rtpdictionaries">
     <h2>Dictionary extensions</h2>
     <section id="rtcrtpencodingparameters">
@@ -173,86 +253,6 @@
         </section>
       </div>
     </section>
-  </section>
-    <section id="operational-model">
-    <h2>Operational model</h2>
-    <p>This specification extends [[!WEBRTC]] to enable configuration of encoding
-    parameters for SVC, as well as discovery of the SVC capabilities of both an
-    encoder and decoder, by extending the {{RTCRtpEncodingParameters}}
-    and {{RTCRtpCodecCapability}} dictionaries.</p>
-    <p>Since this specification does not change the behavior of WebRTC
-    objects and methods, restrictions relating to Offer/Answer negotiation and
-    encoding parameters remain, as described in [[!WEBRTC]] Section 5.2: 
-    "{{setParameters}} does not cause SDP renegotiation and can
-    only be used to change what the media stack is sending or receiving within the
-    envelope negotiated by Offer/Answer."</p>
-    <p>The configuration of SVC-capable codecs implemented in browsers fits within this
-    restriction. Codecs such as VP8 [[RFC6386]], VP9 [[VP9]] and AV1 [[AV1]] mandate support
-    for SVC and require a compliant decoder to be able to decode any compliant encoding
-    that an encoder can send. Therefore, for these codecs there is no need to
-    configure the decoder or to negotiate SVC support within Offer/Answer, enabling
-    encoding parameters to be used for SVC configuration.</p>
-    <section id="error-handling">
-      <h2>Error handling</h2>
-      <p>
-        [[!WEBRTC]] Section 5.2 describes error handling in
-        {{setParameters}}, including use of {{RTCError}}
-        to indicate a "hardware-encoder-error" due to an unsupported encoding
-        parameter, as well as <code>OperationError</code> for other errors.
-        Implementations of this specification utilize {{RTCError}}
-        and <code>OperationError</code> in the prescribed manner when an invalid
-        {{scalabilityMode}} is provided to 
-        {{setParameters}} or {{addTransceiver}}.
-      </p>
-      <p>
-        Note that since the {{addTransceiver}} and
-        {{setCodecPreferences}} methods can be called
-        before the Offer/Answer negotiation has concluded, the negotiated
-        codec and its capabilities may not be known, and it is
-        possible that the {{scalabilityMode}} values configured in
-        {{sendEncodings}} cannot be applied due to incompatibility with
-        the eventually selected codec. Since this cannot be determined at the
-        time {{addTransceiver}} is called, an error may only
-        be detected if a {{scalabilityMode}} value is invalid for any
-        supported codec. In order for the application to determine whether the
-        requested {{scalabilityMode}} values have been applied,  the
-        {{RTCRtpSender/getParameters}} method can be called
-        after negotiation has completed and the sending codec has been determined.
-        If the configuration is not satisfactory, the application can utilize
-        {{setParameters}} to change it.
-      </p>
-      <p>
-        To influence the Offer/Answer negotiation so as to make it more likely
-        that the desired {{scalabilityMode}} values can be applied,
-        {{setCodecPreferences}} can be used to limit the
-        negotiated codecs to those supporting the desired configuration.
-        For example, if it is desired to support temporal scalability as well as
-        spatial adaptation, when {{addTransceiver}} is called,
-        {{sendEncodings}} can be configured so as to send
-        multiple simulcast streams with different resolutions, with each stream
-        utilizing temporal scalability. Since temporal scalability is supported
-        by the VP8, VP9 and AV1 codecs, such a configuration could be applied
-        if any of these codecs were negotiated. In the event that H.264/AVC was
-        negotiated, temporal scalability would not be available, but
-        simulcast with different resolutions would be applied. If this was
-        unsatisfactory, a subsequent call to {{setParameters}}
-        could be used to adjust the parameters within the envelope negotiated
-        in Offer/Answer.
-      </p>
-      <p>
-        In situations where the decoder cannot necessarily decode anything that an
-        encoder can send (e.g. an H.264/SVC decoder), the {{getCapabilities}}
-        method can be used to retrieve the scalability modes supported by the decoder
-        and encoder. By exchanging capabilities, the application can compute the
-        intersection of the <code>scalabilityMode</code> values supported by the
-        local and remote peers, enabling it to configure <code>scalabilityMode</code>
-        values supported by both the local and remote peers using the
-        {{addTransceiver}} and {{setParameters}} methods.
-        However, in situations where SVC modes are negotiated in SDP Offer/Answer,
-        {{setParameters}} can only change {{scalabilityMode}}
-        values within the envelope negotiated by Offer/Answer, resulting in an error
-        if the requested {{scalabilityMode}} value is outside this envelope.
-      </p>
   </section>
   <section id="scalabilitymodes*">
      <h3>Scalability modes</h3>
