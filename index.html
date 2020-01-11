@@ -104,7 +104,77 @@
     internal slots (defined in Section 5.2) and the <dfn>RTCRtpReceiver</dfn>
     object (defined in Section 5.3).</p>
   </section>
-  <section id="operational-model">
+  </section>
+  <section id="rtpdictionaries">
+    <h2>Dictionary extensions</h2>
+    <section id="rtcrtpencodingparameters">
+      <h3>RTCRtpEncodingParameters Dictionary Extensions</h3>
+      <div>
+        <pre class="idl">partial dictionary RTCRtpEncodingParameters {
+             DOMString           scalabilityMode;
+};</pre>
+        <section>
+          <h2>Dictionary <a class="idlType">RTCRtpEncodingParameters</a> Members</h2>
+          <dl data-link-for="RTCRtpEncodingParameters" data-dfn-for=
+          "RTCRtpEncodingParameters" class="dictionary-members">
+            <dt><dfn data-idl><code>scalabilityMode</code></dfn> of type <span class=
+            "idlMemberType">DOMString</span></dt>
+            <dd>
+              <p>An identifier of the scalability mode to be used for this stream.
+              The {{scalabilityMode}} selected MUST be one of the scalability modes
+              supported for the codec, as indicated in {{RTCRtpCodecCapability}}.
+              Scalability modes are defined in Section 6.</p>
+            </dd>
+          </dl>
+        </section>
+      </div>
+    </section>
+    <section id="rtcrtpcodeccapability*">
+      <h3>RTCRtpCodecCapability Dictionary Extensions</h3>
+      <div>
+        <pre class="idl">partial dictionary RTCRtpCodecCapability {
+             sequence&lt;DOMString&gt;           scalabilityModes;
+};</pre>
+        <section>
+          <h2>Dictionary <a class="idlType">RTCRtpCodecCapability</a> Members</h2>
+          <dl data-link-for="RTCRtpCodecCapability" data-dfn-for=
+          "RTCRtpCodecCapability" class="dictionary-members">
+            <dt><dfn data-idl><code>scalabilityModes</code></dfn> of type <span class=
+            "idlMemberType">sequence&lt;DOMString&gt;</span></dt>
+            <dd>
+              <p>An sequence of the scalability modes (defined in Section 6) supported by the encoder
+              implementation.</p>
+              <p>In response to a call to {{RTCRtpSender/getCapabilities(<var>kind</var>)}},
+              conformant implementations of this specification MUST return a sequence of
+              scalability modes supported by each codec of that <var>kind</var>.  If a codec does not support
+              encoding of any scalability modes, then the <code>scalabilityModes</code> member
+              is not provided.</p>
+              <p>In response to a call to {{RTCRtpReceiver/getCapabilities(<var>kind</var>)}},
+              decoders that do not support decoding of scalability modes (e.g. an H.264/AVC decoder) or that are required
+              to decode any scalability mode (such as compliant VP8, VP9 and AV1 decoders)
+              omit the <code>scalabilityModes</code> member. However, decoders that only support
+              decoding of a subset of scalability modes MUST return a sequence of the scalability
+              modes supported by that codec.</p>
+              <p class="note">
+                  The <code>scalabilityModes</code> sequence represents the scalability modes supported
+                  by a user agent. While the user agent's SVC capabilities are assumed to be static, this
+                  may not be the case for a Selective Forwarding Unit (SFU), whose ability to forward SVC
+                  modes may depend on the negotiated header extensions.  For example, if the SFU cannot parse
+                  codec payloads (either because it is not designed to do so, or because the payloads are
+                  confidential), then negotiation of an RTP header extension (such as the AV1 Descriptor
+                  defined in Appendix A of [[AV1-RTP]] or frame marking [[FRAME-MARKING]]) may be required
+                  to enable the SFU to forward scalability modes.  As a result, an application may choose
+                  to exchange <code>scalabilityModes</code> with an SFU after the initial offer/answer
+                  negotiation, so that the SFU's supported <code>scalabilityModes</code> can be determined,
+                  allowing the application to compute the intersection of supported <code>scalabilityModes</code>.
+              </p>
+            </dd>
+          </dl>
+        </section>
+      </div>
+    </section>
+  </section>
+    <section id="operational-model">
     <h2>Operational model</h2>
     <p>This specification extends [[!WEBRTC]] to enable configuration of encoding
     parameters for SVC, as well as discovery of the SVC capabilities of both an
@@ -183,76 +253,6 @@
         values within the envelope negotiated by Offer/Answer, resulting in an error
         if the requested {{scalabilityMode}} value is outside this envelope.
       </p>
-  </section>
-  </section>
-  <section id="rtpdictionaries">
-    <h2>Dictionary extensions</h2>
-    <section id="rtcrtpencodingparameters">
-      <h3>RTCRtpEncodingParameters Dictionary Extensions</h3>
-      <div>
-        <pre class="idl">partial dictionary RTCRtpEncodingParameters {
-             DOMString           scalabilityMode;
-};</pre>
-        <section>
-          <h2>Dictionary <a class="idlType">RTCRtpEncodingParameters</a> Members</h2>
-          <dl data-link-for="RTCRtpEncodingParameters" data-dfn-for=
-          "RTCRtpEncodingParameters" class="dictionary-members">
-            <dt><dfn data-idl><code>scalabilityMode</code></dfn> of type <span class=
-            "idlMemberType">DOMString</span></dt>
-            <dd>
-              <p>An identifier of the scalability mode to be used for this stream.
-              The {{scalabilityMode}} selected MUST be one of the scalability modes
-              supported for the codec, as indicated in {{RTCRtpCodecCapability}}.
-              Scalability modes are defined in Section 6.</p>
-            </dd>
-          </dl>
-        </section>
-      </div>
-    </section>
-    <section id="rtcrtpcodeccapability*">
-      <h3>RTCRtpCodecCapability Dictionary Extensions</h3>
-      <div>
-        <pre class="idl">partial dictionary RTCRtpCodecCapability {
-             sequence&lt;DOMString&gt;           scalabilityModes;
-};</pre>
-        <section>
-          <h2>Dictionary <a class="idlType">RTCRtpCodecCapability</a> Members</h2>
-          <dl data-link-for="RTCRtpCodecCapability" data-dfn-for=
-          "RTCRtpCodecCapability" class="dictionary-members">
-            <dt><dfn data-idl><code>scalabilityModes</code></dfn> of type <span class=
-            "idlMemberType">sequence&lt;DOMString&gt;</span></dt>
-            <dd>
-              <p>An sequence of the scalability modes (defined in Section 6) supported by the encoder
-              implementation.</p>
-              <p>In response to a call to {{RTCRtpSender/getCapabilities(<var>kind</var>)}},
-              conformant implementations of this specification MUST return a sequence of
-              scalability modes supported by each codec of that <var>kind</var>.  If a codec does not support
-              encoding of any scalability modes, then the <code>scalabilityModes</code> member
-              is not provided.</p>
-              <p>In response to a call to {{RTCRtpReceiver/getCapabilities(<var>kind</var>)}},
-              decoders that do not support decoding of scalability modes (e.g. an H.264/AVC decoder) or that are required
-              to decode any scalability mode (such as compliant VP8, VP9 and AV1 decoders)
-              omit the <code>scalabilityModes</code> member. However, decoders that only support
-              decoding of a subset of scalability modes MUST return a sequence of the scalability
-              modes supported by that codec.</p>
-              <p class="note">
-                  The <code>scalabilityModes</code> sequence represents the scalability modes supported
-                  by a user agent. While the user agent's SVC capabilities are assumed to be static, this
-                  may not be the case for a Selective Forwarding Unit (SFU), whose ability to forward SVC
-                  modes may depend on the negotiated header extensions.  For example, if the SFU cannot parse
-                  codec payloads (either because it is not designed to do so, or because the payloads are
-                  confidential), then negotiation of an RTP header extension (such as the AV1 Descriptor
-                  defined in Appendix A of [[AV1-RTP]] or frame marking [[FRAME-MARKING]]) may be required
-                  to enable the SFU to forward scalability modes.  As a result, an application may choose
-                  to exchange <code>scalabilityModes</code> with an SFU after the initial offer/answer
-                  negotiation, so that the SFU's supported <code>scalabilityModes</code> can be determined,
-                  allowing the application to compute the intersection of supported <code>scalabilityModes</code>.
-              </p>
-            </dd>
-          </dl>
-        </section>
-      </div>
-    </section>
   </section>
   <section id="scalabilitymodes*">
      <h3>Scalability modes</h3>
