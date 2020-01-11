@@ -108,12 +108,12 @@
     <h2>Operational model</h2>
     <p>This specification extends [[!WEBRTC]] to enable configuration of encoding
     parameters for SVC, as well as discovery of the SVC capabilities of both an
-    encoder and decoder, by extending the <code><a>RTCRtpEncodingParameters</a></code>
-    and <code><a>RTCRtpCodecCapability</a></code> dictionaries.</p>
+    encoder and decoder, by extending the {{RTCRtpEncodingParameters}}
+    and {{RTCRtpCodecCapability}} dictionaries.</p>
     <p>Since this specification does not change the behavior of WebRTC
     objects and methods, restrictions relating to Offer/Answer negotiation and
     encoding parameters remain, as described in [[!WEBRTC]] Section 5.2: 
-    "<code><a>setParameters</a></code> does not cause SDP renegotiation and can
+    "{{setParameters}} does not cause SDP renegotiation and can
     only be used to change what the media stack is sending or receiving within the
     envelope negotiated by Offer/Answer."</p>
     <p>The configuration of SVC-capable codecs implemented in browsers fits within this
@@ -126,17 +126,17 @@
       <h2>Error handling</h2>
       <p>
         [[!WEBRTC]] Section 5.2 describes error handling in
-        <code>setParameters</code>, including use of <code><a>RTCError</a></code>
+        {{setParameters}}, including use of {{RTCError}}
         to indicate a "hardware-encoder-error" due to an unsupported encoding
         parameter, as well as <code>OperationError</code> for other errors.
         Implementations of this specification utilize <code><a>RTCError</a></code>
         and <code>OperationError</code> in the prescribed manner when an invalid
         <code>scalabilityMode</code> is provided to 
-        <code>setParameters</code> or <code>addTranscever</code>.
+        {{setParameters}} or {{addTranscever}}.
       </p>
       <p>
-        Note that since the <code><a>addTransceiver</a></code> and
-        <code><a>setCodecPreferences</a></code> methods can be called
+        Note that since the {{addTransceiver}} and
+        {{setCodecPreferences}} methods can be called
         before the Offer/Answer negotiation has concluded, the negotiated
         codec and its capabilities may not be known, and it is
         possible that the <code>scalabilityMode</code> values configured in
