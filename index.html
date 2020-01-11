@@ -132,7 +132,7 @@
         parameter, as well as <code>OperationError</code> for other errors.
         Implementations of this specification utilize {{RTCError}}
         and <code>OperationError</code> in the prescribed manner when an invalid
-        <code><a>scalabilityMode</a></code> is provided to 
+        <code>scalabilityMode</code> value is provided to 
         {{setParameters}} or {{addTransceiver}}.
       </p>
       <p>
@@ -140,13 +140,13 @@
         {{setCodecPreferences}} methods can be called
         before the Offer/Answer negotiation has concluded, the negotiated
         codec and its capabilities may not be known, and it is
-        possible that the <code><a>scalabilityMode</a></code> values configured in
+        possible that the <code>scalabilityMode</code> values configured in
         {{sendEncodings}} cannot be applied due to incompatibility with
         the eventually selected codec. Since this cannot be determined at the
         time {{addTransceiver}} is called, an error may only
-        be detected if a {{scalabilityMode}} value is invalid for any
+        be detected if a <code>scalabilityMode</code> value is invalid for any
         supported codec. In order for the application to determine whether the
-        requested <code><a>scalabilityMode</a></code> values have been applied,  the
+        requested <code>scalabilityMode</code> values have been applied,  the
         {{RTCRtpSender/getParameters}} method can be called
         after negotiation has completed and the sending codec has been determined.
         If the configuration is not satisfactory, the application can utilize
@@ -154,7 +154,7 @@
       </p>
       <p>
         To influence the Offer/Answer negotiation so as to make it more likely
-        that the desired <code><a>scalabilityMode</a></code> values can be applied,
+        that the desired <code>scalabilityMode</code> values can be applied,
         {{setCodecPreferences}} can be used to limit the
         negotiated codecs to those supporting the desired configuration.
         For example, if it is desired to support temporal scalability as well as
@@ -175,14 +175,14 @@
         encoder can send (e.g. an H.264/SVC decoder), the {{getCapabilities}}
         method can be used to retrieve the scalability modes supported by the decoder
         and encoder. By exchanging capabilities, the application can compute the
-        intersection of the <code><a>scalabilityMode</a></code> values supported by the
-        local and remote peers, enabling it to configure <code><a>scalabilityMode</a></code>
+        intersection of the <code>scalabilityMode</code> values supported by the
+        local and remote peers, enabling it to configure <code>scalabilityMode</code>
         values supported by both the local and remote peers using the
         {{addTransceiver}} and {{setParameters}} methods.
         However, in situations where SVC modes are negotiated in SDP Offer/Answer,
         {{setParameters}} can only change <code><a>scalabilityMode</a></code>
         values within the envelope negotiated by Offer/Answer, resulting in an error
-        if the requested <code><a>scalabilityMode</a></code> value is outside this envelope.
+        if the requested <code>scalabilityMode</code> value is outside this envelope.
       </p>
   </section>
   <section id="rtpdictionaries">
@@ -201,7 +201,7 @@
             "idlMemberType">DOMString</span></dt>
             <dd>
               <p>An identifier of the scalability mode to be used for this stream.
-              The {{scalabilityMode}} selected MUST be one of the scalability modes
+              The <code>scalabilityMode</code> selected MUST be one of the scalability modes
               supported for the codec, as indicated in {{RTCRtpCodecCapability}}.
               Scalability modes are defined in Section 6.</p>
             </dd>
@@ -224,12 +224,12 @@
             <dd>
               <p>An sequence of the scalability modes (defined in Section 6) supported by the encoder
               implementation.</p>
-              <p>In response to a call to {{RTCRtpSender/getCapabilities(<var>kind</var>)}},
+              <p>In response to a call to <code><a>RTCRtpSender</a>.getCapabilities(<var>kind</var>)</code>,
               conformant implementations of this specification MUST return a sequence of
               scalability modes supported by each codec of that <var>kind</var>.  If a codec does not support
               encoding of any scalability modes, then the <code>scalabilityModes</code> member
               is not provided.</p>
-              <p>In response to a call to {{RTCRtpReceiver/getCapabilities(<var>kind</var>)}},
+              <p>In response to a call to <code><a>RTCRtpReceiver</a>.getCapabilities(<var>kind</var>)</code>,
               decoders that do not support decoding of scalability modes (e.g. an H.264/AVC decoder) or that are required
               to decode any scalability mode (such as compliant VP8, VP9 and AV1 decoders)
               omit the <code>scalabilityModes</code> member. However, decoders that only support
@@ -740,8 +740,8 @@ var encodings = [
     <section>
       <h2>Persistent information</h2>
       <p>The WebRTC API exposes information about the
-      underlying media system via the {{RTCRtpSender/getCapabilities}}
-      and {{RTCRtpReceiver/getCapabilities}} methods, including
+      underlying media system via the <code><a>RTCRtpSender</a>.getCapabilities</code>
+      and <code><a>RTCRtpReceiver</a>getCapabilities</code> methods, including
       detailed and ordered information about the codecs that the system is able
       to produce and consume. The WebRTC-SVC extension adds supported SVC modes
       to that information, which is in most cases persistent across time and origins,
