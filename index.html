@@ -132,7 +132,7 @@
         Implementations of this specification utilize <code><a>RTCError</a></code>
         and <code>OperationError</code> in the prescribed manner when an invalid
         <code>scalabilityMode</code> is provided to 
-        {{setParameters}} or {{addTranscever}}.
+        {{setParameters}} or {{addTransceiver}}.
       </p>
       <p>
         Note that since the {{addTransceiver}} and
@@ -142,22 +142,22 @@
         possible that the <code>scalabilityMode</code> values configured in
         <code>sendEncodings</code> cannot be applied due to incompatibility with
         the eventually selected codec. Since this cannot be determined at the
-        time <code><a>addTransceiver</a></code> is called, an error may only
+        time {{addTransceiver}} is called, an error may only
         be detected if a <code>scalabilityMode</code> value is invalid for any
         supported codec. In order for the application to determine whether the
         requested <code>scalabilityMode</code> values have been applied,  the
-        <code><a>RTCRtpSender</a>.getParameters</code> method can be called
+        {{RTCRtpSender/.getParameters}} method can be called
         after negotiation has completed and the sending codec has been determined.
         If the configuration is not satisfactory, the application can utilize
-        <code><a>setParameters</a></code> to change it.
+        {{setParameters}} to change it.
       </p>
       <p>
         To influence the Offer/Answer negotiation so as to make it more likely
         that the desired <code>scalabiltyMode</code> values can be applied,
-        <code><a>setCodecPreferences</a></code> can be used to limit the
+        {{setCodecPreferences}} can be used to limit the
         negotiated codecs to those supporting the desired configuration.
         For example, if it is desired to support temporal scalability as well as
-        spatial adaptation, when <code><a>addTransceiver</a></code> is called,
+        spatial adaptation, when {{addTransceiver}} is called,
         <code>sendEncodings</code> can be configured so as to send
         multiple simulcast streams with different resolutions, with each stream
         utilizing temporal scalability. Since temporal scalability is supported
@@ -165,7 +165,7 @@
         if any of these codecs were negotiated. In the event that H.264/AVC was
         negotiated, temporal scalability would not be available, but
         simulcast with different resolutions would be applied. If this was
-        unsatisfactory, a subsequent call to <code><a>setParameters</a></code>
+        unsatisfactory, a subsequent call to {{setParameters}}
         could be used to adjust the parameters within the envelope negotiated
         in Offer/Answer.
       </p>
@@ -177,7 +177,7 @@
         intersection of the <code>scalabilityMode</code> values supported by the
         local and remote peers, enabling it to configure <code>scalabilityMode</code>
         values supported by both the local and remote peers using the
-        <code><a>addTransceiver</a></code> and <code><a>setParameters</a></code> methods.
+        {{addTransceiver}} and {{setParameters}} methods.
         However, in situations where SVC modes are negotiated in SDP Offer/Answer,
         {{setParameters}} can only change <code>scalabilityMode</code>
         values within the envelope negotiated by Offer/Answer, resulting in an error
@@ -229,7 +229,7 @@
               scalability modes supported by each codec of that <var>kind</var>.  If a codec does not support
               encoding of any scalability modes, then the <code>scalabilityModes</code> member
               is not provided.</p>
-              <p>In response to a call to <code>RTCRtpReceiver.getCapabilities(<var>kind</var>)</code>,
+              <p>In response to a call to {{RTCRtpReceiver/getCapabilities(<var>kind</var>)}},
               decoders that do not support decoding of scalability modes (e.g. an H.264/AVC decoder) or that are required
               to decode any scalability mode (such as compliant VP8, VP9 and AV1 decoders)
               omit the <code>scalabilityModes</code> member. However, decoders that only support
