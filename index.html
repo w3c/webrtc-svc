@@ -131,7 +131,7 @@
         parameter, as well as <code>OperationError</code> for other errors.
         Implementations of this specification utilize {{RTCError}}
         and <code>OperationError</code> in the prescribed manner when an invalid
-        <code>scalabilityMode</code> is provided to 
+        {{scalabilityMode}} is provided to 
         {{setParameters}} or {{addTransceiver}}.
       </p>
       <p>
@@ -139,13 +139,13 @@
         {{setCodecPreferences}} methods can be called
         before the Offer/Answer negotiation has concluded, the negotiated
         codec and its capabilities may not be known, and it is
-        possible that the <code>scalabilityMode</code> values configured in
+        possible that the {{scalabilityMode}} values configured in
         {{sendEncodings}} cannot be applied due to incompatibility with
         the eventually selected codec. Since this cannot be determined at the
         time {{addTransceiver}} is called, an error may only
-        be detected if a <code>scalabilityMode</code> value is invalid for any
+        be detected if a {{scalabilityMode}} value is invalid for any
         supported codec. In order for the application to determine whether the
-        requested <code>scalabilityMode</code> values have been applied,  the
+        requested {{scalabilityMode}} values have been applied,  the
         {{RTCRtpSender/getParameters}} method can be called
         after negotiation has completed and the sending codec has been determined.
         If the configuration is not satisfactory, the application can utilize
@@ -153,7 +153,7 @@
       </p>
       <p>
         To influence the Offer/Answer negotiation so as to make it more likely
-        that the desired <code>scalabiltyMode</code> values can be applied,
+        that the desired {{scalabilityMode}} values can be applied,
         {{setCodecPreferences}} can be used to limit the
         negotiated codecs to those supporting the desired configuration.
         For example, if it is desired to support temporal scalability as well as
@@ -179,9 +179,9 @@
         values supported by both the local and remote peers using the
         {{addTransceiver}} and {{setParameters}} methods.
         However, in situations where SVC modes are negotiated in SDP Offer/Answer,
-        {{setParameters}} can only change <code>scalabilityMode</code>
+        {{setParameters}} can only change {{scalabilityMode}}
         values within the envelope negotiated by Offer/Answer, resulting in an error
-        if the requested <code>scalabilityMode</code> value is outside this envelope.
+        if the requested {{scalabilityMode}} value is outside this envelope.
       </p>
   </section>
   </section>
@@ -201,7 +201,7 @@
             "idlMemberType">DOMString</span></dt>
             <dd>
               <p>An identifier of the scalability mode to be used for this stream.
-              The <code>scalabilityMode</code> selected MUST be one of the scalability modes
+              The {{scalabilityMode}} selected MUST be one of the scalability modes
               supported for the codec, as indicated in {{RTCRtpCodecCapability}}.
               Scalability modes are defined in Section 6.</p>
             </dd>
