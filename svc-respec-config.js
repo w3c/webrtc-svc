@@ -208,7 +208,7 @@ var respecConfig = {
         "Harald Alvestrand",
         "Varun Singh"
       ],
-      "status": "12 December 2019 (work in progress)",
+      "status": "15 January 2020 (work in progress)",
       "publisher": "W3C"
     }
   }
