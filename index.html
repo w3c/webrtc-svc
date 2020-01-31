@@ -71,21 +71,6 @@
       [[!ECMASCRIPT-6.0]].</p>
       <p>The terms <dfn>MediaStream</dfn>, <dfn>MediaStreamTrack</dfn>, and
       <dfn>MediaStreamConstraints</dfn> are defined in [[!GETUSERMEDIA]].</p>
-      <p>For Scalable Video Coding (SVC), the terms single-session transmission
-      (<dfn>SST</dfn>) and multi-session transmission (<dfn>MST</dfn>) are
-      defined in [[RFC6190]]. This specification only supports <a>SST</a> but
-      not <a>MST</a>. The term Single Real-time Transport Protocol (RTP) stream
-      Single Transport (<dfn>SRST</dfn>), defined in [[RFC7656]] Section 3.7,
-      refers to Scalable Video Coding (<dfn>SVC</dfn>) implementations that
-      transmit all layers within a single transport, using a single RTP stream
-      and synchronization source (SSRC). The term Multiple RTP stream Single
-      Transport (<dfn>MRST</dfn>), also defined in [[RFC7656]] Section 3.7,
-      refers to implementations that transmit all layers within a single
-      transport, using multiple RTP streams with a distinct SSRC for each layer.
-      This specification only supports <a>SRST</a> transport, not <a>MRST</a>.
-      Codecs with RTP payload specifications supporting <a>SRST</a> transport
-      include VP8 [[RFC7741]], VP9 [[VP9-PAYLOAD]], AV1 [[AV1-RTP]] and
-      H.264/SVC [[RFC6190]].</p>
     <p>This specification references objects, methods, internal slots and dictionaries defined in
     [[!WEBRTC]], including the <dfn>RTCPeerConnection</dfn> object (defined in Section 4.4),
     the <dfn>RTCError</dfn> object (defined in Section 11.1),
@@ -104,12 +89,28 @@
     <dfn>[[\SendEncodings]]</dfn> and <dfn>[[\LastReturnedParameters]]</dfn>
     internal slots (defined in Section 5.2) and the <dfn>RTCRtpReceiver</dfn>
     object (defined in Section 5.3).</p>
+       <p>For Scalable Video Coding (<dfn>SVC</dfn>), the terms single-session transmission
+      (<dfn>SST</dfn>) and multi-session transmission (<dfn>MST</dfn>) are
+      defined in [[RFC6190]]. This specification only supports <a>SST</a> but
+      not <a>MST</a>.</p>
+      <p>The term Single Real-time Transport Protocol (RTP) stream
+      Single Transport (<dfn>SRST</dfn>), defined in [[RFC7656]] Section 3.7,
+      refers to SVC implementations that transmit all layers within a
+      single transport, using a single RTP stream and synchronization source
+      (SSRC). The term Multiple RTP stream Single Transport (<dfn>MRST</dfn>),
+      also defined in [[RFC7656]] Section 3.7, refers to implementations that
+      transmit all layers within a single transport, using multiple RTP streams
+      with a distinct SSRC for each layer.</p>
+      <p>This specification only supports <a>SRST</a> transport, not <a>MRST</a>.
+      Codecs with RTP payload specifications supporting <a>SRST</a> transport
+      include VP8 [[RFC7741]], VP9 [[VP9-PAYLOAD]], AV1 [[AV1-RTP]] and
+      H.264/SVC [[RFC6190]].</p>
   </section>
   </section>
   <section id="operational-model">
     <h2>Operational model</h2>
     <p>This specification extends [[!WEBRTC]] to enable configuration of encoding
-    parameters for SVC, as well as discovery of the SVC capabilities of both an
+    parameters for Scalable Video Coding (SVC), as well as discovery of the SVC capabilities of both an
     encoder and decoder, by extending the {{RTCRtpEncodingParameters}}
     and {{RTCRtpCodecCapability}} dictionaries.</p>
     <p>Since this specification does not change the behavior of WebRTC
