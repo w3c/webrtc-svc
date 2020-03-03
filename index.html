@@ -259,9 +259,9 @@
   <section id="scalabilitymodes*">
      <h3>Scalability modes</h3>
      <p>The scalability modes supported in this specification, as well as their associated
-     identifiers and characteristics, are provided in the table below. Additional information
-     on the scalability modes, including dependency diagrams, is available in [[AV1]]
-     Section 6.7.5.</p>
+     identifiers and characteristics, are provided in the table below. The syntax
+     for naming scalability modes is taken from [[AV1]] Section 6.7.5, which also
+     provides additional information on the modes, including dependency diagrams.</p>
      <p>While [[AV1]] and VP9 [[VP9-PAYLOAD]] implementations can support
      all the modes defined in the table, other codecs cannot. For example, VP8
      [[RFC7741]] only supports temporal scalability (e.g. "L1T2", "L1T3"). H.264/SVC
@@ -532,30 +532,78 @@
         <section class="informative" id="simulcasttemporal-example*">
           <h4>Spatial Simulcast and Temporal Scalability</h4>
           <pre class="example highlight">
-// Example of 3 spatial simulcast layers + 3 temporal layers with
-// an SSRC and RID for each simulcast layer
-var encodings = [
-  {rid: 'q', scaleResolutionDownBy: 4.0, scalabilityMode: 'L1T3'}
-  {rid: 'h', scaleResolutionDownBy: 2.0, scalabilityMode: 'L1T3'},
-  {rid: 'f', scalabilityMode: 'L1T3'},
-];
+const signaling = new SignalingChannel(); // handles JSON.stringify/parse
+const constraints = {audio: true, video: true};
+const configuration = {'iceServers': [{'urls': 'stun:stun.example.org'}]};
+let pc;
 
-// Example of 3 spatial simulcast layers + 3 temporal layers on a single SSRC
-var encodings = [
-  {scalabilityMode: 'S3T3'}
-];
+// call start() to initiate
+async function start() {
+  pc = new RTCPeerConnection(configuration);
+
+  // let the "negotiationneeded" event trigger offer generation
+  pc.onnegotiationneeded = async () => {
+    try {
+      await pc.setLocalDescription();
+      // send the offer to the other peer
+      signaling.send({description: pc.localDescription});
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  try {
+    // get a local stream, show it in a self-view and add it to be sent
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    selfView.srcObject = stream;
+    pc.addTransceiver(stream.getAudioTracks()[0], {direction: 'sendonly'});
+    pc.addTransceiver(stream.getVideoTracks()[0], {
+      direction: 'sendonly',
+   // Example of 3 spatial simulcast layers + 3 temporal layers with
+   // an SSRC and RID for each simulcast layer
+      sendEncodings: [
+        {rid: 'q', scaleResolutionDownBy: 4.0, scalabilityMode: 'L1T3'}
+        {rid: 'h', scaleResolutionDownBy: 2.0, scalabilityMode: 'L1T3'},
+        {rid: 'f', scalabilityMode: 'L1T3'},
+      ]
+   // Example of 3 spatial simulcast layers + 3 temporal layers on a single SSRC
+   //    sendEncodings = [
+   //       {scalabilityMode: 'S3T3'}
+   //     ]             
+    });
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+signaling.onmessage = async ({data: {description, candidate}}) => {
+  try {
+    if (description) {
+      await pc.setRemoteDescription(description);
+      // if we got an offer, we need to reply with an answer
+      if (description.type == 'offer') {
+        await pc.setLocalDescription();
+        signaling.send({description: pc.localDescription});
+      }
+    } else if (candidate) {
+      await pc.addIceCandidate(candidate);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};       
 </pre>
     </section>
         <section class="informative" id="spatialtemporal-examples*">
           <h4>Spatial and Temporal Scalability</h4>
           <pre class="example highlight">
 // Example of 1 spatial layer + 2 temporal layers
-var encodings = [
+var sendEncodings = [
   {scalabilityMode: 'L1T2'}
 ];
 
 // Example of 2 spatial layers (with 2:1 ratio) + 3 temporal layers
-var encodings = [
+var sendEncodings = [
   {scalabilityMode: 'L2T3'}
 ];
 </pre>
