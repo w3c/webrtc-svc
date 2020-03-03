@@ -498,6 +498,34 @@
         </tr>
       </tbody>
     </table>
+    <section id="addingmodes*">
+      <h3>Guidelines for addition of <code>scalabilityMode></code> values</h3>
+      <p>When proposing a <code>scalabilityMode</code> value, the following principles should be followed:</p>
+        <ol>
+          <li>
+            The proposed <code>scalabilityMode</code> MUST define entries to the table in
+            Section 6, including values for the Scalabilty Mode Identifier, spatial and
+            temporal layers, Resolution Ratio and Inter-layer dependency.
+          </li>
+          <li>
+            The Scalability Mode Identifier SHOULD be consistent with naming schemes used
+            in existing specifications such as [[AV1]] Section 6.7.5. The AV1 naming scheme
+            utilizes  "LxTy" to denote a <code>scalabilityMode</code> with <code>x</code>
+            spatial layers using a 2:1 resolution ratio and <code>y</code> temporal layers.
+            "LxTyh" denotes <code>x</code> spatial layers with a 1.5:1 resolution ratio and
+            <code>y</code> temporal layers. "SxTy" denotes a <code>scalabilityMode</code>
+            with <code>x</code> simulcast encodings with a 2:1 resolution ratio, with each
+            simulcast encoding containing <code>y</code> temporal layers. "SxTyh" denotes
+            a 1.5:1 resolution ratio. In addition, [[AV1]] Section 6.7.5 defines "LxTy_KEY"
+            and "LxTy_KEY_SHIFT" modes.
+          </li>
+          <li>
+            If the new <code>scalabilityMode</code> does not reference a dependency diagram
+            defined within an existing specification, then a dependency diagram MUST be
+            supplied.
+          </li>         
+        </ol>
+    </section>
   </section>
   <section id="rtcrtpencodingparameters-example*">
       <h3>Examples</h3>
