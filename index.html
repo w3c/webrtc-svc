@@ -35,7 +35,7 @@
     easy to follow, and not intended to be performant.)</p>
     <p>Implementations that use ECMAScript to implement the APIs defined in
     this specification MUST implement them in a manner consistent with the
-    ECMAScript Bindings defined in the Web IDL specification [[!WEBIDL-1]], as
+    ECMAScript Bindings defined in the Web IDL specification [[WEBIDL]], as
     this specification uses that specification and terminology.</p>
   </section>
   <section>
@@ -43,23 +43,7 @@
       <p>The term <dfn>simulcast envelope</dfn> refers to the maximum number of
       simulcast streams and the order of the encoding parameters.</p>
     <p>This specification references objects, methods, internal slots and dictionaries defined in
-    [[!WEBRTC]], including the <dfn>RTCPeerConnection</dfn> object (defined in Section 4.4),
-    the <dfn>RTCError</dfn> object (defined in Section 11.1),
-    the <dfn>addTrack</dfn> and <dfn>addTransceiver</dfn> methods (defined in Section 5.1),
-    the <dfn>setCodecPreferences</dfn> method (defined in Section 5.4),
-    the <dfn>getParameters</dfn> and <dfn>setParameters</dfn> methods (defined in Section 5.2), 
-    the <dfn>RTCRtpParameters</dfn> dictionary (defined in Section 5.2.1),
-    the <dfn>RTCRtpSendParameters</dfn> dictionary (defined in Section 5.2.2),
-    the <dfn>RTCRtpReceiveParameters</dfn> dictionary (defined in Section 5.2.3),
-    the <dfn>RTCRtpCodingParameters</dfn> dictionary (defined in Section 5.2.4),
-    the <dfn>RTCRtpEncodingParameters</dfn> dictionary (defined in Section 5.2.6),
-    the <dfn>RTCRtpCodecCapability</dfn> dictionary (defined in Section 5.2.13),
-    the <dfn>RTCRtpTransceiver</dfn> object including
-    its <dfn>[[\Sender]]</dfn> and <dfn>[[\Receiver]]</dfn> internal slots (defined
-    in Section 5.4), the <dfn>RTCRtpSender</dfn> object, including its
-    <dfn>[[\SendEncodings]]</dfn> and <dfn>[[\LastReturnedParameters]]</dfn>
-    internal slots (defined in Section 5.2) and the <dfn>RTCRtpReceiver</dfn>
-    object (defined in Section 5.3).</p>
+    [[!WEBRTC]]</p>
        <p>For Scalable Video Coding (<dfn>SVC</dfn>), the terms single-session transmission
       (<dfn>SST</dfn>) and multi-session transmission (<dfn>MST</dfn>) are
       defined in [[RFC6190]]. This specification only supports <a>SST</a> but
@@ -86,7 +70,7 @@
     <p>Since this specification does not change the behavior of WebRTC
     objects and methods, restrictions relating to Offer/Answer negotiation and
     encoding parameters remain, as described in [[!WEBRTC]] Section 5.2: 
-    "{{setParameters}} does not cause SDP renegotiation and can
+    "{{RTCRtpSender/setParameters()}} does not cause SDP renegotiation and can
     only be used to change what the media stack is sending or receiving within the
     envelope negotiated by Offer/Answer."</p>
     <p>The configuration of SVC-capable codecs implemented in browsers fits within this
@@ -99,46 +83,46 @@
       <h2>Error handling</h2>
       <p>
         [[!WEBRTC]] Section 5.2 describes error handling in
-        {{setParameters}}, including use of {{RTCError}}
-        to indicate a "hardware-encoder-error" due to an unsupported encoding
-        parameter, as well as <code>OperationError</code> for other errors.
+        {{RTCRtpSender/setParameters()}}, including use of {{RTCError}}
+        to indicate a {{RTCErrorDetailType/"hardware-encoder-error"}} due to an unsupported encoding
+        parameter, as well as {"OperationError"} for other errors.
         Implementations of this specification utilize {{RTCError}}
-        and <code>OperationError</code> in the prescribed manner when an invalid
-        <code>scalabilityMode</code> value is provided to 
-        {{setParameters}} or {{addTransceiver}}.
+        and {"OperationError"} in the prescribed manner when an invalid
+        {{RTCRtpEncodingParameters/scalabilityMode}} value is provided to 
+        {{RTCRtpSender/setParameters()}} or {{RTCPeerConnection/addTransceiver()}}.
       </p>
       <p>
-        Note that since the {{addTransceiver}} and
-        {{setCodecPreferences}} methods can be called
+        Note that since the {{RTCPeerConnection/addTransceiver()}} and
+        {{RTCRtpTransceiver/setCodecPreferences()}} methods can be called
         before the Offer/Answer negotiation has concluded, the negotiated
         codec and its capabilities may not be known, and it is
-        possible that the <code>scalabilityMode</code> values configured in
-        <code>sendEncodings</code> cannot be applied due to incompatibility with
+        possible that the {{RTCRtpEncodingParameters/scalabilityMode}} values configured in
+        {{RTCRtpTransceiverInit/sendEncodings}} cannot be applied due to incompatibility with
         the eventually selected codec. Since this cannot be determined at the
-        time {{addTransceiver}} is called, an error may only
-        be detected if a <code>scalabilityMode</code> value is invalid for any
+        time {{RTCPeerConnection/addTransceiver()}} is called, an error may only
+        be detected if a {{RTCRtpEncodingParameters/scalabilityMode}} value is invalid for any
         supported codec. In order for the application to determine whether the
-        requested <code>scalabilityMode</code> values have been applied,  the
-        <code><a>RTCRtpSender</a>.getParameters</code> method can be called
+        requested {{RTCRtpEncodingParameters/scalabilityMode}} values have been applied,  the
+        {{RTCRtpSender.getParameters()}} method can be called
         after negotiation has completed and the sending codec has been determined.
         If the configuration is not satisfactory, the application can utilize
-        {{setParameters}} to change it.
+        {{RTCRtpSender/setParameters()}} to change it.
       </p>
       <p>
         To influence the Offer/Answer negotiation so as to make it more likely
-        that the desired <code>scalabilityMode</code> values can be applied,
-        {{setCodecPreferences}} can be used to limit the
+        that the desired {{RTCRtpEncodingParameters/scalabilityMode}} values can be applied,
+        {{RTCRtpTransceiver/setCodecPreferences()}} can be used to limit the
         negotiated codecs to those supporting the desired configuration.
         For example, if it is desired to support temporal scalability as well as
-        spatial adaptation, when {{addTransceiver}} is called,
-        <code>sendEncodings</code> can be configured so as to send
+        spatial adaptation, when {{RTCPeerConnection/addTransceiver()}} is called,
+        {{RTCRtpTransceiverInit/sendEncodings}} can be configured so as to send
         multiple simulcast streams with different resolutions, with each stream
         utilizing temporal scalability. Since temporal scalability is supported
         by the VP8, VP9 and AV1 codecs, such a configuration could be applied
         if any of these codecs were negotiated. In the event that H.264/AVC was
         negotiated, temporal scalability would not be available, but
         simulcast with different resolutions would be applied. If this was
-        unsatisfactory, a subsequent call to {{setParameters}}
+        unsatisfactory, a subsequent call to {{RTCRtpSender/setParameters()}}
         could be used to adjust the parameters within the envelope negotiated
         in Offer/Answer.
       </p>
@@ -147,14 +131,14 @@
         encoder can send (e.g. an H.264/SVC decoder), the <code>getCapabilities</code>
         method can be used to retrieve the scalability modes supported by the decoder
         and encoder. By exchanging capabilities, the application can compute the
-        intersection of the <code>scalabilityMode</code> values supported by the
-        local and remote peers, enabling it to configure <code>scalabilityMode</code>
+        intersection of the {{RTCRtpEncodingParameters/scalabilityMode}} values supported by the
+        local and remote peers, enabling it to configure {{RTCRtpEncodingParameters/scalabilityMode}}
         values supported by both the local and remote peers using the
-        {{addTransceiver}} and {{setParameters}} methods.
+        {{RTCPeerConnection/addTransceiver()}} and {{RTCRtpSender/setParameters()}} methods.
         However, in situations where SVC modes are negotiated in SDP Offer/Answer,
-        {{setParameters}} can only change <code>scalabilityMode</code>
+        {{RTCRtpSender/setParameters()}} can only change {{RTCRtpEncodingParameters/scalabilityMode}}
         values within the envelope negotiated by Offer/Answer, resulting in an error
-        if the requested <code>scalabilityMode</code> value is outside this envelope.
+        if the requested {{RTCRtpEncodingParameters/scalabilityMode}} value is outside this envelope.
       </p>
     </section>
   </section>
@@ -170,11 +154,10 @@
           <h2>Dictionary <a class="idlType">RTCRtpEncodingParameters</a> Members</h2>
           <dl data-link-for="RTCRtpEncodingParameters" data-dfn-for=
           "RTCRtpEncodingParameters" class="dictionary-members">
-            <dt><dfn data-idl><code>scalabilityMode</code></dfn> of type <span class=
-            "idlMemberType">DOMString</span></dt>
+            <dt><dfn data-idl>scalabilityMode</dfn> of type {{DOMString}}</dt>
             <dd>
               <p>An identifier of the scalability mode to be used for this stream.
-              The <code>scalabilityMode</code> selected MUST be one of the scalability modes
+              The {{RTCRtpEncodingParameters/scalabilityMode}} selected MUST be one of the scalability modes
               supported for the codec, as indicated in {{RTCRtpCodecCapability}}.
               Scalability modes are defined in Section 6.</p>
             </dd>
@@ -183,33 +166,32 @@
       </div>
     </section>
     <section id="rtcrtpcodeccapability*">
-      <h3>RTCRtpCodecCapability Dictionary Extensions</h3>
+      <h3>{{RTCRtpCodecCapability}} Dictionary Extensions</h3>
       <div>
         <pre class="idl">partial dictionary RTCRtpCodecCapability {
              sequence&lt;DOMString&gt;           scalabilityModes;
 };</pre>
         <section>
-          <h2>Dictionary <a class="idlType">RTCRtpCodecCapability</a> Members</h2>
+          <h2>Dictionary {{RTCRtpCodecCapability}} Members</h2>
           <dl data-link-for="RTCRtpCodecCapability" data-dfn-for=
           "RTCRtpCodecCapability" class="dictionary-members">
-            <dt><dfn data-idl><code>scalabilityModes</code></dfn> of type <span class=
-            "idlMemberType">sequence&lt;DOMString&gt;</span></dt>
+            <dt><dfn data-idl>scalabilityModes</dfn> of type <code>sequence&lt;{{DOMString}}&gt;</code></dt>
             <dd>
               <p>An sequence of the scalability modes (defined in Section 6) supported by the encoder
               implementation.</p>
-              <p>In response to a call to <code><a>RTCRtpSender</a>.getCapabilities(<var>kind</var>)</code>,
+              <p>In response to a call to {{RTCRtpSender}}<code>.getCapabilities(<var>kind</var>)</code>,
               conformant implementations of this specification MUST return a sequence of
               scalability modes supported by each codec of that <var>kind</var>.  If a codec does not support
-              encoding of any scalability modes, then the <code>scalabilityModes</code> member
+              encoding of any scalability modes, then the {{scalabilityModes}} member
               is not provided.</p>
-              <p>In response to a call to <code><a>RTCRtpReceiver</a>.getCapabilities(<var>kind</var>)</code>,
+              <p>In response to a call to {{RTCRtpReceiver}}<code>.getCapabilities(<var>kind</var>)</code>,
               decoders that do not support decoding of scalability modes (e.g. an H.264/AVC decoder) or that are required
               to decode any scalability mode (such as compliant VP8, VP9 and AV1 decoders)
-              omit the <code>scalabilityModes</code> member. However, decoders that only support
+              omit the {{scalabilityModes}} member. However, decoders that only support
               decoding of a subset of scalability modes MUST return a sequence of the scalability
               modes supported by that codec.</p>
               <p class="note">
-                  The <code>scalabilityModes</code> sequence represents the scalability modes supported
+                  The {{scalabilityModes}} sequence represents the scalability modes supported
                   by a user agent. While the user agent's SVC capabilities are assumed to be static, this
                   may not be the case for a Selective Forwarding Unit (SFU), whose ability to forward SVC
                   modes may depend on the negotiated header extensions.  For example, if the SFU cannot parse
@@ -217,9 +199,9 @@
                   confidential), then negotiation of an RTP header extension (such as the AV1 Descriptor
                   defined in Appendix A of [[AV1-RTP]] or frame marking [[FRAME-MARKING]]) may be required
                   to enable the SFU to forward scalability modes.  As a result, an application may choose
-                  to exchange <code>scalabilityModes</code> with an SFU after the initial offer/answer
-                  negotiation, so that the SFU's supported <code>scalabilityModes</code> can be determined,
-                  allowing the application to compute the intersection of supported <code>scalabilityModes</code>.
+                  to exchange {{scalabilityModes}} with an SFU after the initial offer/answer
+                  negotiation, so that the SFU's supported {{scalabilityModes}} can be determined,
+                  allowing the application to compute the intersection of supported {{scalabilityModes}}.
               </p>
             </dd>
           </dl>
@@ -470,37 +452,37 @@
       </tbody>
     </table>
     <section id="addingmodes*">
-      <h3>Guidelines for addition of <code>scalabilityMode</code> values</h3>
-      <p>When proposing a <code>scalabilityMode</code> value, the following principles should be followed:</p>
+      <h3>Guidelines for addition of {{RTCRtpEncodingParameters/scalabilityMode}} values</h3>
+      <p>When proposing a {{RTCRtpEncodingParameters/scalabilityMode}} value, the following principles should be followed:</p>
         <ol>
           <li>
-            The proposed <code>scalabilityMode</code> MUST define entries to the table in
+            The proposed {{RTCRtpEncodingParameters/scalabilityMode}} MUST define entries to the table in
             Section 6, including values for the Scalabilty Mode Identifier, spatial and
             temporal layers, Resolution Ratio and Inter-layer dependency.
           </li>
           <li>
             The Scalability Mode Identifier SHOULD be consistent with naming schemes used
             in existing specifications such as [[AV1]] Section 6.7.5. The AV1 naming scheme
-            utilizes  "LxTy" to denote a <code>scalabilityMode</code> with <code>x</code>
-            spatial layers using a 2:1 resolution ratio and <code>y</code> temporal layers.
-            "LxTyh" denotes <code>x</code> spatial layers with a 1.5:1 resolution ratio and
-            <code>y</code> temporal layers. "SxTy" denotes a <code>scalabilityMode</code>
-            with <code>x</code> simulcast encodings with a 2:1 resolution ratio, with each
-            simulcast encoding containing <code>y</code> temporal layers. "SxTyh" denotes
-            a 1.5:1 resolution ratio. In addition, [[AV1]] Section 6.7.5 defines "LxTy_KEY"
-            and "LxTy_KEY_SHIFT" modes.
+            utilizes  <code>L<var>x</var>T<var>y</var></code> to denote a {{RTCRtpEncodingParameters/scalabilityMode}} with <var>x</var>
+            spatial layers using a 2:1 resolution ratio and <var>y</var> temporal layers.
+            <code>L<var>x</var>T<var>y</var>h</code> denotes <var>x</var> spatial layers with a 1.5:1 resolution ratio and
+            <var>y</var> temporal layers. <code>S<var>x</var>T<var>y</var></code> denotes a {{RTCRtpEncodingParameters/scalabilityMode}}
+            with <var>x</var> simulcast encodings with a 2:1 resolution ratio, with each
+            simulcast encoding containing <var>y</var> temporal layers. <code>S<var>x</var>T<var>y</var></code> denotes
+            a 1.5:1 resolution ratio. In addition, [[AV1]] Section 6.7.5 defines <code>L<var>x</var>T<var>y</var>_KEY</code>
+            and <code>L<var>x</var>T<var>y</var>_KEY_SHIFT</code> modes.
           </li>
           <li>
-            If the new <code>scalabilityMode</code> does not reference a dependency diagram
+            If the new {{RTCRtpEncodingParameters/scalabilityMode}} does not reference a dependency diagram
             defined within an existing specification, then a dependency diagram MUST be
             supplied.
           </li>         
         </ol>
     </section>
   </section>
-  <section id="rtcrtpencodingparameters-example*">
+  <section id="rtcrtpencodingparameters-example*" class="informative" >
       <h3>Examples</h3>
-        <section class="informative" id="simulcasttemporal-example*">
+        <section id="simulcasttemporal-example*">
           <h4>Spatial Simulcast and Temporal Scalability</h4>
           <pre class="example highlight">
 const signaling = new SignalingChannel(); // handles JSON.stringify/parse
@@ -565,7 +547,7 @@ signaling.onmessage = async ({data: {description, candidate}}) => {
 };       
 </pre>
     </section>
-        <section class="informative" id="spatialtemporal-examples*">
+        <section id="spatialtemporal-examples*">
           <h4>Spatial and Temporal Scalability</h4>
           <pre class="example highlight">
 // Example of 1 spatial layer + 2 temporal layers
@@ -579,7 +561,7 @@ var sendEncodings = [
 ];
 </pre>
     </section>
-    <section class="informative" id="sender-getcapabilities-example*">
+    <section id="sender-getcapabilities-example*">
        <h4>SVC Encoder Capabilities</h4>
        <pre class="example highlight">
 // Capabilities returned by RTCRtpSender.getCapabilities('video').codecs[]
@@ -733,7 +715,7 @@ var sendEncodings = [
 ]
 </pre>
     </section>
-        <section class="informative" id="sfu-getcapabilities-example*">
+        <section id="sfu-getcapabilities-example*">
        <h4>SFU Capabilities</h4>
        <pre class="example highlight">
 // RTCRtpReceiver.getCapabilities('video').codecs[] returned by 
@@ -760,7 +742,7 @@ var sendEncodings = [
 ]
 </pre>
     </section>
-    <section class="informative" id="receiver-getcapabilities-example*">
+    <section id="receiver-getcapabilities-example*">
        <h4>SVC Decoder Capabilities</h4>
        <pre class="example highlight">
 // RTCRtpReceiver.getCapabilities('video').codecs[] returned by a browser that can
@@ -795,7 +777,7 @@ var sendEncodings = [
 </pre>
     </section>
     </section>
-  <section id="privacy-security">
+  <section class="informative"  id="privacy-security">
     <h2>Privacy and Security Considerations</h2>
     <p>This section is non-normative; it specifies no new behaviour, but
     instead summarizes information already present in other parts of the
@@ -829,7 +811,7 @@ var sendEncodings = [
         communicate using ICE. This ensures that the UA can only send to
         partners who you have shared credentials with.</li>
         <li>An UA will always request ongoing permission to continue sending
-        using ICE consent [[!RFC7675]]. This enables a receiver to withdraw
+        using ICE consent [[RFC7675]]. This enables a receiver to withdraw
         consent to receive.</li>
         <li>An UA will always encrypt data, with strong per-session keying.</li>
         <li>An UA will always use congestion control. This ensures that QUIC
@@ -846,13 +828,13 @@ var sendEncodings = [
     <section>
       <h2>Persistent information</h2>
       <p>The WebRTC API exposes information about the
-      underlying media system via the <code><a>RTCRtpSender</a>.getCapabilities</code>
-      and <code><a>RTCRtpReceiver</a>getCapabilities</code> methods, including
+      underlying media system via the {{RTCRtpSender}}<code>.getCapabilities</code>
+      and {{RTCRtpReceiver}}<code>.getCapabilities</code> methods, including
       detailed and ordered information about the codecs that the system is able
       to produce and consume. The WebRTC-SVC extension adds supported SVC modes
       to that information, which is in most cases persistent across time and origins,
       therefore increasing the fingerprint surface. However, the supported
-      <code>scalabilityModes</code> does not provide information on which codecs
+      {{RTCRtpCodecCapability/scalabilityModes}} does not provide information on which codecs
       are implemented in hardware, and which are only available in software.</p>
     </section>
   </section>
