@@ -781,20 +781,25 @@ var sendEncodings = [
     <h2>Privacy and Security Considerations</h2>
     <p>This section is non-normative; it specifies no new behaviour, but
     instead summarizes information already present in other parts of the
-    specification. The overall security considerations of the
-    APIs and protocols used in WebRTC are described in
-    [[RTCWEB-SECURITY-ARCH]] as well as [[WEBRTC]] Section 15.</p>
+    specification. WebRTC protocol security considerations are described
+    in [[RTCWEB-SECURITY-ARCH]] and the security and privacy considerations
+    for the WebRTC APIs are described in [[WEBRTC]] Section 13.</p>
     <section>
       <h2>Persistent information</h2>
       <p>The WebRTC API exposes information about the
       underlying media system via the {{RTCRtpSender}}<code>.getCapabilities</code>
       and {{RTCRtpReceiver}}<code>.getCapabilities</code> methods, including
       detailed and ordered information about the codecs that the system is able
-      to produce and consume. The WebRTC-SVC extension adds supported SVC modes
-      to that information, which is in most cases persistent across time and origins,
-      therefore increasing the fingerprint surface. However, the supported
-      {{RTCRtpCodecCapability/scalabilityModes}} does not provide information on which codecs
-      are implemented in hardware, and which are only available in software.</p>
+      to produce and consume.</p>
+      <p>The WebRTC-SVC extension adds supported SVC modes to that information,
+      which is in most cases persistent across time and origins, therefore 
+      increasing the fingerprint surface. Since SVC modes are rarely supported
+      in hardware, the supported {{RTCRtpCodecCapability/scalabilityModes}} does
+      not provide additional information on which codecs are implemented in hardware,
+      and which are only available in software. However, since browsers may
+      differ in their support for SVC modes, the supported scalability modes
+      may allow differentiation between browsers.
+      </p>
     </section>
   </section>
 </body>
