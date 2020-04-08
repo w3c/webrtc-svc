@@ -43,16 +43,6 @@ var respecConfig = {
       "href": "https://www.iana.org/assignments/stun-parameters/stun-parameters.xhtml#stun-parameters-6",
       "publisher": "IANA"
     },
-    "AV1": {
-      "title": "AV1 Bitstream & Decoding Process Specification",
-      "href": "https://aomediacodec.github.io/av1-spec/av1-spec.pdf",
-      "authors": [
-        "Peter de Rivaz",
-        "Jack Haughton"
-      ],
-      "status": "January 8, 2019",
-      "publisher": "Alliance for Open Media"
-    },
     "AV1-RTP": {
       "title": "RTP Payload Format for AV1",
       "href": "https://aomediacodec.github.io/av1-rtp-spec/",
@@ -73,111 +63,7 @@ var respecConfig = {
       "status": "21 November 2019",
       "publisher": "IETF"
     },
-    "JSEP": {
-      "title": "Javascript Session Establishment Protocol",
-      "href": "https://tools.ietf.org/html/draft-ietf-rtcweb-jsep",
-      "authors": [
-        "J. Uberti",
-        "C. Jennings",
-        "E. Rescorla"
-      ],
-      "status": "27 February 2019. Internet Draft (work in progress)",
-      "publisher": "IETF"
-    },
-    "RFC6184": {
-      "title": "RTP Payload Format for H.264 Video",
-      "href": "https://tools.ietf.org/html/rfc6184",
-      "authors": [
-        "Y.-K.. Wang",
-        "R. Even",
-        "T. Kristensen",
-        "R. Jesup"
-      ],
-      "status": "May 2011. RFC",
-      "publisher": "IETF"
-    },
-    "RFC6190": {
-      "title": "RTP Payload Format for Scalable Video Coding",
-      "href": "https://tools.ietf.org/html/rfc6190",
-      "authors": [
-        "S. Wenger",
-        "Y.-K. Wang",
-        "T. Schierl",
-        "A. Eleftheriadis"
-      ],
-      "status": "May 2011. RFC",
-      "publisher": "IETF"
-    },
-    "RFC6386": {
-      "title": "VP8 Data Format and Decoding Guide",
-      "href": "https://tools.ietf.org/html/rfc6386",
-      "authors": [
-        "J. Bankoski",
-        "J. Koleszar",
-        "L. Quillio",
-        "J. Salonen",
-        "Y. Xu"
-      ],
-      "status": "November 2011. RFC",
-      "publisher": "IETF"
-    },
-    "RFC7741": {
-      "title": "RTP Payload Format for VP8 Video",
-      "href": "https://tools.ietf.org/html/rfc7741",
-      "authors": [
-        "P. Westin",
-        "H. Lundin",
-        "M. Glover",
-        "J. Uberti",
-        "F. Galligan"
-      ],
-      "status": "March 2016. RFC",
-      "publisher": "IETF"
-    },
-    "MMUSIC-RID": {
-      "title": "RTP Payload Format Restrictions",
-      "href": "https://tools.ietf.org/html/draft-ietf-mmusic-rid",
-      "authors": [
-        "P. Thatcher",
-        "M. Zanaty",
-        "S. Nandakumar",
-        "B. Burman",
-        "A. Roach",
-        "B. Campen"
-      ],
-      "status": "16 November 2018. Internet Draft (work in progress)",
-      "publisher": "IETF"
-    },
-    "RID": {
-      "title": "RTP Stream Identifier Source Description (SDES)",
-      "href": "https://tools.ietf.org/html/draft-ietf-avtext-rid",
-      "authors": [
-        "A. Roach",
-        "S. Nandakumar",
-        "P. Thatcher"
-      ],
-      "status": "06 October 2016. Internet Draft (work in progress)",
-      "publisher": "IETF"
-    },
-    "RTCWEB-SECURITY": {
-      "title": "Security Considerations for WebRTC",
-      "href": "https://tools.ietf.org/html/draft-ietf-rtcweb-security",
-      "authors": [
-        "E. Rescorla"
-      ],
-      "status": "05 July 2019. Internet Draft (work in progress)",
-      "publisher": "IETF"
-    },
-    "RTCWEB-SECURITY-ARCH": {
-      "title": "WebRTC Security Architecture",
-      "href": "https://tools.ietf.org/html/draft-ietf-rtcweb-security-arch",
-      "authors": [
-        "E. Rescorla"
-      ],
-      "status": "21 July 2019. Internet Draft (work in progress)",
-      "publisher": "IETF"
-    },
-    "VP9": {
+   "VP9": {
       "title": "VP9 Bitstream & Decoding Process Specification",
       "href": "https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf",
       "authors": [
@@ -200,16 +86,6 @@ var respecConfig = {
       ],
       "status": "24 July 2019. Internet Draft (work in progress)",
       "publisher": "IETF"
-    },
-    "WEBRTC-STATS": {
-      "title": "Identifiers for WebRTC's Statistics API",
-      "href": "https://w3c.github.io/webrtc-stats/",
-      "authors": [
-        "Harald Alvestrand",
-        "Varun Singh"
-      ],
-      "status": "15 January 2020 (work in progress)",
-      "publisher": "W3C"
     }
   }
 }
