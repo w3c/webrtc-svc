@@ -6,10 +6,12 @@ var respecConfig = {
   editors:  [
     //              { name: "Your Name", url: "http://example.org/",
     //                company: "Your Company", companyURL: "http://example.com/" },
-    { name: "Peter Thatcher", company: "Google", w3cid: "68236" },
     { name: "Bernard Aboba", company: "Microsoft Corporation",
       w3cid: "65611"
     }
+  ],
+  formerEditors: [
+    { name: "Peter Thatcher", company: "Google", w3cid: "68236", retiredDate: "2019-12-31" }
   ],
   authors: [
   ],
