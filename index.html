@@ -786,20 +786,24 @@ var sendEncodings = [
     for the WebRTC APIs are described in [[WEBRTC]] Section 13.</p>
     <section>
       <h2>Persistent information</h2>
-      <p>The WebRTC API exposes information about the
-      underlying media system via the {{RTCRtpSender}}<code>.getCapabilities</code>
-      and {{RTCRtpReceiver}}<code>.getCapabilities</code> methods, including
+      <p>The WebRTC API exposes information about the underlying media system
+      via the {{RTCRtpSender}}<code>.getCapabilities</code> and
+      {{RTCRtpReceiver}}<code>.getCapabilities</code> methods, including
       detailed and ordered information about the codecs that the system is able
-      to produce and consume.</p>
-      <p>The WebRTC-SVC extension adds supported SVC modes to that information,
-      which is in most cases persistent across time and origins, therefore 
-      increasing the fingerprint surface. Since SVC modes are rarely supported
-      in hardware, the supported {{RTCRtpCodecCapability/scalabilityModes}} does
-      not provide additional information on which codecs are implemented in hardware,
-      and which are only available in software. However, since browsers may
-      differ in their support for SVC modes, the supported scalability modes
-      may allow differentiation between browsers.
-      </p>
+      to produce and consume. The WebRTC-SVC extension adds the
+      {{RTCRtpCodecCapability/scalabilityModes}} supported by the {{RTCRtpSender}}
+      to that information, which is persistent across time, therefore increasing
+      the fingerprint surface. Since for SVC codecs implemented in WebRTC
+      compliant decoders are required to be able to decode all scalability modes,
+      additional information is not provided relating to the {{RTCRtpReceiver}}.</p>
+      <p>Since for SVC codecs implemented in WebRTC the use of scalable coding tools
+      is not negotiated and is independent of the supported profiles, the
+      {{RTCRtpCodecCapability/scalabilityModes}} supported by the {{RTCRtpSender}}
+      does not provide additional information on the underlying hardware.
+      Since browsers may differ in their support for SVC modes, the supported
+      {{RTCRtpCodecCapability/scalabilityModes}} may initially permit differentiation
+      between browsers. This additional fingerprint surface is expected to decrease
+      over time as this specification is more widely implemented.</p>
     </section>
   </section>
 </body>
