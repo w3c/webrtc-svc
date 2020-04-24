@@ -156,7 +156,7 @@
           "RTCRtpEncodingParameters" class="dictionary-members">
             <dt><dfn data-idl>scalabilityMode</dfn> of type {{DOMString}}</dt>
             <dd>
-              <p>An identifier of the scalability mode to be used for this stream.
+              <p>A case-sensitive identifier of the scalability mode to be used for this stream.
               The {{RTCRtpEncodingParameters/scalabilityMode}} selected MUST be one of the scalability modes
               supported for the codec, as indicated in {{RTCRtpCodecCapability}}.
               Scalability modes are defined in Section 6.</p>
@@ -213,7 +213,7 @@
      <h3>Scalability modes</h3>
      <p>The scalability modes supported in this specification, as well as their associated
      identifiers and characteristics, are provided in the table below. The syntax
-     for naming scalability modes is taken from [[AV1]] Section 6.7.5, which also
+     for naming scalability modes is case sensitive and is taken from [[AV1]] Section 6.7.5, which also
      provides additional information on the modes, including dependency diagrams.</p>
      <p>While [[AV1]] and VP9 [[VP9-PAYLOAD]] implementations can support
      all the modes defined in the table, other codecs cannot. For example, VP8
