@@ -520,7 +520,7 @@ async function start() {
       sendEncodings: [
         {rid: 'q', scaleResolutionDownBy: 4.0, scalabilityMode: 'L1T3'}
         {rid: 'h', scaleResolutionDownBy: 2.0, scalabilityMode: 'L1T3'},
-        {rid: 'f', scalabilityMode: 'L1T3'},
+        {rid: 'f', scaleResolutionDownBy: 1.0, scalabilityMode: 'L1T3'},
       ]
    // Example of 3 spatial simulcast layers + 3 temporal layers on a single SSRC
    //    sendEncodings: [
@@ -722,7 +722,7 @@ var sendEncodings = [
        <h4>SFU Capabilities</h4>
        <pre class="example highlight">
 // RTCRtpReceiver.getCapabilities('video').codecs[] returned by 
-// SFU that can only forward VP8 and VP9 temporal scalability modes
+// SFU that only supports forwarding of VP8, VP9 and AV1 temporal scalability modes
  "codecs": [
     {
       "clockRate": 90000,
@@ -735,6 +735,16 @@ var sendEncodings = [
     {
       "clockRate": 90000,
       "mimeType": "video/VP9",
+      "scalabilityModes": [
+        "L1T2",
+        "L1T3",
+        "L1T2h",
+        "L1T3h"
+      ]
+    },
+    {
+      "clockRate": 90000,
+      "mimeType": "video/AV1",
       "scalabilityModes": [
         "L1T2",
         "L1T3",
