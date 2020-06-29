@@ -108,6 +108,9 @@
         If the configuration is not satisfactory, the application can utilize
         {{RTCRtpSender/setParameters()}} to change it.
       </p>
+    </section>
+    <section id="negotiation">
+      <h2>Negotiation</h2>
       <p>
         To influence the Offer/Answer negotiation so as to make it more likely
         that the desired {{RTCRtpEncodingParameters/scalabilityMode}} values can be applied,
@@ -126,9 +129,6 @@
         could be used to adjust the parameters within the envelope negotiated
         in Offer/Answer.
       </p>
-    </section>
-    <section id="negotiation">
-      <h2>Negotiation</h2> 
       <p>
         In situations where the decoder cannot necessarily decode anything that an
         encoder can send (e.g. an H.264/SVC decoder), the <code>getCapabilities</code>
