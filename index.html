@@ -92,53 +92,54 @@
         {{RTCRtpSender/setParameters()}} or {{RTCPeerConnection/addTransceiver()}}.
       </p>
       <p>
-        Note that since the {{RTCPeerConnection/addTransceiver()}} and
-        {{RTCRtpTransceiver/setCodecPreferences()}} methods can be called
-        before the Offer/Answer negotiation has concluded, the negotiated
-        codec and its capabilities may not be known, and it is
-        possible that the {{RTCRtpEncodingParameters/scalabilityMode}} values configured in
-        {{RTCRtpTransceiverInit/sendEncodings}} cannot be applied due to incompatibility with
-        the eventually selected codec. Since this cannot be determined at the
-        time {{RTCPeerConnection/addTransceiver()}} is called, an error may only
-        be detected if a {{RTCRtpEncodingParameters/scalabilityMode}} value is invalid for any
-        supported codec. In order for the application to determine whether the
-        requested {{RTCRtpEncodingParameters/scalabilityMode}} values have been applied,  the
-        {{RTCRtpSender.getParameters()}} method can be called
+        When the {{RTCPeerConnection/addTransceiver()}} and
+        {{RTCRtpTransceiver/setCodecPreferences()}} methods are called
+        prior to conclusion of the Offer/Answer negotiation, the negotiated
+        codec and its capabilities may not be known. In this situation the
+        {{RTCRtpEncodingParameters/scalabilityMode}} values configured
+        in {{RTCRtpTransceiverInit/sendEncodings}} may not be supported
+        by the eventually negotiated codec. However, an error will result only
+        if the requested {{RTCRtpEncodingParameters/scalabilityMode}} value is
+        invalid for any supported codec. To determine whether the requested
+        {{RTCRtpEncodingParameters/scalabilityMode}} values have been applied,
+        an application can call the {{RTCRtpSender.getParameters()}} method
         after negotiation has completed and the sending codec has been determined.
-        If the configuration is not satisfactory, the application can utilize
-        {{RTCRtpSender/setParameters()}} to change it.
+        If the configuration is not satisfactory, the
+        {{RTCRtpSender/setParameters()}} method can be used to change it.
       </p>
     </section>
     <section id="negotiation">
       <h2>Negotiation</h2>
       <p>
-        To influence the Offer/Answer negotiation so as to make it more likely
-        that the desired {{RTCRtpEncodingParameters/scalabilityMode}} values can be applied,
-        {{RTCRtpTransceiver/setCodecPreferences()}} can be used to limit the
-        negotiated codecs to those supporting the desired configuration.
-        For example, if it is desired to support temporal scalability as well as
-        spatial adaptation, when {{RTCPeerConnection/addTransceiver()}} is called,
+        So as to ensure that the desired {{RTCRtpEncodingParameters/scalabilityMode}}
+        values can be applied, {{RTCRtpTransceiver/setCodecPreferences()}} can be
+        used to limit the negotiated codecs to those supporting the desired configuration.
+        For example, if temporal scalability is desired along with spatial simulcast,
+        when {{RTCPeerConnection/addTransceiver()}} is called,
         {{RTCRtpTransceiverInit/sendEncodings}} can be configured so as to send
         multiple simulcast streams with different resolutions, with each stream
-        utilizing temporal scalability. Since temporal scalability is supported
-        by the VP8, VP9 and AV1 codecs, such a configuration could be applied
-        if any of these codecs were negotiated. In the event that H.264/AVC was
-        negotiated, temporal scalability would not be available, but
-        simulcast with different resolutions would be applied. If this was
-        unsatisfactory, a subsequent call to {{RTCRtpSender/setParameters()}}
-        could be used to adjust the parameters within the envelope negotiated
-        in Offer/Answer.
+        utilizing temporal scalability. If only the VP8, VP9 and AV1 codecs
+        support temporal scalability, {{RTCRtpTransceiver/setCodecPreferences()}}
+        can be used to remove the H.264/AVC codec from the Offer, guaranteeing that
+        a codec supporting temporal scalability is negotiated.
       </p>
       <p>
-        In situations where the decoder cannot necessarily decode anything that an
-        encoder can send (e.g. an H.264/SVC decoder), the <code>getCapabilities</code>
-        method can be used to retrieve the scalability modes supported by the decoder
-        and encoder. By exchanging capabilities, the application can compute the
-        intersection of the {{RTCRtpEncodingParameters/scalabilityMode}} values supported by the
-        local and remote peers, enabling it to configure {{RTCRtpEncodingParameters/scalabilityMode}}
-        values supported by both the local and remote peers using the
+        There are situations where a peer may only support reception of a subset
+        of codecs and scalability modes. For example, an SFU that parses codec
+        payloads to make forwarding decisions may only support temporal
+        scalability with the VP8 and VP9 codecs. As another example, browser that
+        can decode any scalability mode of VP8 and VP9 may not support AV1
+        decoding and can only support decoding of H.264/SVC temporal
+        scalability modes.  In these situations, the {{RTCRtpReceiver/getCapabilities}} 
+        method can be used to determine the scalability modes supported by
+        the receiver, and the {{RTCRtpSender/getCapabilities}} method can
+        be used to determine the scalability modes supported by the sender.
+        After exchanging capabilities and computing their intersection,
+        the application can compute the intersection of the
+        {{RTCRtpEncodingParameters/scalabilityMode}} values supported by both the
+        local and remote peers. These values can then be used by the
         {{RTCPeerConnection/addTransceiver()}} and {{RTCRtpSender/setParameters()}} methods.
-        However, in situations where SVC modes are negotiated in SDP Offer/Answer,
+        Note that where SVC support is negotiated in SDP Offer/Answer,
         {{RTCRtpSender/setParameters()}} can only change {{RTCRtpEncodingParameters/scalabilityMode}}
         values within the envelope negotiated by Offer/Answer, resulting in an error
         if the requested {{RTCRtpEncodingParameters/scalabilityMode}} value is outside this envelope.
