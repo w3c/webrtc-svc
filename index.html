@@ -113,6 +113,19 @@
         {{RTCRtpEncodingParameters/scalabilityMode}} values within the envelope
         negotiated by Offer/Answer, resulting in an error if the requested
         {{RTCRtpEncodingParameters/scalabilityMode}} value is outside this envelope.
+        For example, when {{RTCRtpTransceiverInit/sendEncodings}} is used to
+        request the sending of multiple simulcast streams using
+        {{RTCPeerConnection/addTransceiver()}, it is not possible to
+        simultaneously configure the sending of "S" scalability modes.
+        That is, the browser may only be configured to send simulcast
+        encodings with multiple SSRCs and RIDs, or alternatively, it
+        may be configured to send all simulcast encodings on a single SSRC.
+        An attempt to utilize both of these techniques will result in
+        {{OperationError}} in {{RTCRtpSender/setParameters()}} or
+        {{RTCPeerConnection/addTransceiver()} when an
+        {{RTCRtpEncodingParameters/scalabilityMode}} value is an
+        "S" mode and multiple encodings are also requested.
+      </p>
       </p>
     </section>
     <section id="negotiation">
@@ -147,6 +160,14 @@
         {{RTCRtpEncodingParameters/scalabilityMode}} values supported by both the
         local and remote peers. These values can then be provided to the
         {{RTCPeerConnection/addTransceiver()}} and {{RTCRtpSender/setParameters()}} methods.
+      </p>
+      <p>
+        Utilizing capabilities exchange, a browser can determine whether an SFU
+        supports receiving simulcast encodings on a single SSRC, and if so,
+        how many encodings the SFU can support. For example, an SFU that can
+        only support reception of a maximum of 3 simulcast encodings on a single
+        SSRC with the AV1 codec should only indicate support of the "S2T1" and "S3T1"
+        scalability modes in its AV1 capabilities.
       </p>
     </section>
   </section>
