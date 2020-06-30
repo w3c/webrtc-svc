@@ -119,12 +119,10 @@
         simultaneously configure the sending of "S" scalability modes.
         That is, the browser may only be configured to send simulcast
         encodings with multiple SSRCs and RIDs, or alternatively, it
-        may be configured to send all simulcast encodings on a single SSRC.
-        An attempt to utilize both of these techniques will result in
+        to send all simulcast encodings on a single SSRC. Attempting
+        to simultaneously utilize both transport techniques will result in
         {{OperationError}} in {{RTCRtpSender/setParameters()}} or
-        {{RTCPeerConnection/addTransceiver()} when an
-        {{RTCRtpEncodingParameters/scalabilityMode}} value is an
-        "S" mode and multiple encodings are also requested.
+        {{RTCPeerConnection/addTransceiver()}.
       </p>
     </section>
     <section id="negotiation">
@@ -165,8 +163,8 @@
         supports receiving simulcast encodings on a single SSRC, and if so,
         how many encodings the SFU can support. For example, an SFU that can
         only support reception of a maximum of 2 simulcast encodings on a single
-        SSRC with the AV1 codec should only indicate support of the "S2T1"
-        scalability mode in its AV1 capabilities.
+        SSRC with the AV1 codec should only indicate support of the "S2T1" and "S2T1h"
+        scalability modes in its AV1 capabilities.
       </p>
     </section>
   </section>
