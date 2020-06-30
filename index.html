@@ -107,6 +107,13 @@
         If the configuration is not satisfactory, the
         {{RTCRtpSender/setParameters()}} method can be used to change it.
       </p>
+      <p>
+         Note that where SVC support is negotiated in SDP Offer/Answer,
+        {{RTCRtpSender/setParameters()}} can only change
+        {{RTCRtpEncodingParameters/scalabilityMode}} values within the envelope
+        negotiated by Offer/Answer, resulting in an error if the requested
+        {{RTCRtpEncodingParameters/scalabilityMode}} value is outside this envelope.
+      </p>
     </section>
     <section id="negotiation">
       <h2>Negotiation</h2>
@@ -116,9 +123,9 @@
         used to limit the negotiated codecs to those supporting the desired configuration.
         For example, if temporal scalability is desired along with spatial simulcast,
         when {{RTCPeerConnection/addTransceiver()}} is called,
-        {{RTCRtpTransceiverInit/sendEncodings}} can be configured so as to send
-        multiple simulcast streams with different resolutions, with each stream
-        utilizing temporal scalability. If only the VP8, VP9 and AV1 codecs
+        {{RTCRtpTransceiverInit/sendEncodings}} can be configured to send multiple
+        simulcast streams with different resolutions, with each stream
+        utilizing temporal scalability. If only the VP8, VP9 and AV1 codec implementations
         support temporal scalability, {{RTCRtpTransceiver/setCodecPreferences()}}
         can be used to remove the H.264/AVC codec from the Offer, guaranteeing that
         a codec supporting temporal scalability is negotiated.
@@ -126,23 +133,20 @@
       <p>
         There are situations where a peer may only support reception of a subset
         of codecs and scalability modes. For example, an SFU that parses codec
-        payloads to make forwarding decisions may only support temporal
-        scalability with the VP8 and VP9 codecs. As another example, browser that
-        can decode any scalability mode of VP8 and VP9 may not support AV1
-        decoding and can only support decoding of H.264/SVC temporal
-        scalability modes.  In these situations, the {{RTCRtpReceiver/getCapabilities}} 
+        payloads may only support temporal scalability modes with the VP8 and
+        VP9 codecs. As another example, a browser that can decode any VP8
+        scalability mode may not support VP9 or AV1 at all, and may only
+        support decoding of H.264/SVC temporal scalability modes.
+        In these situations, the {{RTCRtpReceiver}}'s <code>getCapabilities</code>
         method can be used to determine the scalability modes supported by
-        the receiver, and the {{RTCRtpSender/getCapabilities}} method can
-        be used to determine the scalability modes supported by the sender.
-        After exchanging capabilities and computing their intersection,
-        the application can compute the intersection of the
+        the {{RTCRtpReceiver}}, and the {{RTCRtpSender}}'s
+        <code>getCapabilities</code> method can be used to determine
+        the scalability modes supported by the {{RTCRtpSender}}. After
+        exchanging capabilities and computing their intersection, the application
+        can compute the intersection of the
         {{RTCRtpEncodingParameters/scalabilityMode}} values supported by both the
-        local and remote peers. These values can then be used by the
+        local and remote peers. These values can then be provided to the
         {{RTCPeerConnection/addTransceiver()}} and {{RTCRtpSender/setParameters()}} methods.
-        Note that where SVC support is negotiated in SDP Offer/Answer,
-        {{RTCRtpSender/setParameters()}} can only change {{RTCRtpEncodingParameters/scalabilityMode}}
-        values within the envelope negotiated by Offer/Answer, resulting in an error
-        if the requested {{RTCRtpEncodingParameters/scalabilityMode}} value is outside this envelope.
       </p>
     </section>
   </section>
