@@ -118,9 +118,9 @@
         {{RTCPeerConnection/addTransceiver()}, it is not possible to
         simultaneously configure the sending of "S" scalability modes.
         That is, the browser may only be configured to send simulcast
-        encodings with multiple SSRCs and RIDs, or alternatively, it
-        to send all simulcast encodings on a single SSRC. Attempting
-        to simultaneously utilize both transport techniques will result in
+        encodings with multiple SSRCs and RIDs, or alternatively, to
+        send all simulcast encodings on a single SSRC. Attempting
+        to utilize both transport techniques MUST return
         {{OperationError}} in {{RTCRtpSender/setParameters()}} or
         {{RTCPeerConnection/addTransceiver()}.
       </p>
