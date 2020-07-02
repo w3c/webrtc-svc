@@ -84,10 +84,11 @@
       <p>
         [[!WEBRTC]] Section 5.2 describes error handling in
         {{RTCRtpSender/setParameters()}}, including use of {{RTCError}}
-        to indicate a {{RTCErrorDetailType/"hardware-encoder-error"}} due to an unsupported encoding
-        parameter, as well as {{OperationError}} for other errors.
-        Implementations of this specification utilize {{RTCError}}
-        and {{OperationError}} in the prescribed manner when an invalid
+        to indicate a {{RTCErrorDetailType/"hardware-encoder-error"}}
+        due to an unsupported encoding parameter, as well as
+        {{OperationError}} for other errors. Implementations of this
+        specification utilize {{RTCError}} and {{OperationError}}
+        in the prescribed manner when an invalid
         {{RTCRtpEncodingParameters/scalabilityMode}} value is provided to 
         {{RTCRtpSender/setParameters()}} or {{RTCPeerConnection/addTransceiver()}}.
       </p>
@@ -120,9 +121,8 @@
         may only be configured to send simulcast encodings with
         multiple SSRCs and RIDs, or alternatively, to send all
         simulcast encodings on a single SSRC. Attempting to
-        utilize both simulcast transport techniques or to 
-        configure a codec other than AV1 with "S" scalability
-        modes MUST return {{OperationError}} in
+        simultaneously utilize both simulcast transport
+        techniques MUST return {{OperationError}} in
         {{RTCRtpSender/setParameters()}} or
         {{RTCPeerConnection/addTransceiver()}.
       </p>
