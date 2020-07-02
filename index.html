@@ -113,15 +113,17 @@
         {{RTCRtpEncodingParameters/scalabilityMode}} values within the envelope
         negotiated by Offer/Answer, resulting in an error if the requested
         {{RTCRtpEncodingParameters/scalabilityMode}} value is outside this envelope.
-        For example, when {{RTCRtpTransceiverInit/sendEncodings}} is used to
+        When {{RTCRtpTransceiverInit/sendEncodings}} is used to
         request the sending of multiple simulcast streams using
         {{RTCPeerConnection/addTransceiver()}, it is not possible to
-        simultaneously configure the sending of "S" scalability modes.
-        That is, the browser may only be configured to send simulcast
-        encodings with multiple SSRCs and RIDs, or alternatively, to
-        send all simulcast encodings on a single SSRC. Attempting
-        to utilize both transport techniques MUST return
-        {{OperationError}} in {{RTCRtpSender/setParameters()}} or
+        configure the sending of "S" scalability modes. The browser
+        may only be configured to send simulcast encodings with
+        multiple SSRCs and RIDs, or alternatively, to send all
+        simulcast encodings on a single SSRC. Attempting to
+        utilize both simulcast transport techniques or to 
+        configure a codec other than AV1 with "S" scalability
+        modes MUST return {{OperationError}} in
+        {{RTCRtpSender/setParameters()}} or
         {{RTCPeerConnection/addTransceiver()}.
       </p>
     </section>
