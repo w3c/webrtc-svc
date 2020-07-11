@@ -472,14 +472,16 @@
             <code>L<var>x</var>T<var>y</var>h</code> denotes <var>x</var> spatial layers with a 1.5:1 resolution ratio and
             <var>y</var> temporal layers. <code>S<var>x</var>T<var>y</var></code> denotes a {{RTCRtpEncodingParameters/scalabilityMode}}
             with <var>x</var> simulcast encodings with a 2:1 resolution ratio, with each
-            simulcast encoding containing <var>y</var> temporal layers. <code>S<var>x</var>T<var>y</var></code> denotes
-            a 1.5:1 resolution ratio. In addition, [[AV1]] Section 6.7.5 defines <code>L<var>x</var>T<var>y</var>_KEY</code>
-            and <code>L<var>x</var>T<var>y</var>_KEY_SHIFT</code> modes.
+            simulcast encoding containing <var>y</var> temporal layers. <code>S<var>x</var>T<var>y</var>h</code> denotes
+            a 1.5:1 resolution ratio. <code>L<var>x</var>T<var>y</var>_KEY</code> denotes a {{RTCRtpEncodingParameters/scalabilityMode}}
+            with <var>x</var> spatial layers using a 2:1 resolution ratio and <var>y</var> temporal layers in which spatial layers only
+            depend on lower spatial layers at a key frame. <code>L<var>x</var>T<var>y</var>_KEY_SHIFT</code> modes denotes a
+            {{RTCRtpEncodingParameters/scalabilityMode}} with <var>x</var> spatial layers using a 2:1 resolution ratio and
+            <var>y</var> temporal layers in which spatial layers only depend on lower spatial layers at a key frame and subsequent
+            frames have their temporal identifier shifted upward.
           </li>
           <li>
-            If the new {{RTCRtpEncodingParameters/scalabilityMode}} does not reference a dependency diagram
-            defined within an existing specification, then a dependency diagram MUST be
-            supplied.
+            A dependency diagram MUST be supplied, in the format provided in Section 9.
           </li>         
         </ol>
     </section>
