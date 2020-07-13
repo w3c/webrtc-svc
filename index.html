@@ -450,6 +450,18 @@
         </tr>
       </tbody>
     </table>
+    <p class="note">
+       The {{scalabilityModes}} values defined in this table are designed to apply to any codec.
+       Within [[AV1]], the {{scalabilityModes}} values map to the equivalent
+       <code>scalability_mode_idc</code> values with the exception of the KEY and KEY_SHIFT
+       modes. For example, the "L3T1" scalability mode corresponds to the <code>SCALABILITY_L3T1</code>
+       value (15) of <code>scalability_mode_idc</code>, and the "S3T1" scalability mode corresponds to
+       the <code>SCALABILITY_S3T1</code> value (18) of <code>scalability_mode_idc</code>. However,
+       the "L3T3_KEY" scalability mode in this specification corresponds to the
+       <code>SCALABILITY_L4T7_KEY</code> value (24) of <code>scalability_mode_idc</code>,
+       the "L2T3_KEY" scalability mode in this specification corresponds to the
+       <code>SCALABILITY_L3T3_KEY</code> value (22) of <code>scalability_mode_idc</code>,
+    </p>
     <section id="addingmodes*">
       <h3>Guidelines for addition of {{RTCRtpEncodingParameters/scalabilityMode}} values</h3>
       <p>When proposing a {{RTCRtpEncodingParameters/scalabilityMode}} value, the following principles should be followed:</p>
