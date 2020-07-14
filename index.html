@@ -518,11 +518,11 @@
           <li>
             The proposed {{RTCRtpEncodingParameters/scalabilityMode}} MUST define entries to the table in
             Section 6, including values for the Scalabilty Mode Identifier, spatial and
-            temporal layers, Resolution Ratio and Inter-layer dependency.
+            temporal layers, Resolution Ratio, Inter-layer dependency and the corresponding
+            AV1 scalability_mode_idc value (if assigned).
           </li>
           <li>
-            The Scalability Mode Identifier SHOULD be consistent with naming schemes used
-            in existing specifications such as [[AV1]] Section 6.7.5. The AV1 naming scheme
+            The Scalability Mode Identifier SHOULD be consistent with the existing naming scheme, which
             utilizes  <code>L<var>x</var>T<var>y</var></code> to denote a {{RTCRtpEncodingParameters/scalabilityMode}} with <var>x</var>
             spatial layers using a 2:1 resolution ratio and <var>y</var> temporal layers.
             <code>L<var>x</var>T<var>y</var>h</code> denotes <var>x</var> spatial layers with a 1.5:1 resolution ratio and
