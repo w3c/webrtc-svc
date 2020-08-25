@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <link href="webrtc.css" rel="stylesheet">
   <title>Scalable Video Coding (SVC) Extension for WebRTC</title>
-  <script class="remove" src="https://www.w3.org/Tools/respec/respec-w3c-common"></script>
+  <script class="remove" src="https://www.w3.org/Tools/respec/respec-w3c"></script>
   <script class="remove" src="svc-respec-config.js" ></script>
 </head>
 <body>
@@ -185,7 +185,7 @@
              DOMString           scalabilityMode;
 };</pre>
         <section>
-          <h2>Dictionary <a class="idlType">RTCRtpEncodingParameters</a> Members</h2>
+          <h2>Dictionary {{RTCRtpEncodingParameters}} Members</h2>
           <dl data-link-for="RTCRtpEncodingParameters" data-dfn-for=
           "RTCRtpEncodingParameters" class="dictionary-members">
             <dt><dfn data-idl>scalabilityMode</dfn> of type {{DOMString}}</dt>
@@ -863,7 +863,7 @@ var sendEncodings = [
     <section>
       <h2>Persistent information</h2>
       <p>The WebRTC API exposes information about the underlying media system
-      via the {{RTCRtpSender}}<code>.getCapabilities</code> and
+      via the {{RTCRtpSender.getCapabilities()}} and
       {{RTCRtpReceiver}}<code>.getCapabilities</code> methods, including
       detailed and ordered information about the codecs that the system is able
       to produce and consume. The WebRTC-SVC extension adds the
