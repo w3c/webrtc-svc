@@ -551,7 +551,8 @@
         <section id="simulcasttemporal-example*">
           <h4>Spatial Simulcast and Temporal Scalability</h4>
           <pre class="example highlight">
-const signaling = new SignalingChannel(); // handles JSON.stringify/parse
+// handles JSON.stringify/parse
+const signaling = new SignalingChannel();
 const constraints = {audio: true, video: true};
 const configuration = {'iceServers': [{'urls': 'stun:stun.example.org'}]};
 let pc;
@@ -578,17 +579,17 @@ async function start() {
     pc.addTransceiver(stream.getAudioTracks()[0], {direction: 'sendonly'});
     pc.addTransceiver(stream.getVideoTracks()[0], {
       direction: 'sendonly',
-   // Example of 3 spatial simulcast layers + 3 temporal layers with
-   // an SSRC and RID for each simulcast layer
+      // Example of 3 spatial simulcast layers + 3 temporal layers with
+      // an SSRC and RID for each simulcast layer
       sendEncodings: [
         {rid: 'q', scaleResolutionDownBy: 4.0, scalabilityMode: 'L1T3'}
         {rid: 'h', scaleResolutionDownBy: 2.0, scalabilityMode: 'L1T3'},
         {rid: 'f', scaleResolutionDownBy: 1.0, scalabilityMode: 'L1T3'},
       ]
-   // Example of 3 spatial simulcast layers + 3 temporal layers on a single SSRC
-   //    sendEncodings: [
-   //       {scalabilityMode: 'S3T3'}
-   //    ]             
+      // Example of 3 spatial simulcast layers + 3 temporal layers on a single SSRC
+      //    sendEncodings: [
+      //       {scalabilityMode: 'S3T3'}
+      //    ]             
     });
   } catch (err) {
     console.error(err);
@@ -630,7 +631,7 @@ var sendEncodings = [
     <section id="sender-getcapabilities-example*">
        <h4>SVC Encoder Capabilities</h4>
        <pre class="example highlight">
-// Capabilities returned by RTCRtpSender.getCapabilities('video').codecs[]
+  // Capabilities returned by RTCRtpSender.getCapabilities('video').codecs[]
   "codecs": [
     {
       "clockRate": 90000,
@@ -784,8 +785,8 @@ var sendEncodings = [
         <section id="sfu-getcapabilities-example*">
        <h4>SFU Capabilities</h4>
        <pre class="example highlight">
-// RTCRtpReceiver.getCapabilities('video').codecs[] returned by 
-// SFU that only supports forwarding of VP8, VP9 and AV1 temporal scalability modes
+ // RTCRtpReceiver.getCapabilities('video').codecs[] returned by 
+ // SFU that only supports forwarding of VP8, VP9 and AV1 temporal scalability modes
  "codecs": [
     {
       "clockRate": 90000,
@@ -821,8 +822,8 @@ var sendEncodings = [
     <section id="receiver-getcapabilities-example*">
        <h4>SVC Decoder Capabilities</h4>
        <pre class="example highlight">
-// RTCRtpReceiver.getCapabilities('video').codecs[] returned by a browser that can
-// support all scalability modes within the VP8 and VP9 codecs.
+  // RTCRtpReceiver.getCapabilities('video').codecs[] returned by a browser that can
+  // support all scalability modes within the VP8 and VP9 codecs.
   "codecs": [
     { 
       "clockRate": 90000,
