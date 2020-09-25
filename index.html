@@ -550,9 +550,10 @@
       <h3>Examples</h3>
         <section id="simulcasttemporal-example*">
           <h4>Spatial Simulcast and Temporal Scalability</h4>
+          <p>This example extends [[WEBRTC]] Section 7.1 (Example 1) to demonstrate sending three spatial simulcast layers each with three temporal layers,
+            using an SSRC and RID for each simulcast layer. All but the "sendEncodings" attribute is unchanged.</p>
           <pre class="example highlight">
-// handles JSON.stringify/parse
-const signaling = new SignalingChannel();
+const signaling = new SignalingChannel(); // handles JSON.stringify/parse
 const constraints = {audio: true, video: true};
 const configuration = {'iceServers': [{'urls': 'stun:stun.example.org'}]};
 let pc;
@@ -579,13 +580,11 @@ async function start() {
     pc.addTransceiver(stream.getAudioTracks()[0], {direction: 'sendonly'});
     pc.addTransceiver(stream.getVideoTracks()[0], {
       direction: 'sendonly',
-      // Example of 3 spatial simulcast layers + 3 temporal layers with
-      // an SSRC and RID for each simulcast layer
       sendEncodings: [
         {rid: 'q', scaleResolutionDownBy: 4.0, scalabilityMode: 'L1T3'}
         {rid: 'h', scaleResolutionDownBy: 2.0, scalabilityMode: 'L1T3'},
-        {rid: 'f', scaleResolutionDownBy: 1.0, scalabilityMode: 'L1T3'},
-      ]         
+        {rid: 'f', scalabilityMode: 'L1T3'},
+      ]    
     });
   } catch (err) {
     console.error(err);
@@ -607,16 +606,7 @@ signaling.onmessage = async ({data: {description, candidate}}) => {
   } catch (err) {
     console.error(err);
   }
-};       
-</pre>
-    </section>
-        <section id="spatialtemporal-examples*">
-          <h4>Spatial and Temporal Scalability</h4>
-          <p> This is an example with one spatial layer and two temporal layers.</p> 
-          <pre class="example highlight">
-let sendEncodings = [
-  {scalabilityMode: 'L1T2'}
-];
+};
 </pre>
            <p> This is an example with two spatial layers (with a 2:1 ratio) and three temporal layers.</p> 
           <pre class="example highlight">
