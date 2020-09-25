@@ -631,7 +631,7 @@ var sendEncodings = [
     </section>
     <section id="sender-getcapabilities-example*">
        <h4>SVC Encoder Capabilities</h4>
-      <p>This is an example of capabilities returned by {{RTCRtpSender/getCapabilities}}<code>('video').codecs[]</code>.</p>
+      <p>This is an example of capabilities returned by {{RTCRtpSender}}.<code>getCapabilities}}('video').codecs[]</code>.</p>
        <pre class="example highlight">
   "codecs": [
     {
@@ -785,7 +785,7 @@ var sendEncodings = [
     </section>
         <section id="sfu-getcapabilities-example*">
        <h4>SFU Capabilities</h4>
-       <p>This is an example of capabilities returned by {{RTCRtpReceiver/getCapabilities}}<code>('video').codecs[]</code> returned by an SFU that only supports forwarding of VP8, VP9 and AV1 temporal scalability modes.</p>
+       <p>This is an example of capabilities returned by {{RTCRtpReceiver}}.<code>getCapabilities('video').codecs[]</code> returned by an SFU that only supports forwarding of VP8, VP9 and AV1 temporal scalability modes.</p>
        <pre class="example highlight">
  "codecs": [
     {
@@ -821,7 +821,7 @@ var sendEncodings = [
     </section>
     <section id="receiver-getcapabilities-example*">
        <h4>SVC Decoder Capabilities</h4>
-       <p>This is an example of capabilities returned by {{RTCRtpReceiver/getCapabilities}}<code>('video').codecs[]</code> returned by a browser that can support all scalability modes within the VP8 and VP9 codecs.</p>
+       <p>This is an example of capabilities returned by {{RTCRtpReceiver}}.<code>getCapabilities('video').codecs[]</code> returned by a browser that can support all scalability modes within the VP8 and VP9 codecs.</p>
        <pre class="example highlight">
   "codecs": [
     { 
