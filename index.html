@@ -527,7 +527,7 @@
           </li>
           <li>
             The Scalability Mode Identifier SHOULD be consistent with the existing naming scheme, which
-            utilizes  <code>L<var>x</var>T<var>y</var></code> to denote a {{RTCRtpEncodingParameters/scalabilityMode}} with <var>x</var>
+            utilizes <code>L<var>x</var>T<var>y</var></code> to denote a {{RTCRtpEncodingParameters/scalabilityMode}} with <var>x</var>
             spatial layers using a 2:1 resolution ratio and <var>y</var> temporal layers.
             <code>L<var>x</var>T<var>y</var>h</code> denotes <var>x</var> spatial layers with a 1.5:1 resolution ratio and
             <var>y</var> temporal layers. <code>S<var>x</var>T<var>y</var></code> denotes a {{RTCRtpEncodingParameters/scalabilityMode}}
@@ -585,11 +585,7 @@ async function start() {
         {rid: 'q', scaleResolutionDownBy: 4.0, scalabilityMode: 'L1T3'}
         {rid: 'h', scaleResolutionDownBy: 2.0, scalabilityMode: 'L1T3'},
         {rid: 'f', scaleResolutionDownBy: 1.0, scalabilityMode: 'L1T3'},
-      ]
-      // Example of 3 spatial simulcast layers + 3 temporal layers on a single SSRC
-      //    sendEncodings: [
-      //       {scalabilityMode: 'S3T3'}
-      //    ]             
+      ]         
     });
   } catch (err) {
     console.error(err);
@@ -618,20 +614,27 @@ signaling.onmessage = async ({data: {description, candidate}}) => {
           <h4>Spatial and Temporal Scalability</h4>
           <p> This is an example with one spatial layer and two temporal layers.</p> 
           <pre class="example highlight">
-var sendEncodings = [
+let sendEncodings = [
   {scalabilityMode: 'L1T2'}
 ];
 </pre>
            <p> This is an example with two spatial layers (with a 2:1 ratio) and three temporal layers.</p> 
           <pre class="example highlight">
-var sendEncodings = [
+let sendEncodings = [
   {scalabilityMode: 'L2T3'}
 ];
+</pre>
+           <p> This is an example with three spatial simulcast layers each with three temporal layers on a single SSRC</p> 
+          <pre class="example highlight">
+let sendEncodings = [
+  {scalabilityMode: 'S3T3'}
+]    
 </pre>
     </section>
     <section id="sender-getcapabilities-example*">
        <h4>SVC Encoder Capabilities</h4>
-      <p>This is an example of capabilities returned by {{RTCRtpSender}}.<code>getCapabilities}}('video').codecs[]</code>.</p>
+      <p>This is an example of capabilities returned by {{RTCRtpSender}}.<code>getCapabilities}}('video').codecs[]</code>,
+        based on existing implementations of [[WEBRTC]]; only the {{scalabilityModes}} attribute is defined in this specification.</p>
        <pre class="example highlight">
   "codecs": [
     {
@@ -785,7 +788,9 @@ var sendEncodings = [
     </section>
         <section id="sfu-getcapabilities-example*">
        <h4>SFU Capabilities</h4>
-       <p>This is an example of capabilities returned by {{RTCRtpReceiver}}.<code>getCapabilities('video').codecs[]</code> returned by an SFU that only supports forwarding of VP8, VP9 and AV1 temporal scalability modes.</p>
+       <p>This is an example of capabilities returned by {{RTCRtpReceiver}}.<code>getCapabilities('video').codecs[]</code>
+       returned by a Selective Forwarding Unit (SFU) that only supports forwarding of VP8, VP9 and AV1 temporal
+       scalability modes.</p>
        <pre class="example highlight">
  "codecs": [
     {
@@ -821,7 +826,8 @@ var sendEncodings = [
     </section>
     <section id="receiver-getcapabilities-example*">
        <h4>SVC Decoder Capabilities</h4>
-       <p>This is an example of capabilities returned by {{RTCRtpReceiver}}.<code>getCapabilities('video').codecs[]</code> returned by a browser that can support all scalability modes within the VP8 and VP9 codecs.</p>
+       <p>This is an example of capabilities returned by {{RTCRtpReceiver}}.<code>getCapabilities('video').codecs[]</code>
+         returned by a browser that can support all scalability modes of the VP8 and VP9 codecs.</p>
        <pre class="example highlight">
   "codecs": [
     { 
