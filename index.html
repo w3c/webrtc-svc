@@ -149,24 +149,24 @@
       <p>
         There are situations where a peer may only support reception of a subset
         of codecs and scalability modes. For example, an SFU that parses codec
-        payloads may only support temporal scalability modes with the H.264/AVC
-        codec. A browser that can decode any VP8 or VP9 scalability mode may not
-        support H.264/SVC or AV1. In these situations, the {{RTCRtpReceiver}}'s
-        <code>getCapabilities</code> method can be used to determine the
-        scalability modes supported by the {{RTCRtpReceiver}}, and the {{RTCRtpSender}}'s
-        <code>getCapabilities</code> method can be used to determine
-        the scalability modes supported by the {{RTCRtpSender}}. After
-        exchanging capabilities and computing their intersection, the application
-        can compute the intersection of the
-        {{RTCRtpEncodingParameters/scalabilityMode}} values supported by the
-        local and remote peers. These values can then be provided to the
+        payloads may only support temporal scalability modes with the H.264/SVC
+        codec (not currently supported in browsers). A browser that can decode
+        any VP8 or VP9 scalability mode may not support H.264/SVC or AV1.
+        In these situations, the {{RTCRtpReceiver}}'s <code>getCapabilities</code>
+        method can be used to determine the scalability modes supported by the
+        {{RTCRtpReceiver}}, and the {{RTCRtpSender}}'s <code>getCapabilities</code>
+        method can be used to determine the scalability modes supported by the
+        {{RTCRtpSender}}. After exchanging capabilities and computing their
+        intersection, the application can compute what
+        {{RTCRtpEncodingParameters/scalabilityMode}} values are supported by
+        both the local and remote peers. The common values can then be provided to the
         {{RTCPeerConnection/addTransceiver()}} and {{RTCRtpSender/setParameters()}} methods.
       </p>
       <p>
         Since sending simulcast encodings on a single stream is not negotiated within
         Offer/Answer, an application using SDP signaling needs to determine whether
         single stream simulcast transport is supported prior to the Offer/Answer negotiation.
-        This can be handled by having the SFU send receiver capabilities to the
+        This can be handled by having the SFU send it's receiver capabilities to the
         application prior to Offer/Answer. This allows the application to determine
         whether single stream simulcast is supported, and if so, what scalability
         modes the SFU can handle. For example, an SFU that can only support reception
