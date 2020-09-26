@@ -46,7 +46,7 @@ var respecConfig = {
       "authors": [
         "AV1 RTC SG"
       ],
-      "status": "April 8, 2020",
+      "status": "22 September 2020. Work in Progress.",
       "publisher": "Alliance for Open Media"
     },
     "FRAME-MARKING": {
@@ -57,7 +57,7 @@ var respecConfig = {
         "E. Berger",
         "S. Nandakumar"
       ],
-      "status": "21 November 2019",
+      "status": "04 August 2020. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
    "VP9": {
@@ -81,7 +81,7 @@ var respecConfig = {
         "J. Lennox",
         "D. Hong"
       ],
-      "status": "24 July 2019. Internet Draft (work in progress)",
+      "status": "07 July 2020. Internet Draft (work in progress)",
       "publisher": "IETF"
     }
   }
