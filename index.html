@@ -546,12 +546,12 @@
         </ol>
     </section>
   </section>
-  <section id="rtcrtpencodingparameters-example*" class="informative" >
+  <section id="rtcrtpencodingparameters-example*">
       <h3>Examples</h3>
-        <section id="simulcasttemporal-example*">
+        <section id="simulcasttemporal-example*" class="informative">
           <h4>Spatial Simulcast and Temporal Scalability</h4>
           <p>This example extends [[WEBRTC]] Section 7.1 (Example 1) to demonstrate sending three spatial simulcast layers each with three temporal layers,
-            using an SSRC and RID for each simulcast layer. All but the "sendEncodings" attribute is unchanged.</p>
+            using an SSRC and RID for each simulcast layer. Only the "sendEncodings" attribute is changed from the original example.</p>
           <pre class="example highlight">
 const signaling = new SignalingChannel(); // handles JSON.stringify/parse
 const constraints = {audio: true, video: true};
@@ -621,7 +621,7 @@ let sendEncodings = [
 ]    
 </pre>
     </section>
-    <section id="sender-getcapabilities-example*">
+    <section id="sender-getcapabilities-example*" class="informative">
        <h4>SVC Encoder Capabilities</h4>
       <p>This is an example of {{RTCRtpSender}}.<code>getCapabilities}}('video').codecs[]</code> returned by a
         browser implementing [[WEBRTC]]. Only the <code>scalabilityModes</code> attribute is defined in this specification.</p>
@@ -776,7 +776,7 @@ let sendEncodings = [
 ]
 </pre>
     </section>
-        <section id="sfu-getcapabilities-example*">
+        <section id="sfu-getcapabilities-example*" class="informative" >
        <h4>SFU Capabilities</h4>
        <p>This is an example of {{RTCRtpReceiver}}.<code>getCapabilities('video').codecs[]</code>
        returned by a Selective Forwarding Unit (SFU) that only supports forwarding of VP8, VP9 and AV1 temporal
@@ -814,7 +814,7 @@ let sendEncodings = [
 ]
 </pre>
     </section>
-    <section id="receiver-getcapabilities-example*">
+    <section id="receiver-getcapabilities-example*" class="informative">
        <h4>SVC Decoder Capabilities</h4>
        <p>This is an example of {{RTCRtpReceiver}}.<code>getCapabilities('video').codecs[]</code>
          returned by a browser that can support all scalability modes of the VP8 and VP9 codecs.</p>
@@ -865,15 +865,16 @@ let sendEncodings = [
       to produce and consume. The WebRTC-SVC extension adds the
       {{RTCRtpCodecCapability/scalabilityModes}} supported by the {{RTCRtpSender}}
       to that information, which is persistent across time, therefore increasing
-      the fingerprint surface. Since for SVC codecs implemented in WebRTC
+      the fingerprint surface. Since for SVC codecs implemented in WebRTC browsers
       compliant decoders are required to be able to decode all scalability modes,
       additional information is not provided relating to the {{RTCRtpReceiver}}.</p>
       <p>Since for SVC codecs implemented in WebRTC the use of scalable coding tools
-      is not negotiated and is independent of the supported profiles, the
+      is not negotiated and is independent of the supported profiles, and since SVC
+      is rarely supported in hardware encoders, knowledge of the
       {{RTCRtpCodecCapability/scalabilityModes}} supported by the {{RTCRtpSender}}
       does not provide additional information on the underlying hardware.
-      Since browsers may differ in their support for SVC modes, the supported
-      {{RTCRtpCodecCapability/scalabilityModes}} may initially permit differentiation
+      However, since browsers may differ in their support for SVC modes, the supported
+      {{RTCRtpCodecCapability/scalabilityModes}} may permit differentiation
       between browsers. This additional fingerprint surface is expected to decrease
       over time as this specification is more widely implemented.</p>
     </section>
