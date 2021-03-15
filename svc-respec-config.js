@@ -46,20 +46,30 @@ var respecConfig = {
       "authors": [
         "AV1 RTC SG"
       ],
-      "status": "22 September 2020. Work in Progress.",
+      "status": "15 March 2021. Work in Progress.",
       "publisher": "Alliance for Open Media"
     },
     "FRAME-MARKING": {
       "title": "Frame Marking RTP Header Extension",
-      "href": "https://tools.ietf.org/html/draft-ietf-avtext-framemarking",
+      "href": "https://datatracker.ietf.org/doc/html/draft-ietf-avtext-framemarking",
       "authors": [
         "M. Zanaty",
         "E. Berger",
         "S. Nandakumar"
       ],
-      "status": "04 August 2020. Internet Draft (work in progress)",
+      "status": "10 March 2021. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
+    "RFC7667": {
+      "title": "RTP Topologies",
+      "href": "https://datatracker.ietf.org/doc/html/rfc7667",
+      "authors": [
+        "M. Westerlund",
+        "S. Wenger"
+      ],
+      "status": "November 2015. RFC",
+      "publisher": "IETF"
+   },
    "VP9": {
       "title": "VP9 Bitstream & Decoding Process Specification",
       "href": "https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf",
@@ -73,7 +83,7 @@ var respecConfig = {
     },
     "VP9-PAYLOAD": {
       "title": "RTP Payload Format for VP9 Video",
-      "href": "https://tools.ietf.org/html/draft-ietf-payload-vp9",
+      "href": "https://datatracker.ietf.org/doc/html/draft-ietf-payload-vp9",
       "authors": [
         "J. Uberti",
         "S. Holmer",
@@ -81,7 +91,7 @@ var respecConfig = {
         "J. Lennox",
         "D. Hong"
       ],
-      "status": "07 July 2020. Internet Draft (work in progress)",
+      "status": "02 February 2021. Internet Draft (work in progress)",
       "publisher": "IETF"
     }
   }
