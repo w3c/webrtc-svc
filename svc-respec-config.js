@@ -46,7 +46,7 @@ var respecConfig = {
       "authors": [
         "AV1 RTC SG"
       ],
-      "status": "15 March 2021. Work in Progress.",
+      "status": "Version 1.0",
       "publisher": "Alliance for Open Media"
     },
     "FRAME-MARKING": {
@@ -91,7 +91,7 @@ var respecConfig = {
         "J. Lennox",
         "D. Hong"
       ],
-      "status": "02 February 2021. Internet Draft (work in progress)",
+      "status": "10 June 2021. Internet Draft (work in progress)",
       "publisher": "IETF"
     }
   }
