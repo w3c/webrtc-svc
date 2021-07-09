@@ -46,7 +46,7 @@ var respecConfig = {
       "authors": [
         "AV1 RTC SG"
       ],
-      "status": "Version 1.0",
+      "status": "Standard",
       "publisher": "Alliance for Open Media"
     },
     "FRAME-MARKING": {
