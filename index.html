@@ -58,8 +58,8 @@
       with a distinct SSRC for each layer.  This specification only supports
       <a>SRST</a>, not <a>MRST</a>. Codecs with RTP payload
       specifications supporting <a>SRST</a> include VP8
-      [[RFC7741]], VP9 [[VP9-PAYLOAD]], AV1 [[AV1-RTP]] and H.264/SVC
-      [[RFC6190]].</p>
+      [[RFC7741]], VP9 [[?VP9-PAYLOAD]], AV1 [[?AV1-RTP]] and H.264/SVC
+      [[?RFC6190]].</p>
       <p>The term "S mode" refers to a scalability mode in which multiple
       encodings are sent on the same SSRC. This includes the "S2T1", "S2T1h",
       "S2T2", "S2T2h", "S2T3", "S2T3h", "S3T1", "S3T1h", "S3T2", "S3T2h",
@@ -79,7 +79,7 @@
     only be used to change what the media stack is sending or receiving within the
     envelope negotiated by Offer/Answer."</p>
     <p>The configuration of SVC-capable codecs implemented in browsers fits within this
-    restriction. Codecs such as VP8 [[RFC6386]], VP9 [[VP9]] and AV1 [[AV1]] mandate support
+    restriction. Codecs such as VP8 [[?RFC6386]], VP9 [[?VP9]] and AV1 [[?AV1]] mandate support
     for SVC and require a compliant decoder to be able to decode any compliant encoding
     that an encoder can send. Therefore, for these codecs there is no need to
     configure the decoder or to negotiate SVC support within Offer/Answer, enabling
@@ -247,12 +247,12 @@
      <p>The scalability modes supported in this specification, as well as their associated
      identifiers and characteristics, are provided in the table below. The names of the
      scability modes (which are case sensitive) are provided, along with the scalability
-     mode identifiers assigned in [[AV1]] Section 6.7.5, and links to dependency diagrams
+     mode identifiers assigned in [[?AV1]] Section 6.7.5, and links to dependency diagrams
      provided in Section 9.</p>
-     <p>While [[AV1]] and VP9 [[VP9-PAYLOAD]] implementations can support
+     <p>While [[?AV1]] and VP9 [[?VP9-PAYLOAD]] implementations can support
      all the modes defined in the table, other codecs cannot. For example, VP8
      [[RFC7741]] only supports temporal scalability (e.g. "L1T2", "L1T3"); H.264/SVC
-     [[RFC6190]], which supports both temporal and spatial scalability, only permits
+     [[?RFC6190]], which supports both temporal and spatial scalability, only permits
      transport of simulcast on distinct SSRCs, so that it does not support the
      "S" modes, where multiple encodings are transported on a single RTP stream.</p>
     <table class=simple>
