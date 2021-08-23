@@ -228,13 +228,14 @@
               modes supported by that codec.</p>
               <p class="note">
                   The {{scalabilityModes}} sequence represents the scalability modes supported
-                  by a user agent. For an SFM the supported {{scalabilityModes}} may depend on the
-                  negotiated RTP header extensions.  For example, if the SFM cannot parse codec
+                  by a peer. For an SFM the supported {{scalabilityModes}} may depend on the
+                  negotiated RTP header extensions. For example, if the SFM cannot parse codec
                   payloads (either because it is not designed to do so, or because the payloads
-                  are encrypted), then negotiation of an RTP header extension
-                  (such as the AV1 Dependency Descriptor defined in Appendix A of [[AV1-RTP]]) may be required
-                  by the SFM in order to forward {{scalabilityModes}}.  As a result, the {{scalabilityModes}}
-                  supported by an SFM may not be known until completion of the Offer/Answer negotiation.
+                  are encrypted), then negotiation of an RTP header extension (such as the
+                  AV1 Dependency Descriptor defined in Appendix A of [[AV1-RTP]]) could be
+                  a prerequisite for the SFM to forward {{scalabilityModes}}. As a result, the
+                  {{scalabilityModes}} supported by an SFM may not be determined until
+                  completion of the Offer/Answer negotiation.
               </p>
             </dd>
           </dl>
