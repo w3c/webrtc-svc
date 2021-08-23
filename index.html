@@ -221,8 +221,8 @@
               encoding of any scalability modes, then the {{scalabilityModes}} member
               is not provided.</p>
               <p>In response to a call to {{RTCRtpReceiver}}<code>.getCapabilities(<var>kind</var>)</code>,
-              decoders that do not support decoding of scalability modes or that are required
-              to decode any scalability mode (such as compliant VP8, VP9 and AV1 decoders)
+              decoders that do not support decoding of scalability modes or that can
+              decode any scalability mode (such as compliant VP8, VP9 and AV1 decoders)
               omit the {{scalabilityModes}} member. However, decoders that only support
               decoding of a subset of scalability modes MUST return a sequence of the scalability
               modes supported by that codec.</p>
@@ -250,9 +250,9 @@
      scability modes (which are case sensitive) are provided, along with the scalability
      mode identifiers assigned in [[?AV1]] Section 6.7.5, and links to dependency diagrams
      provided in Section 9.</p>
-     <p>While [[?AV1]] and VP9 [[?VP9-PAYLOAD]] implementations can support
-     all the modes defined in the table, other codecs cannot. For example, VP8
-     [[?RFC7741]] only supports temporal scalability (e.g. "L1T2", "L1T3"); H.264/SVC
+     <p>While the [[?AV1]] and VP9 [[?VP9]] specifications support all the modes
+     modes defined in the table, other codec specifications do not. For example, VP8
+     [[?RFC6386]] only supports temporal scalability (e.g. "L1T2", "L1T3"); H.264/SVC
      [[?RFC6190]], which supports both temporal and spatial scalability, only permits
      transport of simulcast on distinct SSRCs, so that it does not support the
      "S" modes, where multiple encodings are transported on a single RTP stream.</p>
