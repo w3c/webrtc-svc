@@ -18,9 +18,12 @@
   <section class="informative" id="intro">
     <h2>Introduction</h2>
     <p>This specification extends the WebRTC specification [[WEBRTC]] to
-    enable configuration of encoding parameters for Scalable Video Coding (SVC).
-    While this specification does not support decoder configuration, it does enable
-    decoders to indicate supported scalability modes.</p> 
+    enable configuration of encoding parameters for Scalable Video Coding (SVC). 
+    Since SVC bitstreams are self-describing and SVC-capable codecs implemented
+    in browsers require that compliant decoders be capable of decoding any
+    compliant encoding sent by an encoder, this specification does not support
+    decoder configuration. However, it is possible for decoders that cannot
+    decode any compliant bitstream to describe the supported scalability modes.</p>
   </section>
   <section id="conformance">
     <p>This specification defines conformance criteria that apply to a single
@@ -77,8 +80,10 @@
     envelope negotiated by Offer/Answer."</p>
     <p>The configuration of SVC-capable codecs implemented in browsers fits within this
     restriction. Codecs such as VP8 [[?RFC6386]], VP9 [[?VP9]] and AV1 [[?AV1]] mandate support
-    for scalable video coding tools. Therefore these codecs do not negotiate SVC support
-    within Offer/Answer, enabling encoding parameters to be used for SVC configuration.</p>
+    for SVC and require a compliant decoder to be able to decode any compliant encoding
+    that an encoder can send. Therefore, for these codecs there is no need to
+    configure the decoder or to negotiate SVC support within Offer/Answer, enabling
+    encoding parameters to be used for SVC configuration.</p>
     <section id="error-handling">
       <h2>Error handling</h2>
       <p>
