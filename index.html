@@ -18,12 +18,9 @@
   <section class="informative" id="intro">
     <h2>Introduction</h2>
     <p>This specification extends the WebRTC specification [[WEBRTC]] to
-    enable configuration of encoding parameters for Scalable Video Coding (SVC). 
-    Since SVC bitstreams are self-describing and SVC-capable codecs implemented
-    in browsers require that compliant decoders be capable of decoding any
-    compliant encoding sent by an encoder, this specification does not support
-    decoder configuration. However, it is possible for decoders that cannot
-    decode any compliant bitstream to describe the supported scalability modes.</p>
+    enable configuration of encoding parameters for Scalable Video Coding (SVC).
+    While this specification does not support decoder configuration, it does enable
+    decoders to indicate supported scalability modes.</p>
   </section>
   <section id="conformance">
     <p>This specification defines conformance criteria that apply to a single
@@ -80,10 +77,8 @@
     envelope negotiated by Offer/Answer."</p>
     <p>The configuration of SVC-capable codecs implemented in browsers fits within this
     restriction. Codecs such as VP8 [[?RFC6386]], VP9 [[?VP9]] and AV1 [[?AV1]] mandate support
-    for SVC and require a compliant decoder to be able to decode any compliant encoding
-    that an encoder can send. Therefore, for these codecs there is no need to
-    configure the decoder or to negotiate SVC support within Offer/Answer, enabling
-    encoding parameters to be used for SVC configuration.</p>
+    for scalable video coding tools. Therefore these codecs do not negotiate SVC support
+    within Offer/Answer, enabling encoding parameters to be used for SVC configuration.</p>
     <section id="error-handling">
       <h2>Error handling</h2>
       <p>
@@ -151,8 +146,8 @@
         There are situations where a peer may only support reception of a subset
         of codecs and scalability modes. For example, an SFM that parses codec
         payloads may only support the H.264/AVC codec without scalability and
-        the H.264/SVC codec with temporal scalability. A browser that can
-        decode any VP8 or VP9 scalability mode may not support H.264/SVC or AV1.
+        the H.264/SVC codec with temporal scalability. However, a browser that
+        can decode VP8 or VP9 may not support H.264/SVC or AV1.
         In these situations, the {{RTCRtpReceiver}}'s <code>getCapabilities</code>
         method can be used to determine the scalability modes supported by the
         {{RTCRtpReceiver}}, and the {{RTCRtpSender}}'s <code>getCapabilities</code>
@@ -218,12 +213,13 @@
               <p>In response to a call to {{RTCRtpSender}}<code>.getCapabilities(<var>kind</var>)</code>,
               conformant implementations of this specification MUST return a sequence of
               scalability modes supported by each codec of that <var>kind</var>.  If a codec does not support
-              encoding of any scalability modes, then the {{scalabilityModes}} member
-              is not provided.</p>
+              encoding of any scalability modes other than "L1T1", then the {{scalabilityModes}} member
+              is not provided. The "L1T1" scalability mode is defined primarily for use with {{RTCRtpSender/setParameters()}},
+              so as to enable scalable video coding to be turned off. "L1T1" SHOULD NOT be returned
+              within the sequence of scalability modes.</p>
               <p>In response to a call to {{RTCRtpReceiver}}<code>.getCapabilities(<var>kind</var>)</code>,
               decoders that do not support decoding of scalability modes or that can
-              decode any scalability mode (such as compliant VP8, VP9 and AV1 decoders)
-              omit the {{scalabilityModes}} member. However, decoders that only support
+              decode any scalability mode omit the {{scalabilityModes}} member. However, decoders that only support
               decoding of a subset of scalability modes MUST return a sequence of the scalability
               modes supported by that codec.</p>
               <p class="note">
@@ -251,7 +247,7 @@
      mode identifiers assigned in [[?AV1]] Section 6.7.5, and links to dependency diagrams
      provided in Section 9.</p>
      <p>While the [[?AV1]] and VP9 [[?VP9]] specifications support all the modes
-     modes defined in the table, other codec specifications do not. For example, VP8
+     defined in the table, other codec specifications do not. For example, VP8
      [[?RFC6386]] only supports temporal scalability (e.g. "L1T2", "L1T3"); H.264/SVC
      [[?RFC6190]], which supports both temporal and spatial scalability, only permits
      transport of simulcast on distinct SSRCs, so that it does not support the
