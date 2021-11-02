@@ -221,7 +221,8 @@
               encoding of any scalability modes other than "L1T1", then the {{scalabilityModes}} member
               is not provided. The "L1T1" scalability mode is defined primarily for use with {{RTCRtpSender/setParameters()}},
               so as to enable scalable video coding to be turned off. "L1T1" SHOULD NOT be returned
-              within the sequence of scalability modes.</p>
+              within the sequence of scalability modes returned by {{RTCRtpSender}}<code>.getCapabilities()</code>,
+              or in response to {{RTCRtpSender/getParameters()}}.</p>
               <p>In response to a call to {{RTCRtpReceiver}}<code>.getCapabilities(<var>kind</var>)</code>,
               decoders that do not support decoding of scalability modes or that can
               decode any scalability mode (such as compliant VP8, VP9 and AV1 decoders)
