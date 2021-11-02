@@ -151,7 +151,7 @@
         There are situations where a peer may only support reception of a subset
         of codecs and scalability modes. For example, an SFM that parses codec
         payloads may only support the H.264/AVC codec without scalability and
-        the H.264/SVC codec with temporal scalability. However, a browser that
+        the H.264/SVC codec with temporal scalability. A browser that
         can decode VP8 or VP9 may not support H.264/SVC or AV1.
         In these situations, the {{RTCRtpReceiver}}'s <code>getCapabilities</code>
         method can be used to determine the scalability modes supported by the
@@ -223,7 +223,8 @@
               so as to enable scalable video coding to be turned off. "L1T1" SHOULD NOT be returned
               within the sequence of scalability modes.</p>
               <p>In response to a call to {{RTCRtpReceiver}}<code>.getCapabilities(<var>kind</var>)</code>,
-              decoders that do not support decoding of scalability modes or that can decode any scalability mode
+              decoders that do not support decoding of scalability modes or that can
+              decode any scalability mode (such as compliant VP8, VP9 and AV1 decoders)
               omit the {{scalabilityModes}} member. However, decoders that only support
               decoding of a subset of scalability modes MUST return a sequence of the scalability
               modes supported by that codec.</p>
