@@ -29,7 +29,7 @@ var respecConfig = {
         },
         {
           "value": "IETF AVTCORE Working Group",
-          "href": "https://tools.ietf.org/wg/avtcore/"
+          "href": "https://datatracker.ietf.org/wg/avtcore/documents/"
         }
       ]
     }
