@@ -208,13 +208,16 @@
           "RTCRtpCodecCapability" class="dictionary-members">
             <dt><dfn data-idl>scalabilityModes</dfn> of type <code>sequence&lt;{{DOMString}}&gt;</code></dt>
             <dd>
-              <p>An sequence of the scalability modes (defined in Section 6) supported by the encoder
+              <p>A sequence of the scalability modes (defined in Section 6) supported by the encoder
               implementation.</p>
               <p>In response to a call to {{RTCRtpSender}}<code>.getCapabilities(<var>kind</var>)</code>,
               conformant implementations of this specification MUST return a sequence of
               scalability modes supported by each codec of that <var>kind</var>.  If a codec does not support
-              encoding of any scalability modes, then the {{scalabilityModes}} member
-              is not provided.</p>
+              encoding of any scalability modes other than "L1T1", then the {{scalabilityModes}} member
+              is not provided. The "L1T1" scalability mode is defined primarily for use with {{RTCRtpSender/setParameters()}},
+              so as to enable scalable video coding to be turned off. "L1T1" SHOULD NOT be returned
+              within the sequence of scalability modes returned by {{RTCRtpSender}}<code>.getCapabilities()</code>,
+              or in response to {{RTCRtpSender/getParameters()}}.</p>
               <p>In response to a call to {{RTCRtpReceiver}}<code>.getCapabilities(<var>kind</var>)</code>,
               decoders that do not support decoding of scalability modes or that can
               decode any scalability mode omit the {{scalabilityModes}} member. However, decoders that only support
@@ -262,6 +265,14 @@
         </tr>
       </tbody>
       <tbody>
+        <tr>
+          <td><a href="#L1T1*">"L1T1"</a></td>
+          <td>1</td>
+          <td></td>
+          <td>1</td>
+          <td></td>
+          <td>N/A</td>
+        </tr>
         <tr>
           <td><a href="#L1T2*">"L1T2"</a></td>
           <td>1</td>
@@ -879,6 +890,16 @@ let sendEncodings = [
   <section id="dependencydiagrams*">
    <h2>Scalability Mode Dependency Diagrams</h2>
    <p>Dependency diagrams for the scability modes defined in this specification are provided below.</p>
+   <section id="L1T1*">
+   <h3>L1T1</h3>
+          <figure>
+            <img alt="L1T1: a single layer" src=
+            "images/L1T1.svg" style="width:75%">
+            <figcaption>
+              L1T1: 1-layer encoding
+            </figcaption>
+          </figure>
+   </section>
    <section id="L1T2*">
    <h3>L1T2 and L1T2h</h3>
           <figure>
