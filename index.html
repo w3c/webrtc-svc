@@ -178,15 +178,13 @@
       </p>
       <p>
         To determine what codecs and scalability modes an SFM can send to the
-        application, the application can utilize the [[?Media-Capabilities]] API
-        to determine whether {{referenceScaling}} is supported for each codec
-        returned by {{RTCRtpReceiver/getCapabilities()}}. If {{referenceScaling}}
-        is set to `false`, the decoder cannot decode spatial scalability modes,
-        but can decode all other {{RTCRtpEncodingParameters/scalabilityMode}}
-        values supported by the encoder. If If {{referenceScaling}} is set to
-        `true` or is absent, the decoder can decode any 
-        {{RTCRtpEncodingParameters/scalabilityMode}} value supported by the
-        encoder.
+        application, the application can utilize the [[?Media-Capabilities]] API.
+        If {{referenceScaling}} is set to `false`, the decoder cannot decode
+        spatial scalability modes, but can decode all other 
+        {{RTCRtpEncodingParameters/scalabilityMode}} values supported by the
+        encoder. If {{referenceScaling}} is set to `true` or is absent, the
+        decoder can decode any {{RTCRtpEncodingParameters/scalabilityMode}}
+        value supported by the encoder.
       </p>
     </section>
   </section>
