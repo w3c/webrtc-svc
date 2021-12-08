@@ -17,7 +17,7 @@ var respecConfig = {
   ],
   group: "webrtc",
   wgPublicList: "public-webrtc",
-  xref: ["webidl", "webrtc"],
+  xref: ["webidl", "webrtc", "media-capabilities"],
   github: "https://github.com/w3c/webrtc-svc",
   otherLinks: [
     {
