@@ -18,9 +18,10 @@
   <section class="informative" id="intro">
     <h2>Introduction</h2>
     <p>This specification extends the WebRTC specification [[WEBRTC]] to
-    enable configuration of encoding parameters for Scalable Video Coding (SVC).
-    While this specification does not support decoder configuration, it does enable
-    decoders to indicate supported scalability modes.</p>
+    enable discovery of Scalable Video Coding (SVC) encoder capabilities,
+    as well as configuration of encoding parameters. The discovery of
+    decoder capabilities and configuration of decoding parameters is not
+    supported.</p>
   </section>
   <section id="conformance">
     <p>This specification defines conformance criteria that apply to a single
@@ -65,10 +66,10 @@
   </section>
   <section id="operational-model">
     <h2>Operational model</h2>
-    <p>This specification extends [[!WEBRTC]] to enable configuration of encoding
-    parameters for SVC, as well as discovery of the SVC capabilities of both an
-    encoder and decoder, by extending the {{RTCRtpEncodingParameters}}
-    and {{RTCRtpCodecCapability}} dictionaries.</p>
+    <p>This specification extends [[!WEBRTC]] to enable discovery of the
+    SVC capabilities of a encoder, by extending the {{RTCRtpCodecCapability}}
+    dictionary. It also enables the configuration of encoding parameters for
+    SVC by extending the {{RTCRtpEncodingParameters}} dictionary.</p>
     <p>Since this specification does not change the behavior of WebRTC
     objects and methods, restrictions relating to Offer/Answer negotiation and
     encoding parameters remain, as described in [[!WEBRTC]] Section 5.2: 
@@ -76,9 +77,9 @@
     only be used to change what the media stack is sending or receiving within the
     envelope negotiated by Offer/Answer."</p>
     <p>The configuration of SVC-capable codecs implemented in browsers fits within this
-    restriction. Codecs such as VP8 [[?RFC6386]], VP9 [[?VP9]] and AV1 [[?AV1]] mandate support
-    for scalable video coding tools. Therefore these codecs do not negotiate SVC support
-    within Offer/Answer, enabling encoding parameters to be used for SVC configuration.</p>
+    restriction. Codecs such as VP8 [[?RFC6386]], VP9 [[?VP9]] and AV1 [[?AV1]] do not
+    negotiate SVC support within Offer/Answer, enabling encoding parameters to be used
+    for SVC configuration.</p>
     <section id="error-handling">
       <h2>Error handling</h2>
       <p>
@@ -143,20 +144,24 @@
         a codec supporting temporal scalability is negotiated.
       </p>
       <p>
-        There are situations where a peer may only support reception of a subset
+        There are situations where an SFM may only support reception of a subset
         of codecs and scalability modes. For example, an SFM that parses codec
         payloads may only support the H.264/AVC codec without scalability and
-        the H.264/SVC codec with temporal scalability. However, a browser that
-        can decode VP8 or VP9 may not support H.264/SVC or AV1.
-        In these situations, the {{RTCRtpReceiver}}'s <code>getCapabilities</code>
-        method can be used to determine the scalability modes supported by the
-        {{RTCRtpReceiver}}, and the {{RTCRtpSender}}'s <code>getCapabilities</code>
-        method can be used to determine the scalability modes supported by the
-        {{RTCRtpSender}}. After exchanging capabilities, the application can compute
-        which codecs and {{RTCRtpEncodingParameters/scalabilityMode}} values are
-        supported by both the browser and SFM. The intersection of codecs and
-        scalability modes supported by the browser's {{RTCRtpSender}} and the SFM's
-        receiver can then be used to determine the arguments passed to the browser's
+        the VP8 codec with temporal scalability. On the other hand, the browser
+        may be able to encode VP8 with temporal scalability, VP9 with temporal
+        and spatial scalability and or H.264/AVC with temporal scalability.
+        In such a situation, an application desiring to use SVC would only
+        be able to encode VP8 with temporal scalability.
+      </p>
+        To determine what codecs and scalability modes an application can send, 
+        the {{RTCRtpSender}}'s <code>getCapabilities</code> method can be
+        used to determine the codecs and scalability modes supported by the
+        {{RTCRtpSender}}. The SFM can provide information on the codecs and
+        scalability modes it can decode by providing its receiver capabilities.
+        After exchanging capabilities, the  application can compute the intersection
+        of codecs and {{RTCRtpEncodingParameters/scalabilityMode}} values supported
+        by both the browser's {{RTCRtpSender}} and the SFM's receiver. This can be
+        used to determine the arguments passed to the browser's
         {{RTCPeerConnection/addTransceiver()}} and {{RTCRtpSender/setParameters()}} methods.
       </p>
       <p>
@@ -170,6 +175,16 @@
         of a maximum of 2 simulcast encodings on a single SSRC with the AV1 codec would
         only indicate support for the "S2T1" and "S2T1h" scalability modes in its
         receiver capabilities.
+      </p>
+      <p>
+        To determine what codecs and scalability modes an SFM can send to the
+        application, the application can utilize the [[?Media-Capabilities]] API.
+        If {{referenceScaling}} is set to `false`, the decoder cannot decode
+        spatial scalability modes, but can decode all other 
+        {{RTCRtpEncodingParameters/scalabilityMode}} values supported by the
+        encoder. If {{referenceScaling}} is set to `true` or is absent, the
+        decoder can decode any {{RTCRtpEncodingParameters/scalabilityMode}}
+        value supported by the encoder.
       </p>
     </section>
   </section>
@@ -221,10 +236,7 @@
               using {{RTCRtpSender/setParameters()}} then it will be returned in response to
               {{RTCRtpSender/getParameters()}}.</p>
               <p>In response to a call to {{RTCRtpReceiver}}<code>.getCapabilities(<var>kind</var>)</code>,
-              decoders that do not support decoding of scalability modes or that can
-              decode any scalability mode omit the {{scalabilityModes}} member. However, decoders that only support
-              decoding of a subset of scalability modes MUST return a sequence of the scalability
-              modes supported by that codec.</p>
+              {{scalabilityModes}} are not provided.</p>
               <p class="note">
                   The {{scalabilityModes}} sequence represents the scalability modes supported
                   by a peer. For an SFM the supported {{scalabilityModes}} may depend on the
@@ -788,9 +800,8 @@ let sendEncodings = [
     </section>
         <section id="sfm-getcapabilities-example*" class="informative" >
        <h4>SFM Capabilities</h4>
-       <p>This is an example of {{RTCRtpReceiver}}.<code>getCapabilities('video').codecs[]</code>
-       returned by an SFM that only supports forwarding of VP8, VP9 and AV1 temporal
-       scalability modes.</p>
+       <p>This is an example of receiver capabilities returned by an SFM that only
+       supports forwarding of VP8, VP9 and AV1 temporal scalability modes.</p>
        <pre class="example highlight">
  "codecs": [
     {
@@ -824,40 +835,6 @@ let sendEncodings = [
 ]
 </pre>
     </section>
-    <section id="receiver-getcapabilities-example*" class="informative">
-       <h4>SVC Decoder Capabilities</h4>
-       <p>This is an example of {{RTCRtpReceiver}}.<code>getCapabilities('video').codecs[]</code>
-         returned by a browser that can support all scalability modes of the VP8 and VP9 codecs.</p>
-       <pre class="example highlight">
-  "codecs": [
-    { 
-      "clockRate": 90000,
-      "mimeType": "video/VP8"
-    },
-    { 
-      "clockRate": 90000,
-      "mimeType": "video/rtx",
-      "sdpFmtpLine": "apt=96"
-    },
-    { 
-      "clockRate": 90000,
-      "mimeType": "video/VP9"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/rtx",
-      "sdpFmtpLine": "apt=98"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/H264",
-      "sdpFmtpLine": "packetization-mode=1;profile-level-id=42001f;level-asymmetry-allowed=1"
-    },
-
-    ...
-]
-</pre>
-    </section>
     </section>
   <section class="informative"  id="privacy-security">
     <h2>Privacy and Security Considerations</h2>
@@ -869,15 +846,13 @@ let sendEncodings = [
     <section>
       <h2>Persistent information</h2>
       <p>The WebRTC API exposes information about the underlying media system
-      via the {{RTCRtpSender.getCapabilities()}} and
-      {{RTCRtpReceiver}}<code>.getCapabilities</code> methods, including
-      detailed and ordered information about the codecs that the system is able
-      to produce and consume. The WebRTC-SVC extension adds the
+      via the {{RTCRtpSender.getCapabilities()}} method, including detailed
+      and ordered information about the codecs that the system is able to
+      produce. The WebRTC-SVC extension adds the
       {{RTCRtpCodecCapability/scalabilityModes}} supported by the {{RTCRtpSender}}
       to that information, which is persistent across time, therefore increasing
-      the fingerprint surface. Since for SVC codecs implemented in WebRTC browsers
-      compliant decoders are required to be able to decode all scalability modes,
-      additional information is not provided relating to the {{RTCRtpReceiver}}.</p>
+      the fingerprint surface. Additional information is not provided relating to
+      the {{RTCRtpReceiver}}.</p>
       <p>Since for SVC codecs implemented in WebRTC the use of scalable coding tools
       is not negotiated and is independent of the supported profiles, and since SVC
       is rarely supported in hardware encoders, knowledge of the
