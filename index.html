@@ -180,10 +180,10 @@
       <p>
         To determine what codecs and scalability modes an <a title="Selective Forwarding Middlebox">SFM</a> can send to the
         application, the application can utilize the [[?Media-Capabilities]] API.
-        If {{VideoConfiguration/referenceScaling}} is set to `false`, the decoder cannot decode
+        If {{VideoConfiguration/referenceScaling}} is set to `false` or is absent, the decoder cannot decode
         spatial scalability modes, but can decode all other 
         {{RTCRtpEncodingParameters/scalabilityMode}} values supported by the
-        encoder. If {{VideoConfiguration/referenceScaling}} is set to `true` or is absent, the
+        encoder. If {{VideoConfiguration/referenceScaling}} is set to `true` the
         decoder can decode any {{RTCRtpEncodingParameters/scalabilityMode}}
         value supported by the encoder.
       </p>
