@@ -122,11 +122,12 @@
         configure the sending of "S" scalability modes. The browser
         may only be configured to send simulcast encodings with
         multiple SSRCs and RIDs, or alternatively, to send all
-        simulcast encodings on a single RTP stream. Attempting to
-        simultaneously utilize both simulcast transport
-        techniques MUST return {{OperationError}} in
+        simulcast encodings on a single RTP stream. The
+        <a>user agent</a>  MUST return {{OperationError}} in
         {{RTCRtpSender/setParameters()}} or
-        {{RTCPeerConnection/addTransceiver()}}.
+        {{RTCPeerConnection/addTransceiver()}} in response to
+        an attempt to simultaneously utilize both simulcast transport
+        techniques.
       </p>
     </section>
     <section id="negotiation">
