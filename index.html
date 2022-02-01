@@ -67,20 +67,26 @@
   </section>
   <section id="operational-model">
     <h2>Operational model</h2>
-    <p>This specification enables discovery of the SVC capabilities of an
-    encoder, by extending the {{RTCRtpCodecCapability}} dictionary. It
-    enables the configuration of encoding parameters for SVC by 
-    extending the {{RTCRtpEncodingParameters}} dictionary.</p>
-    <p>Since this specification does not change the behavior of WebRTC
-    objects and methods, restrictions relating to Offer/Answer negotiation and
-    encoding parameters remain, as described in [[!WEBRTC]] Section 5.2: 
-    "{{RTCRtpSender/setParameters()}} does not cause SDP renegotiation and can
-    only be used to change what the media stack is sending or receiving within the
-    envelope negotiated by Offer/Answer."</p>
-    <p>The configuration of SVC-capable codecs implemented in browsers fits within this
-    restriction. Codecs such as VP8 [[?RFC6386]], VP9 [[?VP9]] and AV1 [[?AV1]] do not
-    negotiate SVC support within Offer/Answer, enabling encoding parameters to be used
-    for SVC configuration.</p>
+    <p>
+      This specification enables the configuration of encoding parameters for SVC 
+      by extending the {{RTCRtpEncodingParameters}} dictionary. Discovery of the SVC
+      capabilities of an encoder is made possible via extensions to the
+      {{RTCRtpCodecCapability}} dictionary.
+    </p>
+    <p>
+      Since this specification does not change the behavior of WebRTC
+      objects and methods, restrictions relating to Offer/Answer negotiation and
+      encoding parameters remain, as described in [[!WEBRTC]] Section 5.2: 
+      "{{RTCRtpSender/setParameters()}} does not cause SDP renegotiation and can
+      only be used to change what the media stack is sending or receiving within the
+      envelope negotiated by Offer/Answer."
+    </p>
+    <p>
+      The configuration of SVC-capable codecs implemented in browsers fits within this
+      restriction. Codecs such as VP8 [[?RFC6386]], VP9 [[?VP9]] and AV1 [[?AV1]] do not
+      negotiate SVC support within Offer/Answer, enabling encoding parameters to be used
+      for SVC configuration.
+    </p>
     <section id="error-handling">
       <h2>Error handling</h2>
       <p>
@@ -204,10 +210,12 @@
           "RTCRtpEncodingParameters" class="dictionary-members">
             <dt><dfn data-idl>scalabilityMode</dfn> of type {{DOMString}}</dt>
             <dd>
-              <p>A case-sensitive identifier of the scalability mode to be used for this stream.
-              The {{RTCRtpEncodingParameters/scalabilityMode}} selected MUST be one of the scalability modes
-              supported for the codec, as indicated in {{RTCRtpCodecCapability}}.
-              Scalability modes are defined in Section 6.</p>
+              <p>
+                A case-sensitive identifier of the scalability mode to be used for this stream.
+                The {{RTCRtpEncodingParameters/scalabilityMode}} selected MUST be one of the scalability modes
+                supported for the codec, as indicated in {{RTCRtpCodecCapability}}.
+                Scalability modes are defined in Section 6.
+              </p>
             </dd>
           </dl>
         </section>
@@ -225,20 +233,26 @@
           "RTCRtpCodecCapability" class="dictionary-members">
             <dt><dfn data-idl>scalabilityModes</dfn> of type <code>sequence&lt;{{DOMString}}&gt;</code></dt>
             <dd>
-              <p>A sequence of the scalability modes (defined in Section 6) supported by the encoder
-              implementation.</p>
-              <p>In response to a call to {{RTCRtpSender}}<code>.getCapabilities(<var>kind</var>)</code>,
-              conformant implementations of this specification MUST return a sequence of
-              scalability modes supported by each codec of that <var>kind</var>. If a codec does not support
-              encoding of scalability modes other than "L1T1", then the {{scalabilityModes}} member
-              is not provided. The "L1T1" scalability mode enables SVC encoding to be turned off using
-              {{RTCRtpSender/setParameters()}}, so that it MUST be included within the sequence of
-              scalability modes returned by {{RTCRtpSender}}<code>.getCapabilities()</code> in order
-              for it to be considered valid within {{RTCRtpSender/setParameters()}}. If "L1T1" is set
-              using {{RTCRtpSender/setParameters()}} then it will be returned in response to
-              {{RTCRtpSender/getParameters()}}.</p>
-              <p>In response to a call to {{RTCRtpReceiver}}<code>.getCapabilities(<var>kind</var>)</code>,
-              {{scalabilityModes}} are not provided.</p>
+              <p>
+                A sequence of the scalability modes (defined in Section 6) supported by the encoder
+                implementation.
+              </p>
+              <p>
+                In response to a call to {{RTCRtpSender}}<code>.getCapabilities(<var>kind</var>)</code>,
+                conformant implementations of this specification MUST return a sequence of
+                scalability modes supported by each codec of that <var>kind</var>. If a codec does not support
+                encoding of scalability modes other than "L1T1", then the {{scalabilityModes}} member
+                is not provided. The "L1T1" scalability mode enables SVC encoding to be turned off using
+                {{RTCRtpSender/setParameters()}}, so that it MUST be included within the sequence of
+                scalability modes returned by {{RTCRtpSender}}<code>.getCapabilities()</code> in order
+                for it to be considered valid within {{RTCRtpSender/setParameters()}}. If "L1T1" is set
+                using {{RTCRtpSender/setParameters()}} then it will be returned in response to
+                {{RTCRtpSender/getParameters()}}.
+              </p>
+              <p>
+                In response to a call to {{RTCRtpReceiver}}<code>.getCapabilities(<var>kind</var>)</code>,
+                {{scalabilityModes}} are not provided.
+              </p>
               <p class="note">
                   The {{scalabilityModes}} sequence represents the scalability modes supported
                   by a peer. For an <a title="Selective Forwarding Middlebox">SFM</a> the supported {{scalabilityModes}} may depend on the
@@ -258,17 +272,21 @@
   </section>
   <section id="scalabilitymodes*">
      <h3>Scalability modes</h3>
-     <p>The scalability modes supported in this specification, as well as their associated
-     identifiers and characteristics, are provided in the table below. The names of the
-     scability modes (which are case sensitive) are provided, along with the scalability
-     mode identifiers assigned in [[?AV1]] Section 6.7.5, and links to dependency diagrams
-     provided in Section 9.</p>
-     <p>While the [[?AV1]] and VP9 [[?VP9]] specifications support all the modes
-     defined in the table, other codec specifications do not. For example, VP8
-     [[?RFC6386]] only supports temporal scalability (e.g. "L1T2", "L1T3"); H.264/SVC
-     [[?RFC6190]], which supports both temporal and spatial scalability, only permits
-     transport of simulcast on distinct SSRCs, so that it does not support the
-     "S" modes, where multiple encodings are transported on a single RTP stream.</p>
+     <p>
+       The scalability modes supported in this specification, as well as their associated
+       identifiers and characteristics, are provided in the table below. The names of the
+       scability modes (which are case sensitive) are provided, along with the scalability
+       mode identifiers assigned in [[?AV1]] Section 6.7.5, and links to dependency diagrams
+       provided in Section 9.
+     </p>
+     <p>
+       While the [[?AV1]] and VP9 [[?VP9]] specifications support all the modes
+       defined in the table, other codec specifications do not. For example, VP8
+       [[?RFC6386]] only supports temporal scalability (e.g. "L1T2", "L1T3"); H.264/SVC
+       [[?RFC6190]], which supports both temporal and spatial scalability, only permits
+       transport of simulcast on distinct SSRCs, so that it does not support the
+       "S" modes, where multiple encodings are transported on a single RTP stream.
+    </p>
     <table class=simple>
       <tbody>
         <tr>
@@ -574,8 +592,11 @@
       <h3>Examples</h3>
         <section id="simulcasttemporal-example*" class="informative">
           <h4>Spatial Simulcast and Temporal Scalability</h4>
-          <p>This example extends [[WEBRTC]] Section 7.1 (Example 1) to demonstrate sending three spatial simulcast layers each with three temporal layers,
-            using an SSRC and RID for each simulcast layer. Only the "sendEncodings" attribute is changed from the original example.</p>
+          <p>
+            This example extends [[WEBRTC]] Section 7.1 (Example 1) to demonstrate sending three spatial
+            simulcast layers each with three temporal layers, using an SSRC and RID for each simulcast
+            layer. Only the "sendEncodings" attribute is changed from the original example.
+          </p>
           <pre class="example highlight">
 const signaling = new SignalingChannel(); // handles JSON.stringify/parse
 const constraints = {audio: true, video: true};
@@ -647,8 +668,11 @@ let sendEncodings = [
     </section>
     <section id="sender-getcapabilities-example*" class="informative">
        <h4>SVC Encoder Capabilities</h4>
-      <p>This is an example of {{RTCRtpSender}}.<code>getCapabilities}}('video').codecs[]</code> returned by a
-        browser implementing [[WEBRTC]]. Only the <code>scalabilityModes</code> attribute is defined in this specification.</p>
+      <p>
+        This is an example of {{RTCRtpSender}}.<code>getCapabilities}}('video').codecs[]</code>
+        returned by a browser implementing [[WEBRTC]]. Only the <code>scalabilityModes</code>
+        attribute is defined in this specification.
+      </p>
        <pre class="example highlight">
 [
     {
@@ -741,8 +765,11 @@ let sendEncodings = [
     </section>
         <section id="sfm-getcapabilities-example*" class="informative" >
        <h4><a title="Selective Forwarding Middlebox">SFM</a> Capabilities</h4>
-       <p>This is an example of receiver capabilities returned by an <a title="Selective Forwarding Middlebox">SFM</a> that only
-       supports forwarding of VP8, VP9 and AV1 temporal scalability modes.</p>
+       <p>
+         This is an example of receiver capabilities returned by an
+         <a title="Selective Forwarding Middlebox">SFM</a> that only
+         supports forwarding of VP8, VP9 and AV1 temporal scalability modes.
+       </p>
        <pre class="example highlight">
  "codecs": [
     {
@@ -782,42 +809,53 @@ let sendEncodings = [
     </section>
   <section class="informative"  id="privacy">
         <h2>Privacy Considerations</h2>
-     <p>This section is non-normative; it specifies no new behaviour, but
-    instead summarizes information already present in other parts of the
-    specification. The privacy considerations
-    for the WebRTC APIs are described in [[WEBRTC]] Section 13.</p>
+     <p>
+       This section is non-normative; it specifies no new behaviour, but
+       instead summarizes information already present in other parts of the
+       specification. The privacy considerations
+       for the WebRTC APIs are described in [[WEBRTC]] Section 13.
+    </p>
     <section>
       <h2>Persistent information</h2>
-      <p>The WebRTC API exposes information about the underlying media system
-      via the {{RTCRtpSender.getCapabilities()}} method, including detailed
-      and ordered information about the codecs that the system is able to
-      produce. The WebRTC-SVC extension adds the
-      {{RTCRtpCodecCapability/scalabilityModes}} supported by the {{RTCRtpSender}}
-      to that information, which is persistent across time, therefore increasing
-      the fingerprint surface. Additional information is not provided relating to
-      the {{RTCRtpReceiver}}.</p>
-      <p>Since for SVC codecs implemented in WebRTC the use of scalable coding tools
-      is not negotiated and is independent of the supported profiles, and since SVC
-      is rarely supported in hardware encoders, knowledge of the
-      {{RTCRtpCodecCapability/scalabilityModes}} supported by the {{RTCRtpSender}}
-      does not provide additional information on the underlying hardware.
-      However, since browsers may differ in their support for SVC modes, the supported
-      {{RTCRtpCodecCapability/scalabilityModes}} may permit differentiation
-      between browsers. This additional fingerprint surface is expected to decrease
-      over time as this specification is more widely implemented.</p>
+      <p>
+        The WebRTC API exposes information about the underlying media system
+        via the {{RTCRtpSender.getCapabilities()}} method, including detailed
+        and ordered information about the codecs that the system is able to
+        produce. The WebRTC-SVC extension adds the
+        {{RTCRtpCodecCapability/scalabilityModes}} supported by the {{RTCRtpSender}}
+        to that information, which is persistent across time, therefore increasing
+        the fingerprint surface. Additional information is not provided relating to
+        the {{RTCRtpReceiver}}.
+      </p>
+      <p>
+        Since for SVC codecs implemented in WebRTC the use of scalable coding tools
+        is not negotiated and is independent of the supported profiles, and since SVC
+        is rarely supported in hardware encoders, knowledge of the
+        {{RTCRtpCodecCapability/scalabilityModes}} supported by the {{RTCRtpSender}}
+        does not provide additional information on the underlying hardware.
+        However, since browsers may differ in their support for SVC modes, the supported
+        {{RTCRtpCodecCapability/scalabilityModes}} may permit differentiation
+        between browsers. This additional fingerprint surface is expected to decrease
+        over time as this specification is more widely implemented.
+      </p>
     </section>
   </section>
   <section class="informative"  id="security">
     <h2>Security Considerations</h2>
-    <p>This section is non-normative; it specifies no new behaviour, but
-    instead summarizes information already present in other parts of the
-    specification. WebRTC protocol security considerations are described
-    in [[RTCWEB-SECURITY-ARCH]] and the security and privacy considerations
-    for the WebRTC APIs are described in [[WEBRTC]] Section 13.</p>
+    <p>
+      This section is non-normative; it specifies no new behaviour, but
+      instead summarizes information already present in other parts of the
+      specification. WebRTC protocol security considerations are described
+      in [[RTCWEB-SECURITY-ARCH]] and the security and privacy considerations
+      for the WebRTC APIs are described in [[WEBRTC]] Section 13.
+    </p>
   </section>
   <section id="dependencydiagrams*">
    <h2>Scalability Mode Dependency Diagrams</h2>
-   <p>Dependency diagrams for the scability modes defined in this specification are provided below.</p>
+   <p>
+     Dependency diagrams for the scability modes defined in this specification
+     are provided below.
+    </p>
    <section id="L1T1*">
    <h3>L1T1</h3>
           <figure>
@@ -1073,10 +1111,9 @@ let sendEncodings = [
    <h2>Acknowledgements</h2>
       <p>
         The editors wish to thank Robin Raymond, Michael Horowitz, Harald Alvestrand,
-        Chris Cunningham and Danil Chapovalov for their contributions to this
-        specification, which represents an evolution of the ORTC API
-        developed in the <a href="https://www.w3.org/community/ortc/">W3C ORTC
-        CG</a>.
+        Chris Cunningham, Danil Chapovalov and Florent Castelli for their contributions
+        to this specification, which evolved from the ORTC API developed in the
+        <a href="https://www.w3.org/community/ortc/">W3C ORTC CG</a>.
       </p>
   </section>
 </body>
