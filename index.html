@@ -89,9 +89,9 @@
          (SFM) is defined in Section 3.7 of [[RFC7667]].
        </p>
        <p>
-         <dfn data-noexport data-idl data-dfn-for="VideoConfiguration">referenceScaling</dfn>
+         <dfn data-noexport data-idl data-dfn-for="VideoConfiguration">spatialScalability</dfn>
          is a proposed addition to {{VideoConfiguration}} in 
-         <a href="https://github.com/w3c/media-capabilities/issues/182">discussion in the
+         <a href="https://github.com/w3c/media-capabilities/pull/189">in the
          Media Capabilities API</a>.
        </p>
   </section>
@@ -182,9 +182,10 @@
         a codec supporting temporal scalability is negotiated.
       </p>
       <p>
-        There are situations where an <a title="Selective Forwarding Middlebox">SFM</a> may only support reception of a subset
-        of codecs and scalability modes. For example, an <a title="Selective Forwarding Middlebox">SFM</a> that parses codec
-        payloads may only support the H.264/AVC codec without scalability and
+        There are situations where an <a title="Selective Forwarding Middlebox">SFM</a>
+        may only support reception of a subset of codecs and scalability modes.
+        For example, an <a title="Selective Forwarding Middlebox">SFM</a> that parses
+        codec payloads may only support the H.264/AVC codec without scalability and
         the VP8 codec with temporal scalability. On the other hand, the browser
         may be able to encode VP8 with temporal scalability, VP9 with temporal
         and spatial scalability and or H.264/AVC with temporal scalability.
@@ -194,33 +195,39 @@
         To determine what codecs and scalability modes an application can send, 
         the {{RTCRtpSender}}'s <code>getCapabilities</code> method can be
         used to determine the codecs and scalability modes supported by the
-        {{RTCRtpSender}}. The <a title="Selective Forwarding Middlebox">SFM</a> can provide information on the codecs and
-        scalability modes it can decode by providing its receiver capabilities.
-        After exchanging capabilities, the  application can compute the intersection
-        of codecs and {{RTCRtpEncodingParameters/scalabilityMode}} values supported
-        by both the browser's {{RTCRtpSender}} and the <a title="Selective Forwarding Middlebox">SFM</a>'s receiver. This can be
-        used to determine the arguments passed to the browser's
-        {{RTCPeerConnection/addTransceiver()}} and {{RTCRtpSender/setParameters()}} methods.
+        {{RTCRtpSender}}. The <a title="Selective Forwarding Middlebox">SFM</a>
+        can provide information on the codecs and scalability modes it can
+        decode by providing its receiver capabilities. After exchanging
+        capabilities, the  application can compute the intersection of codecs
+        and {{RTCRtpEncodingParameters/scalabilityMode}} values supported
+        by both the browser's {{RTCRtpSender}} and the
+        <a title="Selective Forwarding Middlebox">SFM</a>'s receiver. This
+        can be used to determine the arguments passed to the browser's
+        {{RTCPeerConnection/addTransceiver()}} and {{RTCRtpSender/setParameters()}}
+        methods.
       </p>
       <p>
         Since sending simulcast encodings on a single stream is not negotiated within
         Offer/Answer, an application using SDP signaling needs to determine whether
         single stream simulcast transport is supported prior to the Offer/Answer negotiation.
-        This can be handled by having the <a title="Selective Forwarding Middlebox">SFM</a> send it's receiver capabilities to the
-        application prior to Offer/Answer. This allows the application to determine
-        whether single stream simulcast is supported, and if so, what scalability
-        modes the <a title="Selective Forwarding Middlebox">SFM</a> can handle. For example, an <a title="Selective Forwarding Middlebox">SFM</a> that can only support reception
-        of a maximum of 2 simulcast encodings on a single SSRC with the AV1 codec would
-        only indicate support for the "S2T1" and "S2T1h" scalability modes in its
-        receiver capabilities.
+        This can be handled by having the <a title="Selective Forwarding Middlebox">SFM</a>
+        send it's receiver capabilities to the application prior to Offer/Answer.
+        This allows the application to determine whether single stream simulcast is
+        supported, and if so, what scalability modes the
+        <a title="Selective Forwarding Middlebox">SFM</a> can handle. For example,
+        an <a title="Selective Forwarding Middlebox">SFM</a> that can only support
+        reception of a maximum of 2 simulcast encodings on a single SSRC with the
+        AV1 codec would only indicate support for the "S2T1" and "S2T1h" scalability
+        modes in its receiver capabilities.
       </p>
       <p>
-        To determine what codecs and scalability modes an <a title="Selective Forwarding Middlebox">SFM</a> can send to the
+        To determine what codecs and scalability modes an
+        <a title="Selective Forwarding Middlebox">SFM</a> can send to the
         application, the application can utilize the [[?Media-Capabilities]] API.
-        If {{VideoConfiguration/referenceScaling}} is set to `false` or is absent, the decoder cannot decode
-        spatial scalability modes, but can decode all other 
+        If {{VideoConfiguration/spatialScalability}} is set to `false` or is absent,
+        the decoder cannot decode spatial scalability modes, but can decode all other 
         {{RTCRtpEncodingParameters/scalabilityMode}} values supported by the
-        encoder. If {{VideoConfiguration/referenceScaling}} is set to `true` the
+        encoder. If {{VideoConfiguration/spatialScalability}} is set to `true` the
         decoder can decode any {{RTCRtpEncodingParameters/scalabilityMode}}
         value supported by the encoder.
       </p>
@@ -285,13 +292,15 @@
               </p>
               <p class="note">
                   The {{scalabilityModes}} sequence represents the scalability modes supported
-                  by a peer. For an <a title="Selective Forwarding Middlebox">SFM</a> the supported {{scalabilityModes}} may depend on the
-                  negotiated RTP header extensions. For example, if the <a title="Selective Forwarding Middlebox">SFM</a> cannot parse codec
-                  payloads (either because it is not designed to do so, or because the payloads
-                  are encrypted), then negotiation of an RTP header extension (such as the
-                  AV1 Dependency Descriptor defined in Appendix A of [[AV1-RTP]]) could be
-                  a prerequisite for the <a title="Selective Forwarding Middlebox">SFM</a> to forward {{scalabilityModes}}. As a result, the
-                  {{scalabilityModes}} supported by an <a title="Selective Forwarding Middlebox">SFM</a> may not be determined until
+                  by a peer. For an <a title="Selective Forwarding Middlebox">SFM</a> the supported
+                  {{scalabilityModes}} may depend on the negotiated RTP header extensions. For example,
+                  if the <a title="Selective Forwarding Middlebox">SFM</a> cannot parse codec payloads
+                  (either because it is not designed to do so, or because the payloads are encrypted),
+                  then negotiation of an RTP header extension (such as the AV1 Dependency Descriptor
+                  defined in Appendix A of [[AV1-RTP]]) could be a prerequisite for the
+                  <a title="Selective Forwarding Middlebox">SFM</a> to forward {{scalabilityModes}}.
+                  As a result, the {{scalabilityModes}} supported by an
+                  <a title="Selective Forwarding Middlebox">SFM</a> may not be determined until
                   completion of the Offer/Answer negotiation.
               </p>
             </dd>
