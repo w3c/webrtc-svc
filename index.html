@@ -110,10 +110,10 @@
   </section>
   <section id="configuration">
     <h2>Configuration</h2>
-    <p>
-      This specification enables the configuration of encoding parameters for SVC 
-      by extending the {{RTCRtpEncodingParameters}} dictionary. 
-    </p>
+      <p>
+        This specification enables the configuration of encoding parameters for SVC 
+        by extending the {{RTCRtpEncodingParameters}} dictionary. 
+      </p>
     <section id="rtcrtpencodingparameters">
       <h3>RTCRtpEncodingParameters Dictionary Extensions</h3>
       <div>
@@ -128,8 +128,6 @@
             <dd>
               <p>
                 A case-sensitive identifier of the scalability mode to be used for this stream.
-                The {{RTCRtpEncodingParameters/scalabilityMode}} selected MUST be one of the scalability modes
-                supported for the codec, as indicated in {{RTCRtpCodecCapability}}.
                 Scalability modes are defined in Section 6.
               </p>
             </dd>
@@ -137,8 +135,35 @@
         </section>
       </div>
     </section>
-    <section id="negotiation">
-      <h2>Negotiation</h2>
+    <section id="error-handling">
+      <h2>Error handling</h2>
+        <p>
+          [[!WEBRTC]] Section 5.2 describes error handling in
+          {{RTCRtpSender/setParameters()}}, including use of {{RTCError}}
+          to indicate a {{RTCErrorDetailType/"hardware-encoder-error"}}
+          due to an unsupported encoding parameter, as well as
+          {{OperationError}} for other errors. Implementations
+          utilize {{RTCError}} and {{OperationError}}
+          in the prescribed manner when an invalid
+          {{RTCRtpEncodingParameters/scalabilityMode}} value is provided to 
+          {{RTCRtpSender/setParameters()}} or {{RTCPeerConnection/addTransceiver()}}.
+        </p>
+        <p>
+          When the {{RTCPeerConnection/addTransceiver()}} and
+          {{RTCRtpTransceiver/setCodecPreferences()}} methods are called
+          prior to conclusion of the Offer/Answer negotiation, the negotiated
+          codec and its capabilities may not be known. In this situation the
+          {{RTCRtpEncodingParameters/scalabilityMode}} values configured
+          in {{RTCRtpTransceiverInit/sendEncodings}} may not be supported
+          by the eventually negotiated codec. However, an error will result only
+          if the requested {{RTCRtpEncodingParameters/scalabilityMode}} value is
+          invalid for any supported codec. To determine whether the requested
+          {{RTCRtpEncodingParameters/scalabilityMode}} values have been applied,
+          an application can call the {{RTCRtpSender.getParameters()}} method
+          after negotiation has completed and the sending codec has been
+          determined. If the configuration is not satisfactory,
+          {{RTCRtpSender/setParameters()}} can be used to change it.
+        </p>
         <p>
           So as to ensure that the desired {{RTCRtpEncodingParameters/scalabilityMode}}
           values can be applied, {{RTCRtpTransceiver/setCodecPreferences()}} can be
@@ -153,121 +178,93 @@
           a codec supporting temporal scalability is negotiated.
         </p>
         <p>
-          There are situations where an <a title="Selective Forwarding Middlebox">SFM</a>
-          may only support reception of a subset of codecs and scalability modes.
-          For example, an <a title="Selective Forwarding Middlebox">SFM</a> that parses
-          codec payloads may only support the H.264/AVC codec without scalability and
-          the VP8 codec with temporal scalability. On the other hand, the browser
-          may be able to encode VP8 with temporal scalability, VP9 with temporal
-          and spatial scalability and or H.264/AVC with temporal scalability.
-          In such a situation, an application desiring to use SVC would only
-          be able to encode VP8 with temporal scalability.
+          Where SVC support is negotiated in SDP Offer/Answer,
+          {{RTCRtpSender/setParameters()}} can only change
+          {{RTCRtpEncodingParameters/scalabilityMode}} values within the envelope
+          negotiated by Offer/Answer, resulting in an error if the requested
+          {{RTCRtpEncodingParameters/scalabilityMode}} value is outside this envelope.
         </p>
         <p>
-          Since sending simulcast encodings on a single stream is not negotiated within
-          Offer/Answer, an application using SDP signaling needs to determine whether
-          single stream simulcast transport is supported prior to the Offer/Answer negotiation.
-          This can be handled by having the <a title="Selective Forwarding Middlebox">SFM</a>
-          send it's receiver capabilities to the application prior to Offer/Answer.
-          This allows the application to determine whether single stream simulcast is
-          supported, and if so, what scalability modes the
-          <a title="Selective Forwarding Middlebox">SFM</a> can handle. For example,
-          an <a title="Selective Forwarding Middlebox">SFM</a> that can only support
-          reception of a maximum of 2 simulcast encodings on a single SSRC with the
-          AV1 codec would only indicate support for the "S2T1" and "S2T1h" scalability
-          modes in its receiver capabilities.
+          When {{RTCRtpTransceiverInit/sendEncodings}} is used to
+          request the sending of multiple simulcast streams using
+          {{RTCPeerConnection/addTransceiver()}}, it is not possible to
+          configure the sending of "S" scalability modes. The browser
+          may only be configured to send simulcast encodings with
+          multiple SSRCs and RIDs, or alternatively, to send all
+          simulcast encodings on a single RTP stream. The
+          <a>user agent</a>  MUST return {{OperationError}} in
+          {{RTCRtpSender/setParameters()}} or
+          {{RTCPeerConnection/addTransceiver()}} in response to
+          an attempt to simultaneously utilize both simulcast transport
+          techniques.
         </p>
-    </section>
-    <section id="error-handling">
-      <h2>Error handling</h2>
-      <p>
-        [[!WEBRTC]] Section 5.2 describes error handling in
-        {{RTCRtpSender/setParameters()}}, including use of {{RTCError}}
-        to indicate a {{RTCErrorDetailType/"hardware-encoder-error"}}
-        due to an unsupported encoding parameter, as well as
-        {{OperationError}} for other errors. Implementations of this
-        specification utilize {{RTCError}} and {{OperationError}}
-        in the prescribed manner when an invalid
-        {{RTCRtpEncodingParameters/scalabilityMode}} value is provided to 
-        {{RTCRtpSender/setParameters()}} or {{RTCPeerConnection/addTransceiver()}}.
-      </p>
-      <p>
-        When the {{RTCPeerConnection/addTransceiver()}} and
-        {{RTCRtpTransceiver/setCodecPreferences()}} methods are called
-        prior to conclusion of the Offer/Answer negotiation, the negotiated
-        codec and its capabilities may not be known. In this situation the
-        {{RTCRtpEncodingParameters/scalabilityMode}} values configured
-        in {{RTCRtpTransceiverInit/sendEncodings}} may not be supported
-        by the eventually negotiated codec. However, an error will result only
-        if the requested {{RTCRtpEncodingParameters/scalabilityMode}} value is
-        invalid for any supported codec. To determine whether the requested
-        {{RTCRtpEncodingParameters/scalabilityMode}} values have been applied,
-        an application can call the {{RTCRtpSender.getParameters()}} method
-        after negotiation has completed and the sending codec has been determined.
-        If the configuration is not satisfactory, the
-        {{RTCRtpSender/setParameters()}} method can be used to change it.
-      </p>
-      <p>
-        Note that where SVC support is negotiated in SDP Offer/Answer,
-        {{RTCRtpSender/setParameters()}} can only change
-        {{RTCRtpEncodingParameters/scalabilityMode}} values within the envelope
-        negotiated by Offer/Answer, resulting in an error if the requested
-        {{RTCRtpEncodingParameters/scalabilityMode}} value is outside this envelope.
-        When {{RTCRtpTransceiverInit/sendEncodings}} is used to
-        request the sending of multiple simulcast streams using
-        {{RTCPeerConnection/addTransceiver()}}, it is not possible to
-        configure the sending of "S" scalability modes. The browser
-        may only be configured to send simulcast encodings with
-        multiple SSRCs and RIDs, or alternatively, to send all
-        simulcast encodings on a single RTP stream. The
-        <a>user agent</a>  MUST return {{OperationError}} in
-        {{RTCRtpSender/setParameters()}} or
-        {{RTCPeerConnection/addTransceiver()}} in response to
-        an attempt to simultaneously utilize both simulcast transport
-        techniques.
-      </p>
     </section>
   </section>
   <section id="discovery">
     <h2>Discovery</h2>
-    <p>
-      The SVC capabilities of an encoder can be discovered using
-      extensions to the {{RTCRtpCodecCapability}} dictionary.
-    </p>
-    <p>
-      To determine what codecs and scalability modes an application can send,
-      the {{RTCRtpSender}}'s <code>getCapabilities</code> method can be
-      used to determine the codecs and scalability modes supported by the
-      {{RTCRtpSender}}. The <a title="Selective Forwarding Middlebox">SFM</a>
-      can provide information on the codecs and scalability modes it can
-      decode by providing its receiver capabilities.
-    </p>
-    <p>
-      After exchanging capabilities, the application can compute the
-      intersection of codecs and {{RTCRtpEncodingParameters/scalabilityMode}}
-      values supported by both the browser's {{RTCRtpSender}} and the
-      <a title="Selective Forwarding Middlebox">SFM</a>'s receiver. This
-      can be used to determine the arguments passed to the browser's
-      {{RTCPeerConnection/addTransceiver()}} and {{RTCRtpSender/setParameters()}}
-      methods.
-    </p>
-    <p>
-      The [[?Media-Capabilities]] API provides information on decoder support
-      for spatial scalablity modes. {{VideoConfiguration/spatialScalability}}
-      indicates whether a decoder has the ability to support spatial prediction,
-      which requires the ability to use frames of a resolution different than
-      the current resolution as a dependency. If {{VideoConfiguration/spatialScalability}}
-      is set to <code>true</code>, the decoder can decode any
-      {{RTCRtpEncodingParameters/scalabilityMode}} value supported by the encoder.
-      If {{VideoConfiguration/spatialScalability}} is set to <code>false</code>
-      or is absent, the decoder cannot decode spatial scalability modes, but can
-      can decode all other {{RTCRtpEncodingParameters/scalabilityMode}} values
-      supported by the encoder.
-    </p>
-    <section id="rtcrtpcodeccapability*">
-      <h3>{{RTCRtpCodecCapability}} Dictionary Extensions</h3>
-      <div>
-        <pre class="idl">partial dictionary RTCRtpCodecCapability {
+      <p>
+        The SVC capabilities of an encoder can be discovered using
+        extensions to the {{RTCRtpCodecCapability}} dictionary.
+      </p>
+      <p>
+        To determine what codecs and scalability modes an application can send,
+        {{RTCRtpSender.getCapabilities(kind)}} can be
+        used to determine the codecs and scalability modes supported by the
+        {{RTCRtpSender}}. The <a title="Selective Forwarding Middlebox">SFM</a>
+        can provide information on the codecs and scalability modes it can
+        decode by providing its receiver capabilities.
+      </p>
+      <p>
+        After exchanging capabilities, the application can compute the
+        intersection of codecs and {{RTCRtpEncodingParameters/scalabilityMode}}
+        values supported by both the browser's {{RTCRtpSender}} and the
+        <a title="Selective Forwarding Middlebox">SFM</a>'s receiver. This
+        can be used to determine the arguments passed to the browser's
+        {{RTCPeerConnection/addTransceiver()}} and {{RTCRtpSender/setParameters()}}
+        methods.
+      </p>
+      <p>
+        There are situations where an <a title="Selective Forwarding Middlebox">SFM</a>
+        may only support reception of a subset of codecs and scalability modes.
+        For example, an <a title="Selective Forwarding Middlebox">SFM</a> that parses
+        codec payloads may only support the H.264/AVC codec without scalability and
+        the VP8 codec with temporal scalability. On the other hand, the browser
+        may be able to encode VP8 with temporal scalability, VP9 with temporal
+        and spatial scalability and or H.264/AVC with temporal scalability.
+        In such a situation, an application desiring to use SVC would only
+        be able to encode VP8 with temporal scalability.
+      </p>
+      <p>
+        Since sending simulcast encodings on a single stream is not negotiated within
+        Offer/Answer, an application using SDP signaling needs to determine whether
+        single stream simulcast transport is supported prior to the Offer/Answer negotiation.
+        This can be handled by having the <a title="Selective Forwarding Middlebox">SFM</a>
+        send it's receiver capabilities to the application prior to Offer/Answer.
+        This allows the application to determine whether single stream simulcast is
+        supported, and if so, what scalability modes the
+        <a title="Selective Forwarding Middlebox">SFM</a> can handle. For example,
+        an <a title="Selective Forwarding Middlebox">SFM</a> that can only support
+        reception of a maximum of 2 simulcast encodings on a single SSRC with the
+        AV1 codec would only indicate support for the "S2T1" and "S2T1h" scalability
+        modes in its receiver capabilities.
+      </p>
+      <p>
+        The [[?Media-Capabilities]] API provides information on decoder support
+        for spatial scalablity modes. {{VideoConfiguration/spatialScalability}}
+        indicates whether a decoder has the ability to support spatial prediction,
+        which requires the ability to use frames of a resolution different than
+        the current resolution as a dependency. If {{VideoConfiguration/spatialScalability}}
+        is set to <code>true</code>, the decoder can decode any
+        {{RTCRtpEncodingParameters/scalabilityMode}} value supported by the encoder.
+        If {{VideoConfiguration/spatialScalability}} is set to <code>false</code>
+        or is absent, the decoder cannot decode spatial scalability modes, but can
+        can decode all other {{RTCRtpEncodingParameters/scalabilityMode}} values
+        supported by the encoder.
+      </p>
+      <section id="rtcrtpcodeccapability*">
+        <h3>{{RTCRtpCodecCapability}} Dictionary Extensions</h3>
+        <div>
+          <pre class="idl">partial dictionary RTCRtpCodecCapability {
              sequence&lt;DOMString&gt; scalabilityModes;
 };</pre>
         <section>
