@@ -298,14 +298,14 @@
           </p>
           <p>
            For an <a title="Selective Forwarding Middlebox">SFM</a> the supported
-           {{RTCRtpCapabilities/scalabilityModes}} may depend on the negotiated RTP header
+           {{RTCRtpCodecCapability/scalabilityModes}} may depend on the negotiated RTP header
            extensions.  For example, if the <a title="Selective Forwarding Middlebox">SFM</a>
            cannot parse codec payloads (either because it is not designed to do so, or
            because the payloads are encrypted), then negotiation of an RTP header extension
            (such as the AV1 Dependency Descriptor defined in Appendix A of [[AV1-RTP]])
            could be a prerequisite for the <a title="Selective Forwarding Middlebox">SFM</a>
-           to forward {{RTCRtpCapabilities/scalabilityModes}}. As a result, the
-           {{RTCRtpCapabilities/scalabilityModes}} supported by an
+           to forward {{RTCRtpCodecCapability/scalabilityModes}}. As a result, the
+           {{RTCRtpCodecCapability/scalabilityModes}} supported by an
            <a title="Selective Forwarding Middlebox">SFM</a> may not be determined until
            completion of the Offer/Answer negotiation.
           </p>
