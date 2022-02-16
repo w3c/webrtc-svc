@@ -156,18 +156,20 @@
            {{RTCRtpTransceiverInit/sendEncodings}} within
            {{RTCPeerConnection/addTransceiver()}}. To validate
            {{RTCRtpEncodingParameters/scalabilityMode}}, add
-           the following validation steps after step 3:
+           the following validation steps after step 3 (within step 8):
            <ol>
              <li>
                If <var>sendEncodings</var> contains any encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value is 
-               not supported by any codec, [= exception/throw =] an
-               {{OperationError}}.
+               not supported by any codec in
+               {{RTCRtpSender.getCapabilities(kind).codecs}}
+             , [= exception/throw =] an {{OperationError}}.
              </li>
              <li>
                If the number of {{RTCRtpEncodingParameters}} stored in
-               <var>sendEncodings</var> is more than 1, and any of the
-               {{RTCRtpEncodingParameters/scalabilityMode}} values
+               <var>sendEncodings</var> is more than 1, and
+               <var>sendEncodings</var> contains any encoding whose
+               {{RTCRtpEncodingParameters/scalabilityMode}} value
                represents an "S" mode [= exception/throw =] an
                {{OperationError}}.
              </li>
@@ -213,24 +215,17 @@
          <p>
            [[!WEBRTC]] Section 5.2 describes validation of <var>parameters</var>
            within {{RTCRtpSender/setParameters()}}. Add the following to the 
-           conditions (step 4) for an {{InvalidModificationError}}:
+           conditions (step 4 within step 6) for an {{InvalidModificationError}}:
            <ol>
              <li>
-               Negotiation has completed, and <var>encodings</var>
-               contains an encoding whose
+               <var>encodings</var> contains an encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value is
-               not supported by any codec in the negotiated codec list.
+               not supported by any codec in <var>codecs</var>.
              </li>
              <li>
-               Negotiation has not completed, and <var>encodings</var>
-               contains any encoding whose
-               {{RTCRtpEncodingParameters/scalabilityMode}} value is
-               not supported by any codec in the codec subset indicated by
-               {{RTCRtpTransceiver/setCodecPreferences()}}.
-             </li>   
-             <li>
-               <var>N</var> is greater than 1, and any of the
-               {{RTCRtpEncodingParameters/scalabilityMode}} values
+               <var>N</var> is greater than 1, and <var>encodings</var>
+               contains an encoding whose
+               {{RTCRtpEncodingParameters/scalabilityMode}} value
                represents an "S" mode.
              </li>
            </ol>
@@ -248,17 +243,24 @@
            {{RTCRtpSender/setParameters()}} can be used to change it.
          </p>
          <p>
-           {{RTCRtpSender/getParameters()}} always returns the currently
+           {{RTCRtpSender/getParameters()}} returns the currently
            configured {{RTCRtpEncodingParameters/scalabilityMode}} value for each
-           <var>encoding</var>. Before negotiation completes, these are the
+           <var>encoding</var>.
+         </p>
+         <p>
+           Before negotiation completes, {{RTCRtpSender/getParameters()}} returns the
            {{RTCRtpEncodingParameters/scalabilityMode}}
            values requested in {{RTCRtpSender/setParameters()}} or
-           {{RTCPeerConnection/addTransceiver()}}. If no
-           {{RTCRtpEncodingParameters/scalabilityMode}} values were provided for an
-           <var>encoding</var>, {{RTCRtpSender/getParameters()}} returns the default
-           {{RTCRtpEncodingParameters/scalabilityMode}} of the most preferred codec. 
+           {{RTCPeerConnection/addTransceiver()}}, assuming that those methods completed
+           successfully.
+         </p>
+         <p>
+           If no {{RTCRtpEncodingParameters/scalabilityMode}} value was provided for
+           an encoding in <var>encodings</var>, {{RTCRtpSender/getParameters()}} returns
+           the {{RTCRtpEncodingParameters/scalabilityMode}} of the most preferred codec. 
            The most preferred codec and the default {{RTCRtpEncodingParameters/scalabilityMode}}
-           are both implementation dependent.
+           are both implementation dependent. The default {{RTCRtpEncodingParameters/scalabilityMode}}
+           SHOULD be one of the temporal scalability modes ("L1T1", "L1T2" or "L1T3").
          </p>
       </section>
     </section>
