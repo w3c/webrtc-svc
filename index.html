@@ -170,7 +170,7 @@
                <var>sendEncodings</var> is more than 1, and
                <var>sendEncodings</var> contains any encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value
-               represents an "S" mode [= exception/throw =] an
+               represents an "S mode" [= exception/throw =] an
                {{OperationError}}.
              </li>
            </ol>
@@ -203,7 +203,7 @@
           When {{RTCRtpTransceiverInit/sendEncodings}} is used to
           request the sending of multiple simulcast streams using
           {{RTCPeerConnection/addTransceiver()}}, it is not possible to
-          configure the sending of "S" scalability modes. The browser
+          configure the sending of an "S mode". The browser
           may only be configured to send simulcast encodings with
           multiple SSRCs and RIDs, or alternatively, to send all
           simulcast encodings on a single RTP stream. Simultaneously using
@@ -226,7 +226,7 @@
                <var>N</var> is greater than 1, and <var>encodings</var>
                contains an encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value
-               represents an "S" mode.
+               represents an "S mode".
              </li>
            </ol>
          </p>
@@ -260,7 +260,7 @@
            the {{RTCRtpEncodingParameters/scalabilityMode}} of the most preferred codec. 
            The most preferred codec and the default {{RTCRtpEncodingParameters/scalabilityMode}}
            are both implementation dependent. The default {{RTCRtpEncodingParameters/scalabilityMode}}
-           SHOULD be one of the temporal scalability modes ("L1T1", "L1T2" or "L1T3").
+           SHOULD be one of the temporal scalability modes (e.g. "L1T1","L1T2","L1T3", etc.).
          </p>
       </section>
     </section>
