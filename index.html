@@ -162,7 +162,7 @@
                If <var>sendEncodings</var> contains any encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value is 
                not supported by any codec in
-               {{RTCRtpSender.getCapabilities(kind).codecs}}
+               {{RTCRtpSender.getCapabilities(kind)}}.<code>codecs</code>
              , [= exception/throw =] an {{OperationError}}.
              </li>
              <li>
