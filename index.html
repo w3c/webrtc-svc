@@ -162,8 +162,8 @@
                If <var>sendEncodings</var> contains any encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value is 
                not supported by any codec in
-               {{RTCRtpSender.getCapabilities(kind)}}.<code>codecs</code>
-             , [= exception/throw =] an {{OperationError}}.
+               {{RTCRtpSender.getCapabilities(kind)}}.<code>codecs</code>,
+               [= exception/throw =] an {{OperationError}}.
              </li>
              <li>
                If the number of {{RTCRtpEncodingParameters}} stored in
@@ -182,32 +182,32 @@
            codec and its capabilities may not be known. In this situation the
            {{RTCRtpEncodingParameters/scalabilityMode}} values configured
            in {{RTCRtpTransceiverInit/sendEncodings}} may not be supported
-           by the eventually negotiated codec. However, an error will result only
+           by the eventually negotiated codec. However, an error will only result
            if the requested {{RTCRtpEncodingParameters/scalabilityMode}} value is
-           invalid for any supported codec.
+           invalid for any supported codec, or if mixed simulcast transport is requested.
         </p>
         <p>
           So as to ensure that the desired {{RTCRtpEncodingParameters/scalabilityMode}}
           values can be applied, {{RTCRtpTransceiver/setCodecPreferences()}} can be
-          used to limit the negotiated codecs to those supporting the desired configuration.
+          used to prefer or only include codecs supporting the desired configuration.
           For example, if temporal scalability is desired along with spatial simulcast,
           when {{RTCPeerConnection/addTransceiver()}} is called,
           {{RTCRtpTransceiverInit/sendEncodings}} can be configured to send multiple
           simulcast streams with different resolutions, with each stream
           utilizing temporal scalability. If only the VP8, VP9 and AV1 codec implementations
           support temporal scalability, {{RTCRtpTransceiver/setCodecPreferences()}}
-          can be used to remove the H.264/AVC codec from the Offer, guaranteeing that
-          a codec supporting temporal scalability is negotiated.
+          can be used to remove the H.264/AVC codec from the Offer, improving the
+          chances that a codec supporting temporal scalability is negotiated.
         </p>
         <p>
           When {{RTCRtpTransceiverInit/sendEncodings}} is used to
           request the sending of multiple simulcast streams using
-          {{RTCPeerConnection/addTransceiver()}}, it is not possible to
-          configure the sending of an "S mode". The browser
-          may only be configured to send simulcast encodings with
-          multiple SSRCs and RIDs, or alternatively, to send all
-          simulcast encodings on a single RTP stream. Simultaneously using
-          both simulcast transport techniques is not permitted. 
+          {{RTCPeerConnection/addTransceiver()}}, an "S mode" cannot
+          be requested. The browser may only be configured to send
+          simulcast encodings with multiple SSRCs and RIDs, or
+          alternatively, to send all simulcast encodings on a single
+          RTP stream. Simultaneously using both simulcast transport
+          techniques is not permitted. 
         </p>
       </section>
       <section id="setparameters">
