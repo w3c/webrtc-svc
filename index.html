@@ -218,11 +218,17 @@
            conditions (step 4 within step 6) for an {{InvalidModificationError}}:
            <ol>
              <li>
+               Before negotiation has concluded,
+               <var>sendEncodings</var> contains any encoding whose
+               {{RTCRtpEncodingParameters/scalabilityMode}} value is 
+               not supported by any codec in
+               {{RTCRtpSender.getCapabilities(kind)}}.<code>codecs</code>. 
+             </li>
+             <li>
+               After negotiation has concluded,
                <var>encodings</var> contains an encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value is
-               not supported by any codec in <var>codecs</var> (before
-               negotiation has completed) or by the most preferred codec
-               (after negotiation has completed).
+               not supported by the most preferred codec.
              </li>
              <li>
                <var>N</var> is greater than 1, and <var>encodings</var>
