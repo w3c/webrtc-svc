@@ -220,7 +220,9 @@
              <li>
                <var>encodings</var> contains an encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value is
-               not supported by any codec in <var>codecs</var>.
+               not supported by any codec in <var>codecs</var> (before
+               negotiation has completed) or by the most preferred codec
+               (after negotiation has completed).
              </li>
              <li>
                <var>N</var> is greater than 1, and <var>encodings</var>
@@ -248,8 +250,11 @@
            After negotiation has completed, {{RTCRtpSender/getParameters()}}
            returns the currently configured
            {{RTCRtpEncodingParameters/scalabilityMode}} value for each
-           <var>encoding</var>. If the configuration is not satisfactory,
-           {{RTCRtpSender/setParameters()}} can be used to change it.
+           <var>encoding</var>. This may be different from the values
+           requested in {{RTCPeerConnection/addTransceiver()}}
+           or {{RTCRtpSender/setParameters()}}. If th configuration is
+           not satisfactory, {{RTCRtpSender/setParameters()}} can be used
+           to change it.
          </p>
          <p>
            If no {{RTCRtpEncodingParameters/scalabilityMode}}
