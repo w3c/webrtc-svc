@@ -219,14 +219,14 @@
            with an {{InvalidModificationError}} (step 4 within step 6):
            <ol>
              <li>
-               Before negotiation has concluded,
+               Before initial negotiation has concluded,
                <var>encodings</var> contains any encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value is 
                not supported by any codec in
                {{RTCRtpSender.getCapabilities(kind)}}.<code>codecs</code>. 
              </li>
              <li>
-               After negotiation has concluded,
+               After initial negotiation has concluded,
                <var>encodings</var> contains an encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value is
                not supported by the most preferred codec.
@@ -243,14 +243,18 @@
       <section id="getparameters">
        <h3>{{RTCRtpSender/getParameters()}}</h3>
          <p>
-           Before the initial negotiation has completed, {{RTCRtpSender/getParameters()}}
-           returns the {{RTCRtpEncodingParameters/scalabilityMode}} value
-           for each encoding in <var>encodings</var>, as last set by
-           {{RTCPeerConnection/addTransceiver()}} or {{RTCRtpSender/setParameters()}}.
-           If no {{RTCRtpEncodingParameters/scalabilityMode}} value was provided for
-           an encoding in <var>encodings</var>, or if a value was not successfully
-           set, then {{RTCRtpSender/getParameters()}} will not return a
-           {{RTCRtpEncodingParameters/scalabilityMode}} value for that encoding.
+           Before the initial negotiation has completed,
+           {{RTCRtpSender/getParameters()}} returns the
+           {{RTCRtpEncodingParameters/scalabilityMode}} value for each
+           encoding in <var>encodings</var>, as last set by
+           {{RTCPeerConnection/addTransceiver()}} or
+           {{RTCRtpSender/setParameters()}}. If no
+           {{RTCRtpEncodingParameters/scalabilityMode}} value
+           was provided for an encoding in <var>encodings</var>,
+           or if a value was not successfully set, then
+           {{RTCRtpSender/getParameters()}} will not return a
+           {{RTCRtpEncodingParameters/scalabilityMode}} value
+           for that encoding.
          </p>
          <p>
            After the initial negotiation has completed, {{RTCRtpSender/getParameters()}}
