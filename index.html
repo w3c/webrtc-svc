@@ -215,7 +215,8 @@
          <p>
            [[!WEBRTC]] Section 5.2 describes validation of <var>parameters</var>
            within {{RTCRtpSender/setParameters()}}. Add the following to the 
-           conditions (step 4 within step 6) for an {{InvalidModificationError}}:
+           conditions under which the operation causes a promise rejected
+           with an {{InvalidModificationError}} (step 4 within step 6):
            <ol>
              <li>
                Before negotiation has concluded,
