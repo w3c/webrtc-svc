@@ -243,9 +243,9 @@
       <section id="getparameters">
        <h3>{{RTCRtpSender/getParameters()}}</h3>
          <p>
-           Before negotiation has completed, {{RTCRtpSender/getParameters()}}
-           returns the {{RTCRtpEncodingParameters/scalabilityMode}} value for each
-           encoding in <var>encodings</var>, assuming it was successfully set by
+           Before the initial negotiation has completed, {{RTCRtpSender/getParameters()}}
+           returns the {{RTCRtpEncodingParameters/scalabilityMode}} value
+           for each encoding in <var>encodings</var>, as last set by
            {{RTCPeerConnection/addTransceiver()}} or {{RTCRtpSender/setParameters()}}.
            If no {{RTCRtpEncodingParameters/scalabilityMode}} value was provided for
            an encoding in <var>encodings</var>, or if a value was not successfully
@@ -253,7 +253,7 @@
            {{RTCRtpEncodingParameters/scalabilityMode}} value for that encoding.
          </p>
          <p>
-           After negotiation has completed, {{RTCRtpSender/getParameters()}}
+           After the initial negotiation has completed, {{RTCRtpSender/getParameters()}}
            returns the currently configured {{RTCRtpEncodingParameters/scalabilityMode}}
            value for each encoding in <var>encodings</var>. This may be different
            from the values requested in {{RTCPeerConnection/addTransceiver()}}
@@ -263,15 +263,15 @@
          </p>
          <p>
            If {{RTCPeerConnection/addTransceiver()}} or {{RTCRtpSender/setParameters()}}
-           did not provide an {{RTCRtpEncodingParameters/scalabilityMode}} value for        
-           an encoding in <var>encodings</var>, then after negotiation has completed,          
-           {{RTCRtpSender/getParameters()}} returns the default
+           did not provide an {{RTCRtpEncodingParameters/scalabilityMode}} value for    
+           an encoding in <var>encodings</var>, then after the initial negotiation
+           has completed, {{RTCRtpSender/getParameters()}} returns the default
            {{RTCRtpEncodingParameters/scalabilityMode}} of the most preferred codec
            for that encoding. The most preferred codec and the default
            {{RTCRtpEncodingParameters/scalabilityMode}} for each ecodec are both
-           implementation dependent. The default {{RTCRtpEncodingParameters/scalabilityMode}}
-           SHOULD be one of the temporal scalability modes
-           (e.g. [="L1T1"=],[="L1T2"=],[="L1T3"=], etc.).
+           implementation dependent. The default
+           {{RTCRtpEncodingParameters/scalabilityMode}} SHOULD be one of the
+           temporal scalability modes (e.g. [="L1T1"=],[="L1T2"=],[="L1T3"=], etc.).
          </p>  
       </section>
     </section>
