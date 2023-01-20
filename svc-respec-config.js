@@ -11,7 +11,7 @@ var respecConfig = {
     }
   ],
   formerEditors: [
-    { name: "Peter Thatcher", company: "Google", w3cid: "68236", retiredDate: "2019-12-31" }
+    { name: "Peter Thatcher", company: "Microsoft Corporation", w3cid: "68236", retiredDate: "2019-12-31" }
   ],
   authors: [
   ],
@@ -57,7 +57,7 @@ var respecConfig = {
         "E. Berger",
         "S. Nandakumar"
       ],
-      "status": "10 March 2021. Internet Draft (work in progress)",
+      "status": "November 2021. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RFC7667": {
