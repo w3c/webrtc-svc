@@ -345,14 +345,14 @@
           </p>
           <p>
            For an <a title="Selective Forwarding Middlebox">SFM</a> the supported
-           {{RTCRtpEncodingParameters/scalabilityMode}} may depend on the negotiated RTP header
-           extensions.  For example, if the <a title="Selective Forwarding Middlebox">SFM</a>
+           {{RTCRtpEncodingParameters/scalabilityMode}} values may depend on the negotiated RTP
+           header extensions.  For example, if the <a title="Selective Forwarding Middlebox">SFM</a>
            cannot parse codec payloads (either because it is not designed to do so, or
            because the payloads are encrypted), then negotiation of an RTP header extension
            (such as the AV1 Dependency Descriptor defined in Appendix A of [[AV1-RTP]])
            could be a prerequisite for the <a title="Selective Forwarding Middlebox">SFM</a>
-           to forward {{RTCRtpEncodingParameters/scalabilityMode}}. As a result, the
-           {{RTCRtpEncodingParameters/scalabilityMode}} supported by an
+           to forward a {{RTCRtpEncodingParameters/scalabilityMode}} value. As a result,
+           the {{RTCRtpEncodingParameters/scalabilityMode}} values supported by an
            <a title="Selective Forwarding Middlebox">SFM</a> may not be determined until
            completion of the Offer/Answer negotiation.
           </p>
@@ -361,19 +361,19 @@
   <section id="scalabilitymodes*">
     <h3>Scalability modes</h3>
     <p>
-      The scalability modes supported in this specification, as well as their associated
-      identifiers and characteristics, are provided in the table below. The names of the
-      scability modes (which are case sensitive) are provided, along with the scalability
-      mode identifiers assigned in [[?AV1]] Section 6.7.5, and links to dependency diagrams
-      provided in Section 9.
+      The {{RTCRtpEncodingParameters/scalabilityMode}} values supported in this specification,
+      as well as their associated identifiers and characteristics, are provided in the table
+      below. The names of the {{RTCRtpEncodingParameters/scalabilityMode}} values (which are
+      case sensitive) are provided, along with the scalability mode identifiers assigned in
+      [[?AV1]] Section 6.7.5, and links to dependency diagrams provided in Section 9.
     </p>
     <p>
-      While the [[?AV1]] and VP9 [[?VP9]] specifications support all the modes
-      defined in the table, other codec specifications do not. For example, VP8
-      [[?RFC6386]] only supports temporal scalability (e.g. [="L1T2"=], [="L1T3"=]); H.264/SVC
-      [[?RFC6190]], which supports both temporal and spatial scalability, only permits
-      transport of simulcast on distinct SSRCs, so that it does not support the
-      "S" modes, where multiple encodings are transported on a single RTP stream.
+      While the [[?AV1]] and VP9 [[?VP9]] specifications support all the
+      {{RTCRtpEncodingParameters/scalabilityMode}} values defined in the table, other codec
+      specifications do not. For example, VP8 [[?RFC6386]] only supports temporal scalability
+      (e.g. [="L1T2"=], [="L1T3"=]); H.264/SVC [[?RFC6190]], which supports both temporal and
+      spatial scalability, only permits transport of simulcast on distinct SSRCs, so that it
+      does not support "S" modes, where multiple encodings are transported on a single RTP stream.
     </p>
     <table class=simple>
       <tbody>
