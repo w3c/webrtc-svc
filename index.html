@@ -276,7 +276,13 @@
            implementation dependent. The default
            {{RTCRtpEncodingParameters/scalabilityMode}} SHOULD be one of the
            temporal scalability modes (e.g. [="L1T1"=],[="L1T2"=],[="L1T3"=], etc.).
-         </p>  
+         </p>
+         <p>
+           The [="L1T1"=] scalability mode enables SVC encoding to be turned off
+           using {{RTCRtpSender/setParameters()}}. If [="L1T1"=] is set using
+           {{RTCRtpSender/setParameters()}} then it will be returned in response
+           to {{RTCRtpSender/getParameters()}}.
+         </p>
       </section>
     </section>
   </section>
@@ -760,7 +766,7 @@ const contentType = 'video/VP9';
 const configuration = {
   type: 'webrtc',
   video: {
-    contentType: contentType,
+    contentType,
     width: 640,
     height: 480,
     bitrate: 10000,
@@ -769,16 +775,18 @@ const configuration = {
   }
 };
 
-navigator.mediaCapabilities.encodingInfo(configuration)
-  .then((result) => {
-    console.log(contentType + ' is:'
-      + (result.supported ? '' : ' NOT') + ' supported,'
-      + (result.smooth ? '' : ' NOT') + ' smooth and'
-      + (result.powerEfficient ? '' : ' NOT') + ' power efficient');
-  })
-  .catch((err) => {
-    console.error(err, ' caused encodingInfo to reject');
-  });
+try {
+  const info = await navigator.mediaCapabilities.encodingInfo(configuration);
+
+  if (!info.supported) {
+    console.log(`${contentType} is unsupported.`);
+    return;
+  }
+  console.log(`${contentType} is ${info.smooth || 'NOT '}smooth, and ` +
+              `${info.powerEfficient || 'NOT '}power efficient`);
+} catch (err) {
+  console.error(err, ' caused encodingInfo to fail');
+}
        </pre>
     </section>
         <section id="sfm-getcapabilities-example*" class="informative" >
