@@ -238,6 +238,12 @@
              </li>
            </ol>
          </p>
+         <p>
+           The [="L1T1"=] scalability mode enables SVC encoding to be turned off
+           using {{RTCRtpSender/setParameters()}}. If [="L1T1"=] is set using
+           {{RTCRtpSender/setParameters()}} then it will be returned in response
+           to {{RTCRtpSender/getParameters()}}.
+         </p>
       </section>
       <section id="getparameters">
        <h3>{{RTCRtpSender/getParameters()}}</h3>
@@ -275,12 +281,6 @@
            implementation dependent. The default
            {{RTCRtpEncodingParameters/scalabilityMode}} SHOULD be one of the
            temporal scalability modes (e.g. [="L1T1"=],[="L1T2"=],[="L1T3"=], etc.).
-         </p>
-         <p>
-           The [="L1T1"=] scalability mode enables SVC encoding to be turned off
-           using {{RTCRtpSender/setParameters()}}. If [="L1T1"=] is set using
-           {{RTCRtpSender/setParameters()}} then it will be returned in response
-           to {{RTCRtpSender/getParameters()}}.
          </p>
       </section>
     </section>
