@@ -11,7 +11,7 @@ var respecConfig = {
     }
   ],
   formerEditors: [
-    { name: "Peter Thatcher", company: "Microsoft Corporation", w3cid: "68236", retiredDate: "2019-12-31" }
+    { name: "Peter Thatcher", company: "Google", w3cid: "68236", retiredDate: "2019-12-31" }
   ],
   authors: [
   ],
