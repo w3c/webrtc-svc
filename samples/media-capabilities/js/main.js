@@ -2,6 +2,7 @@
 
 let bitrate = 1000000, configuration, encode = 'true', contentType, preferredResolution, framerate = 29.97, width, height;
 let preferredCodec ="VP8";
+
 let modes = ["L1T1","L1T2","L1T3","L2T1","L2T1_KEY","L2T1h","L2T2","L2T2_KEY","L2T2_KEY_SHIFT",
             "L2T2h","L2T3","L2T3_KEY","L2T3_KEY_SHIFT","L2T3h","L3T1","L3T1_KEY","L3T1h","L3T2",
             "L3T2_KEY","L3T2_KEY_SHIFT","L3T2h","L3T3","L3T3_KEY","L3T3_KEY_SHIFT","L3T3h","S2T1",
@@ -47,6 +48,11 @@ function modeProperties(mode, enc, configuration) {
        addToEventLog(`encodingInfo error: ${e.message}`); 
     });
   } else {
+    // Check if the mode supports spatial scalability
+    const isSpatial = mode.slice(0,2);
+    if ((isSpatial == 'L2') || (isSpatial == 'L3')) {
+      configuration.video.spatialScalability = 'true';
+    }
     navigator.mediaCapabilities.decodingInfo(configuration)
     .then((result) => {
       addToEventLog(preferredCodec + ' ' + mode + ' is:'
