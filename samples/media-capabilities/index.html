@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="description" content="WebRTC-SVC Media Capabilities Discovery code sample">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta itemprop="description" content="WebRTC-SVC Media Capabilities Discovery code sample">
+    <meta itemprop="name" content="Media Capabilities code sample">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta id="theme-color" name="theme-color" content="#ffffff">
+    <base target="_blank">
+
+    <title>WebRTC-SVC Media Capabilities Discovery</title>
+    <link rel="stylesheet" href="css/main.css">
+
+    <style>
+        body, html {
+            height: 100%;
+        }
+
+        button {
+            margin: 0 10px 20px 0;
+            min-width: 90px;
+        }
+
+        div#buttons {
+            margin: 0 0 1em 0;
+        }
+
+        div#container {
+            max-width: 100%;
+        }
+
+        #errormessage {
+            display: none;
+            font-size: 300%;
+        }
+
+        #videoblock {
+            display: none;
+        }
+
+        p#dimensions {
+            height: 1em;
+            margin: 0 0 1.5em 0;
+        }
+
+        video {
+            background: none;
+            height: auto;
+            width: auto;
+        }
+    </style>
+
+</head>
+
+<body>
+  <h2>WebRTC-SVC Media Capabilities Discovery</h2>
+
+<textarea id="vLog" style="width: 640px; height: 640px"></textarea>
+<br/></br>
+
+<div id="rateInput">
+  <label for="rate">bitrate: </label>
+  <input type="number" name="rate" id="rate"
+      value=1000000>
+</div>
+
+<div id="framerateInput">
+  <label for="framerate">framerate: </label>
+  <input type="number" name="framerate" id="framerate"
+      value=29.97>
+</div>
+
+<div id="encodeButtons">
+<p>Encode or Decode:</p>
+   <input type="radio" id="encode" name="encdec" value="true" checked="checked" onchange="getEncodeValue(this)">
+   <label for="Encode">Encode</label><br>
+   <input type="radio" id="decode"  name="encdec" value="false" onchange="getEncodeValue(this)">
+   <label for="Decode">Decode</label><br>
+</div>
+
+<div id="codecButtons">
+<p>Codec:</p>
+   <input type="radio" id="H264" name="codec" value="H264" onchange="getCodecValue(this)">
+   <label for="H.264">H.264</label><br>
+   <input type="radio" id="H265" name="codec" value="H265" onchange="getCodecValue(this)">
+   <label for="H.265">H.265</label><br>
+   <input type="radio" id="VP8"  name="codec" value="VP8" checked="checked" onchange="getCodecValue(this)">
+   <label for="VP8">VP8</label><br>
+   <input type="radio" id="VP9"  name="codec" value="VP9" onchange="getCodecValue(this)">
+   <label for="VP9">VP9</label><br>
+   <input type="radio" id="AV1" name="codec" value="AV1" onchange="getCodecValue(this)">
+   <label for="AV1">AV1</label><br>
+</div>
+
+<div id="resButtons">
+<p>Resolution:</p>
+   <input type="radio" id="qvga" name="resolution" value="qvga" checked="checked" onchange="getResValue(this)">
+   <label for="qvga">QVGA</label><br>
+   <input type="radio" id="vga" name="resolution" value="vga" onchange="getResValue(this)">
+   <label for="vga">VGA</label><br>
+   <input type="radio" id="hd" name="resolution" value="hd" onchange="getResValue(this)">
+   <label for="hd">HD</label><br>
+   <input type="radio" id="full-hd" name="resolution" value="full-hd" onchange="getResValue(this)">
+   <label for="full-hd">Full HD</label><br>
+   <input type="radio" id="tv4K" name="resolution" value="tv4K" onchange="getResValue(this)">
+   <label for="tv4K">Television 4k (3840x2160)</label><br>
+   <input type="radio" id="cinema4K" name="resolution" value="cinema4K" onchange="getResValue(this)">
+   <label for="cinema4K">Cinema 4K (4096x2160)</label><br>
+   <input type="radio" id="eightK" name="resolution" value="eightK" onchange="getResValue(this)">
+   <label for="eightK">8K</label><br>
+</div>
+
+<br/></br>
+<button id="Discover">Discover</button>
+<script src="js/main.js"></script>
+</body>
+</html>
