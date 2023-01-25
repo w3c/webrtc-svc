@@ -65,8 +65,7 @@
   <section>
     <h2>Terminology</h2>
       <p>
-        The term "simulcast envelope" refers to the maximum number of
-        simulcast streams and the order of the encoding parameters.
+        The term "simulcast envelope" is defined in [[!WEBRTC]] Section 5.4.1. 
       </p>
       <p>
         This specification references objects, methods, internal slots
@@ -239,6 +238,12 @@
              </li>
            </ol>
          </p>
+         <p>
+           The [="L1T1"=] scalability mode enables SVC encoding to be turned off
+           using {{RTCRtpSender/setParameters()}}. If [="L1T1"=] is set using
+           {{RTCRtpSender/setParameters()}} then it will be returned in response
+           to {{RTCRtpSender/getParameters()}}.
+         </p>
       </section>
       <section id="getparameters">
        <h3>{{RTCRtpSender/getParameters()}}</h3>
@@ -276,19 +281,16 @@
            implementation dependent. The default
            {{RTCRtpEncodingParameters/scalabilityMode}} SHOULD be one of the
            temporal scalability modes (e.g. [="L1T1"=],[="L1T2"=],[="L1T3"=], etc.).
-         </p>  
+         </p>
       </section>
     </section>
   </section>
   <section id="discovery">
     <h2>Discovery</h2>
       <p>
-        The SVC capabilities of an encoder can be discovered using
-        extensions to the {{RTCRtpCodecCapability}} dictionary.
-      </p>
-      <p>
-        {{RTCRtpSender.getCapabilities(kind)}} provides information on what
-        codecs and scalability modes and scalability modes an application can send.
+        The [[?Media-Capabilities]] API provides information on encoder support
+        for spatial scalability modes. {{VideoConfiguration//scalabilityMode}} is
+        used to query whether an encoder has the ability to support this mode.
         The <a title="Selective Forwarding Middlebox">SFM</a>
         can provide information on the codecs and scalability modes it can
         decode by providing its receiver capabilities.
@@ -301,7 +303,7 @@
         methods.
       </p>
       <p>
-        The [[?Media-Capabilities]] API provides information on decoder support
+        The [[?Media-Capabilities]] API also provides information on decoder support
         for spatial scalablity modes. {{VideoConfiguration/spatialScalability}}
         indicates whether a decoder has the ability to support spatial prediction,
         which requires the ability to use frames of a resolution different than
@@ -313,42 +315,6 @@
         can decode all other {{RTCRtpEncodingParameters/scalabilityMode}} values
         supported by the encoder.
       </p>
-      <section id="rtcrtpcodeccapability*">
-        <h3>{{RTCRtpCodecCapability}} Dictionary Extensions</h3>
-        <div>
-          <pre class="idl">partial dictionary RTCRtpCodecCapability {
-             sequence&lt;DOMString&gt; scalabilityModes;
-};</pre>
-        <section>
-          <h2>Dictionary {{RTCRtpCodecCapability}} Members</h2>
-          <dl data-link-for="RTCRtpCodecCapability" data-dfn-for=
-          "RTCRtpCodecCapability" class="dictionary-members">
-            <dt><dfn data-idl>scalabilityModes</dfn> of type <code>sequence&lt;{{DOMString}}&gt;</code></dt>
-            <dd>
-              <p>
-                A sequence of the scalability modes (defined in Section 6) supported by the encoder
-                implementation.
-              </p>
-              <p>
-                In response to {{RTCRtpSender.getCapabilities(kind)}}, implementations of this
-                specification MUST return a sequence of scalability modes supported by each codec
-                of that <var>kind</var>. If a codec does not support encoding of scalability modes
-                other than [="L1T1"=], then the {{scalabilityModes}} member is not provided. The
-                [="L1T1"=] scalability mode enables SVC encoding to be turned off using
-                {{RTCRtpSender/setParameters()}}, so that it MUST be included within the sequence
-                of scalability modes returned by {{RTCRtpSender.getCapabilities(kind)}} in order
-                for it to be considered valid within {{RTCRtpSender/setParameters()}}. If [="L1T1"=]
-                is set using {{RTCRtpSender/setParameters()}} then it will be returned in response
-                to {{RTCRtpSender/getParameters()}}.
-              </p>
-              <p>
-                In response to {{RTCRtpReceiver.getCapabilities(kind)}}, {{scalabilityModes}} are not provided.
-              </p>
-            </dd>
-          </dl>
-        </section>
-      </div>
-    </section>
       <section id="sfmnegotiation">
         <h2>Negotiation</h2>
           <p>
@@ -378,14 +344,14 @@
           </p>
           <p>
            For an <a title="Selective Forwarding Middlebox">SFM</a> the supported
-           {{RTCRtpCodecCapability/scalabilityModes}} may depend on the negotiated RTP header
-           extensions.  For example, if the <a title="Selective Forwarding Middlebox">SFM</a>
+           {{RTCRtpEncodingParameters/scalabilityMode}} values may depend on the negotiated RTP
+           header extensions.  For example, if the <a title="Selective Forwarding Middlebox">SFM</a>
            cannot parse codec payloads (either because it is not designed to do so, or
            because the payloads are encrypted), then negotiation of an RTP header extension
            (such as the AV1 Dependency Descriptor defined in Appendix A of [[AV1-RTP]])
            could be a prerequisite for the <a title="Selective Forwarding Middlebox">SFM</a>
-           to forward {{RTCRtpCodecCapability/scalabilityModes}}. As a result, the
-           {{RTCRtpCodecCapability/scalabilityModes}} supported by an
+           to forward a {{RTCRtpEncodingParameters/scalabilityMode}} value. As a result,
+           the {{RTCRtpEncodingParameters/scalabilityMode}} values supported by an
            <a title="Selective Forwarding Middlebox">SFM</a> may not be determined until
            completion of the Offer/Answer negotiation.
           </p>
@@ -394,19 +360,19 @@
   <section id="scalabilitymodes*">
     <h3>Scalability modes</h3>
     <p>
-      The scalability modes supported in this specification, as well as their associated
-      identifiers and characteristics, are provided in the table below. The names of the
-      scability modes (which are case sensitive) are provided, along with the scalability
-      mode identifiers assigned in [[?AV1]] Section 6.7.5, and links to dependency diagrams
-      provided in Section 9.
+      The {{RTCRtpEncodingParameters/scalabilityMode}} values supported in this specification,
+      as well as their associated identifiers and characteristics, are provided in the table
+      below. The names of the {{RTCRtpEncodingParameters/scalabilityMode}} values (which are
+      case sensitive) are provided, along with the scalability mode identifiers assigned in
+      [[?AV1]] Section 6.7.5, and links to dependency diagrams provided in Section 10.
     </p>
     <p>
-      While the [[?AV1]] and VP9 [[?VP9]] specifications support all the modes
-      defined in the table, other codec specifications do not. For example, VP8
-      [[?RFC6386]] only supports temporal scalability (e.g. [="L1T2"=], [="L1T3"=]); H.264/SVC
-      [[?RFC6190]], which supports both temporal and spatial scalability, only permits
-      transport of simulcast on distinct SSRCs, so that it does not support the
-      "S" modes, where multiple encodings are transported on a single RTP stream.
+      While the [[?AV1]] and VP9 [[?VP9]] specifications support all the
+      {{RTCRtpEncodingParameters/scalabilityMode}} values defined in the table, other codec
+      specifications do not. For example, VP8 [[?RFC6386]] only supports temporal scalability
+      (e.g. [="L1T2"=], [="L1T3"=]); H.264/SVC [[?RFC6190]], which supports both temporal and
+      spatial scalability, only permits transport of simulcast on distinct SSRCs, so that it
+      does not support "S" modes, where multiple encodings are transported on a single RTP stream.
     </p>
     <table class=simple>
       <tbody>
@@ -421,7 +387,7 @@
       </tbody>
       <tbody>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L1T1*">"L1T1"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L1T1*">"L1T1"</a></dfn></td>
           <td>1</td>
           <td></td>
           <td>1</td>
@@ -429,7 +395,7 @@
           <td>N/A</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L1T2*">"L1T2"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L1T2*">"L1T2"</a></dfn></td>
           <td>1</td>
           <td></td>
           <td>2</td>
@@ -437,7 +403,7 @@
           <td>SCALABILITY_L1T2</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L1T3*">"L1T3"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L1T3*">"L1T3"</a></dfn></td>
           <td>1</td>
           <td></td>
           <td>3</td>
@@ -445,7 +411,7 @@
           <td>SCALABILITY_L1T3</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L2T1*">"L2T1"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L2T1*">"L2T1"</a></dfn></td>
           <td>2</td>
           <td>2:1</td>
           <td>1</td>
@@ -453,7 +419,7 @@
           <td>SCALABILITY_L2T1</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L2T2*">"L2T2"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L2T2*">"L2T2"</a></dfn></td>
           <td>2</td>
           <td>2:1</td>
           <td>2</td>
@@ -461,7 +427,7 @@
           <td>SCALABILITY_L2T2</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L2T3*">"L2T3"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L2T3*">"L2T3"</a></dfn></td>
           <td>2</td>
           <td>2:1</td>
           <td>3</td>
@@ -469,7 +435,7 @@
           <td>SCALABILITY_L2T3</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L3T1*">"L3T1"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L3T1*">"L3T1"</a></dfn></td>
           <td>3</td>
           <td>2:1</td>
           <td>1</td>
@@ -477,7 +443,7 @@
           <td>SCALABILITY_L3T1</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L3T2*">"L3T2"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L3T2*">"L3T2"</a></dfn></td>
           <td>3</td>
           <td>2:1</td>
           <td>2</td>
@@ -485,7 +451,7 @@
           <td>SCALABILITY_L3T2</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L3T3*">"L3T3"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L3T3*">"L3T3"</a></dfn></td>
           <td>3</td>
           <td>2:1</td>
           <td>3</td>
@@ -493,7 +459,7 @@
           <td>SCALABILITY_L3T3</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L2T1*">"L2T1h"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L2T1*">"L2T1h"</a></dfn></td>
           <td>2</td>
           <td>1.5:1</td>
           <td>1</td>
@@ -501,7 +467,7 @@
           <td>SCALABILITY_L2T1h</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L2T2*">"L2T2h"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L2T2*">"L2T2h"</a></dfn></td>
           <td>2</td>
           <td>1.5:1</td>
           <td>2</td>
@@ -509,7 +475,7 @@
           <td>SCALABILITY_L2T2h</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L2T3*">"L2T3h"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L2T3*">"L2T3h"</a></dfn></td>
           <td>2</td>
           <td>1.5:1</td>
           <td>3</td>
@@ -517,7 +483,7 @@
           <td>SCALABILITY_L2T3h</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#S2T1*">"S2T1"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#S2T1*">"S2T1"</a></dfn></td>
           <td>2</td>
           <td>2:1</td>
           <td>1</td>
@@ -525,7 +491,7 @@
           <td>SCALABILITY_S2T1</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#S2T2*">"S2T2"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#S2T2*">"S2T2"</a></dfn></td>
           <td>2</td>
           <td>2:1</td>
           <td>2</td>
@@ -533,7 +499,7 @@
           <td>SCALABILITY_S2T2</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#S2T3*">"S2T3"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#S2T3*">"S2T3"</a></dfn></td>
           <td>2</td>
           <td>2:1</td>
           <td>3</td>
@@ -541,7 +507,7 @@
           <td>SCALABILITY_S2T3</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#S2T1*">"S2T1h"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#S2T1*">"S2T1h"</a></dfn></td>
           <td>2</td>
           <td>1.5:1</td>
           <td>1</td>
@@ -549,7 +515,7 @@
           <td>SCALABILITY_S2T1h</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#S2T2*">"S2T2h"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#S2T2*">"S2T2h"</a></dfn></td>
           <td>2</td>
           <td>1.5:1</td>
           <td>2</td>
@@ -557,7 +523,7 @@
           <td>SCALABILITY_S2T2h</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#S2T3*">"S2T3h"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#S2T3*">"S2T3h"</a></dfn></td>
           <td>2</td>
           <td>1.5:1</td>
           <td>3</td>
@@ -565,7 +531,7 @@
           <td>SCALABILITY_S2T3h</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#S3T1*">"S3T1"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#S3T1*">"S3T1"</a></dfn></td>
           <td>3</td>
           <td>2:1</td>
           <td>1</td>
@@ -573,7 +539,7 @@
           <td>SCALABILITY_S3T1</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#S3T2*">"S3T2"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#S3T2*">"S3T2"</a></dfn></td>
           <td>3</td>
           <td>2:1</td>
           <td>2</td>
@@ -581,7 +547,7 @@
           <td>SCALABILITY_S3T2</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#S3T3*">"S3T3"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#S3T3*">"S3T3"</a></dfn></td>
           <td>3</td>
           <td>2:1</td>
           <td>3</td>
@@ -589,7 +555,7 @@
           <td>SCALABILITY_S3T3</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#S3T1*">"S3T1h"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#S3T1*">"S3T1h"</a></dfn></td>
           <td>3</td>
           <td>1.5:1</td>
           <td>1</td>
@@ -597,7 +563,7 @@
           <td>SCALABILITY_S3T1h</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#S3T2*">"S3T2h"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#S3T2*">"S3T2h"</a></dfn></td>
           <td>3</td>
           <td>1.5:1</td>
           <td>2</td>
@@ -605,7 +571,7 @@
           <td>SCALABILITY_S3T2h</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#S3T3*">"S3T3h"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#S3T3*">"S3T3h"</a></dfn></td>
           <td>3</td>
           <td>1.5:1</td>
           <td>3</td>
@@ -613,7 +579,7 @@
           <td>SCALABILITY_S3T3h</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L2T2_KEY*">"L2T2_KEY"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L2T2_KEY*">"L2T2_KEY"</a></dfn></td>
           <td>2</td>
           <td>2:1</td>
           <td>2</td>
@@ -621,7 +587,7 @@
           <td>SCALABILITY_L3T2_KEY</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L2T2_KEY_SHIFT*">"L2T2_KEY_SHIFT"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L2T2_KEY_SHIFT*">"L2T2_KEY_SHIFT"</a></dfn></td>
           <td>2</td>
           <td>2:1</td>
           <td>2</td>
@@ -629,7 +595,7 @@
           <td>SCALABILITY_L3T2_KEY_SHIFT</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L2T3_KEY*">"L2T3_KEY"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L2T3_KEY*">"L2T3_KEY"</a></dfn></td>
           <td>2</td>
           <td>2:1</td>
           <td>3</td>
@@ -637,7 +603,7 @@
           <td>SCALABILITY_L3T3_KEY</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L2T3_KEY_SHIFT*">"L2T3_KEY_SHIFT"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L2T3_KEY_SHIFT*">"L2T3_KEY_SHIFT"</a></dfn></td>
           <td>2</td>
           <td>2:1</td>
           <td>3</td>
@@ -645,7 +611,7 @@
           <td>SCALABILITY_L3T3_KEY_SHIFT</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L3T2_KEY*">"L3T2_KEY"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L3T2_KEY*">"L3T2_KEY"</a></dfn></td>
           <td>3</td>
           <td>2:1</td>
           <td>2</td>
@@ -653,7 +619,7 @@
           <td>SCALABILITY_L4T5_KEY</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L3T2_KEY_SHIFT*">"L3T2_KEY_SHIFT"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L3T2_KEY_SHIFT*">"L3T2_KEY_SHIFT"</a></dfn></td>
           <td>3</td>
           <td>2:1</td>
           <td>2</td>
@@ -661,7 +627,7 @@
           <td>SCALABILITY_L4T5_KEY_SHIFT</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L3T3_KEY*">"L3T3_KEY"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L3T3_KEY*">"L3T3_KEY"</a></dfn></td>
           <td>3</td>
           <td>2:1</td>
           <td>3</td>
@@ -669,7 +635,7 @@
           <td>SCALABILITY_L4T7_KEY</td>
         </tr>
         <tr>
-          <td><dfn data-export data-for="RTCRtpCodecCapability/scalabilityModes"><a href="#L3T3_KEY_SHIFT*">"L3T3_KEY_SHIFT"</a></dfn></td>
+          <td><dfn data-export data-for="RTCRtpEncodingParameters/scalabilityMode"><a href="#L3T3_KEY_SHIFT*">"L3T3_KEY_SHIFT"</a></dfn></td>
           <td>3</td>
           <td>2:1</td>
           <td>3</td>
@@ -704,7 +670,7 @@
             frames have their temporal identifier shifted upward.
           </li>
           <li>
-            A dependency diagram MUST be supplied, in the format provided in Section 9.
+            A dependency diagram MUST be supplied, in the format provided in Section 10.
           </li>         
         </ol>
     </section>
@@ -787,101 +753,39 @@ let sendEncodings = [
 ]    
 </pre>
     </section>
-    <section id="sender-getcapabilities-example*" class="informative">
+    <section id="media-capabilities-example*" class="informative">
        <h4>SVC Encoder Capabilities</h4>
       <p>
-        This is an example of {{RTCRtpSender}}.<code>getCapabilities}}('video').codecs[]</code>
-        returned by a browser implementing [[WEBRTC]]. Only the <code>scalabilityModes</code>
-        attribute is defined in this specification.
+        This is an example of {{MediaCapabilities/encodingInfo(configuration)}}
+        returned by a browser implementing [[WEBRTC]] and [[Media-Capabilities]].
       </p>
        <pre class="example highlight">
-[
-    {
-      "clockRate": 90000,
-      "mimeType": "video/VP8",
-      "scalabilityModes": [
-        "L1T1",
-        "L1T2",
-        "L1T3"
-      ]
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/rtx"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/VP9",
-      "scalabilityModes": [
-        "L1T1",
-        "L1T2",
-        "L1T3"
-      ],
-      "sdpFmtpLine": "profile-id=0"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/VP9",
-      "sdpFmtpLine": "profile-id=2"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/H264",
-      "sdpFmtpLine": "level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42001f"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/H264",
-      "sdpFmtpLine": "level-asymmetry-allowed=1;packetization-mode=0;profile-level-id=42001f"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/H264",
-      "sdpFmtpLine": "level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/H264",
-      "sdpFmtpLine": "level-asymmetry-allowed=1;packetization-mode=0;profile-level-id=42e01f"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/AV1",
-      "scalabilityModes": [
-        "L1T1",
-        "L1T2",
-        "L1T3",
-        "L2T1",
-        "L2T1h",
-        "L2T1_KEY",
-        "L2T2",
-        "L2T2_KEY",
-        "L2T2_KEY_SHIFT",
-        "L3T1",
-        "L3T3",
-        "L3T3_KEY",
-        "S2T1"
-      ]
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/H264",
-      "sdpFmtpLine": "level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=4d001f"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/H264",
-      "sdpFmtpLine": "level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=64001f"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/red"
-    },
-    {
-      "clockRate": 90000,
-      "mimeType": "video/ulpfec"
-    }
-]
+const contentType = 'video/VP9';
+
+const configuration = {
+  type: 'webrtc',
+  video: {
+    contentType,
+    width: 640,
+    height: 480,
+    bitrate: 10000,
+    framerate: 29.97,
+    scalabilityMode: "L3T3_KEY"
+  }
+};
+
+try {
+  const info = await navigator.mediaCapabilities.encodingInfo(configuration);
+
+  if (!info.supported) {
+    console.log(`${contentType} is unsupported.`);
+    return;
+  }
+  console.log(`${contentType} is ${info.smooth || 'NOT '}smooth, and ` +
+              `${info.powerEfficient || 'NOT '}power efficient`);
+} catch (err) {
+  console.error(err, ' caused encodingInfo to fail');
+}
        </pre>
     </section>
         <section id="sfm-getcapabilities-example*" class="informative" >
@@ -939,23 +843,13 @@ let sendEncodings = [
     <section>
       <h2>Persistent information</h2>
       <p>
-        The WebRTC API exposes information about the underlying media system
-        via the {{RTCRtpSender.getCapabilities()}} method, including detailed
-        and ordered information about the codecs that the system is able to
-        produce. The WebRTC-SVC extension adds the
-        {{RTCRtpCodecCapability/scalabilityModes}} supported by the {{RTCRtpSender}}
-        to that information, which is persistent across time, therefore increasing
-        the fingerprint surface. Additional information is not provided relating to
-        the {{RTCRtpReceiver}}.
-      </p>
-      <p>
         Since for SVC codecs implemented in WebRTC the use of scalable coding tools
         is not negotiated and is independent of the supported profiles, and since SVC
         is rarely supported in hardware encoders, knowledge of the
-        {{RTCRtpCodecCapability/scalabilityModes}} supported by the {{RTCRtpSender}}
+        {{RTCRtpEncodingParameters/scalabilityMode}} supported by the {{RTCRtpSender}}
         does not provide additional information on the underlying hardware.
         However, since browsers may differ in their support for SVC modes, the supported
-        {{RTCRtpCodecCapability/scalabilityModes}} may permit differentiation
+        {{RTCRtpEncodingParameters/scalabilityMode}} may permit differentiation
         between browsers. This additional fingerprint surface is expected to decrease
         over time as this specification is more widely implemented.
       </p>
