@@ -2,9 +2,10 @@
 
 let bitrate = 1000000, configuration, encode = 'true', contentType, preferredResolution, framerate = 29.97, width, height;
 let preferredCodec ="VP8";
-let modes = ["L1T1","L1T2","L1T3","L2T1","L2T2","L2T3","L3T1","L3T2","L3T3","L2T1h","L2T2h","L2T3h","S2T1","S2T2","S2T3","S2T1h",
-            "S2T2h","S2T3h","S3T1","S3T2","S3T3","S3T1h","S3T2h","S3T3h","L2T2_KEY","L2T2_KEY_SHIFT","L2T3_KEY","L2T3_KEY_SHIFT",
-            "L3T2_KEY","L3T2_KEY_SHIFT","L3T3_KEY","L3T3_KEY_SHIFT"];
+let modes = ["L1T1","L1T2","L1T3","L2T1","L2T1_KEY","L2T1h","L2T2","L2T2_KEY","L2T2_KEY_SHIFT",
+            "L2T2h","L2T3","L2T3_KEY","L2T3_KEY_SHIFT","L2T3h","L3T1","L3T1_KEY","L3T1h","L3T2",
+            "L3T2_KEY","L3T2_KEY_SHIFT","L3T2h","L3T3","L3T3_KEY","L3T3_KEY_SHIFT","L3T3h","S2T1",
+            "S2T1h","S2T2","S2T2h","S2T3","S2T3h","S3T1","S3T1h","S3T2","S3T2h","S3T3","S3T3h"];
 
 let discoverButton = document.querySelector('#Discover');
 let codecButtons = document.querySelector('#codecButtons');
