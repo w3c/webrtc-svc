@@ -265,7 +265,7 @@
            After the initial negotiation has completed, {{RTCRtpSender/getParameters()}}
            returns the currently configured {{RTCRtpEncodingParameters/scalabilityMode}}
            value for each encoding in <var>encodings</var> which had a value before the
-           initial negotiation. This may be different from the values requested in
+           initial negotiation. This MAY be different from the values requested in
            {{RTCPeerConnection/addTransceiver()}} or {{RTCRtpSender/setParameters()}}.
            For example, if the codecs selected during negotiation do not include an
            encoder supporting the desired {{RTCRtpEncodingParameters/scalabilityMode}}
