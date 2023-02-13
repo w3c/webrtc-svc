@@ -49,17 +49,6 @@ var respecConfig = {
       "status": "Standard",
       "publisher": "Alliance for Open Media"
     },
-    "FRAME-MARKING": {
-      "title": "Frame Marking RTP Header Extension",
-      "href": "https://datatracker.ietf.org/doc/html/draft-ietf-avtext-framemarking",
-      "authors": [
-        "M. Zanaty",
-        "E. Berger",
-        "S. Nandakumar"
-      ],
-      "status": "November 2021. Internet Draft (work in progress)",
-      "publisher": "IETF"
-    },
     "RFC7667": {
       "title": "RTP Topologies",
       "href": "https://datatracker.ietf.org/doc/html/rfc7667",
