@@ -165,11 +165,15 @@
                [= exception/throw =] an {{OperationError}}.
              </li>
              <li>
-               If the number of {{RTCRtpEncodingParameters}} stored in
-               <var>sendEncodings</var> is more than 1, and
+               If {{RTCRtpEncodingParameters}} stored in
+               <var>sendEncodings</var> contains more than 1
+               encoding with an {{RTCRtpEncodingParameters/active}}
+               member with a value of <code>true</code> and
                <var>sendEncodings</var> contains any encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value
-               represents an "S mode" [= exception/throw =] an
+               represents an "S mode" and whose
+               {{RTCRtpEncodingParameters/active}} member has a
+               value of <code>true</code>, [= exception/throw =] an
                {{OperationError}}.
              </li>
            </ol>
@@ -231,10 +235,15 @@
                not supported by the most preferred codec.
              </li>
              <li>
-               <var>N</var> is greater than 1, and <var>encodings</var>
-               contains an encoding whose
+               If {{RTCRtpEncodingParameters}} stored in
+               <var>encodings</var> contains more than 1
+               encoding with an {{RTCRtpEncodingParameters/active}}
+               member with a value of <code>true</code> and
+               <var>encodings</var> contains any encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value
-               represents an "S mode".
+               represents an "S mode" and whose
+               {{RTCRtpEncodingParameters/active}} member has a
+               value of <code>true</code>.
              </li>
            </ol>
          </p>
