@@ -59,6 +59,19 @@ var respecConfig = {
       "status": "November 2015. RFC",
       "publisher": "IETF"
    },
+    "LRR": {
+      "title": "The Layer Refresh Request (LRR) RTCP Feedback Message",
+      "href": "https://datatracker.ietf.org/doc/html/draft-ietf-avtext-lrr",
+      "authors": [
+        "J. Lennox",
+        "D. Hong",
+        "J. Uberti",
+        "S. Holmer",
+        "M. Flodman"
+      ],
+      "status": "29 June 2017. Internet Draft (work in progress)",
+      "publisher": "IETF"
+    },
    "VP9": {
       "title": "VP9 Bitstream & Decoding Process Specification",
       "href": "https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf",
