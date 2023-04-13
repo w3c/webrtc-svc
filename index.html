@@ -160,7 +160,7 @@
            <ol>
              <li>
                If <var>sendEncodings</var> contains any encoding with a {{RTCRtpEncodingParameters}}.codec
-               value <var>codec</var> present and where the same encoding's {{RTCRtpEncodingParameters/scalabilityMode}}
+               value <var>codec</var> [=map/exists=] and where the same encoding's {{RTCRtpEncodingParameters/scalabilityMode}}
                value is not supported by <var>codec</var>, [= exception/throw =] an {{OperationError}}.
              </li>
              <li>
