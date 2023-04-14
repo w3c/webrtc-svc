@@ -155,14 +155,19 @@
            {{RTCRtpTransceiverInit/sendEncodings}} within
            {{RTCPeerConnection/addTransceiver()}}. To validate
            {{RTCRtpEncodingParameters/scalabilityMode}}, add
-           the following validation steps after step 3 (within step 8):
+           the following steps after step 3 of
+           [=RTCPeerConnection/addTransceiver sendEncodings validation steps=]:
            <ol>
              <li>
-               If <var>sendEncodings</var> contains any encoding whose
+               If <var>sendEncodings</var> contains any encoding with a {{RTCRtpEncodingParameters}}.codec
+               value <var>codec</var> [=map/exists=] and where the same encoding's {{RTCRtpEncodingParameters/scalabilityMode}}
+               value is not supported by <var>codec</var>, [= exception/throw =] an {{OperationError}}.
+             </li>
+             <li>
+               Otherwise, if <var>sendEncodings</var> contains any encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value is 
-               not supported by any codec in
-               {{RTCRtpSender.getCapabilities(kind)}}.<code>codecs</code>,
-               [= exception/throw =] an {{OperationError}}.
+               not supported by any codec in the [=RTCRtpSender/list of implemented send codecs=]
+               for <var>kind</var>, [= exception/throw =] an {{OperationError}}.
              </li>
              <li>
                If {{RTCRtpEncodingParameters}} stored in
@@ -217,26 +222,32 @@
        <h3>{{RTCRtpSender/setParameters()}}</h3>
          <p>
            [[!WEBRTC]] Section 5.2 describes validation of <var>parameters</var>
-           within {{RTCRtpSender/setParameters()}}. Add the following to the 
+           within {{RTCRtpSender/setParameters()}}. Insert the following
            conditions under which the operation causes a promise rejected
-           with an {{InvalidModificationError}} (step 4 within step 6):
+           with an {{InvalidModificationError}} (step 4) of
+           [=RTCRtpSender/setParameters validation steps=]:
            <ol>
              <li>
-               Before initial negotiation has concluded,
-               <var>encodings</var> contains any encoding whose
-               {{RTCRtpEncodingParameters/scalabilityMode}} value is 
-               not supported by any codec in
-               {{RTCRtpSender.getCapabilities(kind)}}.<code>codecs</code>. 
+               If <var>encodings</var> contains any encoding with an existng
+               {{RTCRtpEncodingParameters}}.codec value <var>codec</var>, where the same encoding's
+               {{RTCRtpEncodingParameters/scalabilityMode}} value is not supported by <var>codec</var>.
              </li>
              <li>
-               After initial negotiation has concluded,
-               <var>encodings</var> contains an encoding whose
+               Else if <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=map/is empty=]
+               and <var>encodings</var> contains any encoding whose
+               {{RTCRtpEncodingParameters/scalabilityMode}} value is 
+               not supported by any codec in the
+               [=RTCRtpSender/list of implemented send codecs=] for <var>kind</var>.
+             </li>
+             <li>
+               Else if <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=map/is empty | is not empty=]
+               and <var>encodings</var> contains an encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value is
-               not supported by the most preferred codec.
+               not supported by the codec used for the encoding's RTP stream.
              </li>
              <li>
                If {{RTCRtpEncodingParameters}} stored in
-               <var>encodings</var> contains more than 1
+               <var>encodings</var> contains more than one
                encoding with an {{RTCRtpEncodingParameters/active}}
                member with a value of <code>true</code> and
                <var>encodings</var> contains any encoding whose
@@ -287,10 +298,9 @@
            an encoding in <var>encodings</var>, then after the initial negotiation
            has completed, {{RTCRtpSender/getParameters()}} will not return a
            {{RTCRtpEncodingParameters/scalabilityMode}} value and the encoder will use
-           the default {{RTCRtpEncodingParameters/scalabilityMode}} of the most preferred
-           codec for that encoding. The most preferred codec and the default
-           {{RTCRtpEncodingParameters/scalabilityMode}} for each codec are both
-           implementation dependent. The default
+           the default {{RTCRtpEncodingParameters/scalabilityMode}} of the codec for
+           that encoding's RTP stream. The default {{RTCRtpEncodingParameters/scalabilityMode}}
+           for each codec is implementation dependent. The default
            {{RTCRtpEncodingParameters/scalabilityMode}} SHOULD be one of the
            temporal scalability modes (e.g. [="L1T1"=],[="L1T2"=],[="L1T3"=], etc.).
          </p>
