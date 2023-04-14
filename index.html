@@ -222,7 +222,7 @@
        <h3>{{RTCRtpSender/setParameters()}}</h3>
          <p>
            [[!WEBRTC]] Section 5.2 describes validation of <var>parameters</var>
-           within {{RTCRtpSender/setParameters()}}. Insert the following to the
+           within {{RTCRtpSender/setParameters()}}. Insert the following
            conditions under which the operation causes a promise rejected
            with an {{InvalidModificationError}} (step 4) of
            [=RTCRtpSender/setParameters validation steps=]:
@@ -233,21 +233,21 @@
                {{RTCRtpEncodingParameters/scalabilityMode}} value is not supported by <var>codec</var>.
              </li>
              <li>
-               Otherwise, if <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=map/is empty=]
+               Else if <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=map/is empty=]
                and <var>encodings</var> contains any encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value is 
                not supported by any codec in the
                [=RTCRtpSender/list of implemented send codecs=] for <var>kind</var>.
              </li>
              <li>
-               Otherwise, if <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=map/is empty | is not empty=]
+               Else if <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=map/is empty | is not empty=]
                and <var>encodings</var> contains an encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value is
                not supported by the codec used for the encoding's RTP stream.
              </li>
              <li>
                If {{RTCRtpEncodingParameters}} stored in
-               <var>encodings</var> contains more than 1
+               <var>encodings</var> contains more than one
                encoding with an {{RTCRtpEncodingParameters/active}}
                member with a value of <code>true</code> and
                <var>encodings</var> contains any encoding whose
