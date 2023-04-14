@@ -228,9 +228,9 @@
            [=RTCRtpSender/setParameters validation steps=]:
            <ol>
              <li>
-               If <var>encodings</var> contains any encoding with a {{RTCRtpEncodingParameters}}.codec
-               value <var>codec</var> present and where the same encoding's {{RTCRtpEncodingParameters/scalabilityMode}}
-               value is not supported by <var>codec</var>.
+               If <var>encodings</var> contains any encoding with an existng
+               {{RTCRtpEncodingParameters}}.codec value <var>codec</var>, where the same encoding's
+               {{RTCRtpEncodingParameters/scalabilityMode}} value is not supported by <var>codec</var>.
              </li>
              <li>
                Otherwise, if <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=map/is empty=]
