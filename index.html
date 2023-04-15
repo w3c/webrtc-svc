@@ -801,6 +801,16 @@ signaling.onmessage = async ({data: {description, candidate}}) => {
 let sendEncodings = [
   {scalabilityMode: 'L2T3'}
 ];
+          <p>
+             This is an example of mixed codec simulcast, with each simulcast layer having 3 temporal layers.
+          </p> 
+          </pre>
+          <pre class="example highlight">
+let sendEncodings = [
+        {rid: 'q', codec: {"clockRate": 90000, "mimeType": "video/AV1"}, scaleResolutionDownBy: 4.0, scalabilityMode: 'L1T3'},
+        {rid: 'h', codec: {"clockRate": 90000, "mimeType": "video/VP8"}, scaleResolutionDownBy: 2.0, scalabilityMode: 'L1T3'},
+        {rid: 'f', codec: {"clockRate": 90000, "mimeType": "video/VP8"}, scalabilityMode: 'L1T3'},
+];
           </pre>
           <p>
              This is an example with three spatial simulcast layers each with three temporal layers on a single SSRC.
