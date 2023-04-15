@@ -801,10 +801,10 @@ signaling.onmessage = async ({data: {description, candidate}}) => {
 let sendEncodings = [
   {scalabilityMode: 'L2T3'}
 ];
+          </pre>
           <p>
              This is an example of mixed codec simulcast, with each simulcast layer having 3 temporal layers.
           </p> 
-          </pre>
           <pre class="example highlight">
 let sendEncodings = [
         {rid: 'q', codec: {"clockRate": 90000, "mimeType": "video/AV1"}, scaleResolutionDownBy: 4.0, scalabilityMode: 'L1T3'},
