@@ -793,19 +793,23 @@ signaling.onmessage = async ({data: {description, candidate}}) => {
     console.error(err);
   }
 };
-</pre>
-           <p> This is an example with two spatial layers (with a 2:1 ratio) and three temporal layers.</p> 
+          </pre>
+          <p>
+             This is an example with two spatial layers (with a 2:1 ratio) and three temporal layers.
+          </p> 
           <pre class="example highlight">
 let sendEncodings = [
   {scalabilityMode: 'L2T3'}
 ];
-</pre>
-           <p> This is an example with three spatial simulcast layers each with three temporal layers on a single SSRC.</p> 
+          </pre>
+          <p>
+             This is an example with three spatial simulcast layers each with three temporal layers on a single SSRC.
+          </p> 
           <pre class="example highlight">
 let sendEncodings = [
   {scalabilityMode: 'S3T3'}
 ]    
-</pre>
+          </pre>
     </section>
     <section id="media-capabilities-example*" class="informative">
        <h4>SVC Encoder Capabilities</h4>
