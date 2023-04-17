@@ -769,7 +769,7 @@ async function start() {
       sendEncodings: [
         {rid: 'q', scaleResolutionDownBy: 4.0, scalabilityMode: 'L1T3'},
         {rid: 'h', scaleResolutionDownBy: 2.0, scalabilityMode: 'L1T3'},
-        {rid: 'f', scalabilityMode: 'L1T3'},
+        {rid: 'f', scalabilityMode: 'L1T3'}
       ]    
     });
   } catch (err) {
@@ -809,7 +809,7 @@ let sendEncodings = [
 let sendEncodings = [
   {rid: 'q', codec: {clockRate: 90000, mimeType: 'video/AV1'}, scaleResolutionDownBy: 4.0, scalabilityMode: 'L1T3'},
   {rid: 'h', codec: {clockRate: 90000, mimeType: 'video/VP8'}, scaleResolutionDownBy: 2.0, scalabilityMode: 'L1T3'},
-  {rid: 'f', codec: {clockRate: 90000, mimeType: 'video/VP8'}, scalabilityMode: 'L1T3'},
+  {rid: 'f', codec: {clockRate: 90000, mimeType: 'video/VP8'}, scalabilityMode: 'L1T3'}
 ];
           </pre>
           <p>
@@ -838,7 +838,7 @@ const configuration = {
     height: 480,
     bitrate: 10000,
     framerate: 29.97,
-    scalabilityMode: "L3T3_KEY"
+    scalabilityMode: 'L3T3_KEY'
   }
 };
 
