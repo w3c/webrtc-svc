@@ -907,15 +907,13 @@ try {
     <section>
       <h2>Persistent information</h2>
       <p>
-        Since for SVC codecs implemented in WebRTC the use of scalable coding tools
-        is not negotiated and is independent of the supported profiles, and since SVC
-        is rarely supported in hardware encoders, knowledge of the
-        {{RTCRtpEncodingParameters/scalabilityMode}} supported by the {{RTCRtpSender}}
-        does not provide additional information on the underlying hardware.
-        However, since browsers may differ in their support for SVC modes, the supported
-        {{RTCRtpEncodingParameters/scalabilityMode}} may permit differentiation
-        between browsers. This additional fingerprint surface is expected to decrease
-        over time as this specification is more widely implemented.
+        This specification relies upon [[Media-Capabilities]] for discovery of the
+        values of {{RTCRtpEncodingParameters/scalabilityMode}} supported by each
+        codec.  Since browsers may differ in their codec support as well as their
+        support of {{RTCRtpEncodingParameters/scalabilityMode}} values for each
+        codec, [[Media-Capabilities]] queries may enable differentiation
+        between browsers. This additional fingerprint surface is expected to
+        decrease over time as this specification is more widely implemented.
       </p>
     </section>
   </section>
