@@ -909,11 +909,16 @@ try {
       <p>
         This specification relies upon [[Media-Capabilities]] for discovery of the
         values of {{RTCRtpEncodingParameters/scalabilityMode}} supported by each
-        codec.  Since browsers may differ in their codec support as well as their
-        support of {{RTCRtpEncodingParameters/scalabilityMode}} values for each
-        codec, [[Media-Capabilities]] queries may enable differentiation
-        between browsers. This additional fingerprint surface is expected to
-        decrease over time as this specification is more widely implemented.
+        codec. Since this specification does not support capability discovery,
+        only configuration, it does not introduce additional fingerprint surface
+        relating to support for codecs or {{RTCRtpEncodingParameters/scalabilityMode}}
+        values, beyond what is provided by [[Media-Capabilities]].
+      </p>
+      <p>
+        Utilizing the configuration support in this specification, or by
+        querying [[Media-Capabilities]] may enable differentiation between
+        browsers. This additional fingerprint surface is expected to decrease
+        over time as this specification is more widely implemented.
       </p>
     </section>
   </section>
