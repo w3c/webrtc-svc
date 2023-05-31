@@ -907,12 +907,24 @@ try {
     <section>
       <h2>Persistent information</h2>
       <p>
-        This specification does not support capability discovery, instead relying
-        upon [[Media-Capabilities]]. Similarly, this specifiation does not modify
-        the behavior of WebRTC APIs such as {{RTCRtpSender/setParameters()}},
-        {{RTCRtpSender/getParameters()}}, or {{RTCPeerConnection/addTranceiver()}},
-        beyond addition of the {{RTCRtpEncodingParameters/scalabilityMode}}
-        attribute.
+        Since in WebRTC the use of scalable coding tools is not negotiated
+        and is independent of the supported profiles, and since scalable
+        video coding is rarely supported in hardware encoders, knowledge of
+        the {{RTCRtpEncodingParameters/scalabilityMode}} values supported by the
+        {{RTCRtpSender}} does not provide much additional information on the
+        underlying hardware. However, since browsers may differ in their support
+        for codecs and {{RTCRtpEncodingParameters/scalabilityMode}} values,
+        this specification may enhance the ability to differentiate between
+        browsers. This additinoal fingerprint surface is expected to decrease
+        over time as this specification is more widely implemented.
+      </p>
+      <p>
+        Note that this specification does not support capability discovery,
+        instead relying upon [[Media-Capabilities]]. This specification
+        does not modify the behavior of WebRTC APIs such as
+        {{RTCRtpSender/setParameters()}}, {{RTCRtpSender/getParameters()}}
+        or {{RTCPeerConnection/addTranceiver()}} beyond addition of the
+        {{RTCRtpEncodingParameters/scalabilityMode}} attribute.
       </p>
       <p>
         By inspecting the SDP returned by {{RTCPeerConnection/createOffer()}}, 
