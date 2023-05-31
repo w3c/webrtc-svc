@@ -901,24 +901,36 @@ try {
      <p>
        This section is non-normative; it specifies no new behaviour, but
        instead summarizes information already present in other parts of the
-       specification. The privacy considerations
-       for the WebRTC APIs are described in [[WEBRTC]] Section 13.
+       specification. The privacy considerations for the WebRTC APIs are
+       described in [[WEBRTC]] Section 13.
     </p>
     <section>
       <h2>Persistent information</h2>
       <p>
-        This specification relies upon [[Media-Capabilities]] for discovery of the
-        values of {{RTCRtpEncodingParameters/scalabilityMode}} supported by each
-        codec. Since this specification does not support capability discovery,
-        only configuration, it does not introduce additional fingerprint surface
-        relating to support for codecs or {{RTCRtpEncodingParameters/scalabilityMode}}
-        values, beyond what is provided by [[Media-Capabilities]].
+        This specification does not support capability discovery, instead relying
+        upon [[Media-Capabilities]]. Similarly, this specifiation does not modify
+        the behavior of WebRTC APIs such as {{RTCRtpSender/setParameters()}},
+        {{RTCRtpSender/getParameters()}}, or {{RTCPeerConnection/addTranceiver()}},
+        beyond addition of the {{RTCRtpEncodingParameters/scalabilityMode}}
+        attribute.
       </p>
       <p>
-        Utilizing the configuration support in this specification, or by
-        querying [[Media-Capabilities]] may enable differentiation between
-        browsers. This additional fingerprint surface is expected to decrease
-        over time as this specification is more widely implemented.
+        By inspecting the SDP returned by {{RTCPeerConnection/createOffer()}}, 
+        which is not gated on prior calls to the MediaCapabilities API, it
+        is possible to determine the supported codecs. Since
+        {{RTCRtpSender/setParameters()}}, {{RTCRtpSender/getParameters()}}
+        and {{RTCPeerConnection/addTranceiver()}} are also not gated on prior
+        calls to the MediaCapabilities API, it is possible to use these
+        APIs to probe support for {{RTCRtpEncodingParameters/scalabilityMode}}
+        values within the codecs enumerated by {{RTCPeerConnection/createOffer()}}.
+        Since Scalable Video Coding (SVC) is not commonly supported in
+        hardware, knowledge of supported {{RTCRtpEncodingParameters/scalabilityMode}}
+        values does not provide much additional insight into the underlying hardware,
+        though the combination of supported codecs and
+        {{RTCRtpEncodingParameters/scalabilityMode}} values could enable
+        enhanced differentiation between browsers. This additional fingerprinting
+        surface is expected to decrease over time as this specification is more
+        widely implemented.
       </p>
     </section>
   </section>
