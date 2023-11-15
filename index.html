@@ -907,16 +907,20 @@ try {
     <section>
       <h2>Persistent information</h2>
       <p>
-        In WebRTC, the use of scalable coding tools is not negotiated between
-        peers, and therefore support for SVC is not negotiated in SDP.  Currently,
-        hardware encoders rarely support {{RTCRtpEncodingParameters/scalabilityMode}}
-        values beyond two and three layer temporal scalability, so that support for
-        other {{RTCRtpEncodingParameters/scalabilityMode}} values needs to be provided
-        in software. As a result, knowledge of the 
-        {{RTCRtpEncodingParameters/scalabilityMode}} values supported by the
-        {{RTCRtpSender}} provides little information about the underlying hardware,
-        but can permit differentiation between browsers. This additional fingerprint
-        surface is expected to decrease as this specification is more widely implemented.
+        In WebRTC, the use of scalable coding tools is not negotiated
+        between peers, and therefore SVC support is not exposed in SDP.
+        However, {{RTCRtpSender/getCapabilities()}} does expose the
+        {{RTCRtpEncodingParameters/scalabilityMode}} values supported for
+        encoding by each codec.  Currently, hardware encoders rarely
+        support {{RTCRtpEncodingParameters/scalabilityMode}} values beyond
+        two and three layer temporal scalability, so that support for
+        other {{RTCRtpEncodingParameters/scalabilityMode}} values needs
+        to be provided in software. As a result, knowledge of the
+        {{RTCRtpEncodingParameters/scalabilityMode}} values supported
+        by the {{RTCRtpSender}} provides little information about the
+        underlying hardware, but can permit differentiation between
+        browsers. This additional fingerprint surface is expected to
+        decrease as this specification is more widely implemented.
       </p>
     </section>
   </section>
