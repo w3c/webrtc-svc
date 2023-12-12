@@ -906,7 +906,7 @@ try {
       <h2>Persistent information</h2>
       <p>
         In WebRTC, the use of scalable coding tools is not negotiated
-        between peers, and therefore supported
+        between peers, so supported
         {{RTCRtpEncodingParameters/scalabilityMode}} values
         are not exposed in SDP.
       </p>
@@ -914,7 +914,7 @@ try {
         An application can discover the
         {{RTCRtpEncodingParameters/scalabilityMode}} values supported
         for encoding by each codec by attempting to configure them
-        using the {{RTCRtpSender/setParameters()}} API, and noting
+        using the {{RTCRtpSender/setParameters()}} API, noting
         which configuration attempts fail and which ones succeed.
         This provides a subset of the information available from
         the [[?Media-Capabilities]] API, which indicates not only
@@ -927,14 +927,13 @@ try {
         available. While some hardware supports encoding
         of the "L1T2" and "L1T3"
         {{RTCRtpEncodingParameters/scalabilityMode}} values,
-        support for spatial scalability encoding in hardware
-        is not yet widespread. As a result, support for spatial
-        scalability encoding is most often implemented in
-        software. Given differences in browser support for
+        support for spatial scalability encoding is typically
+        only available in software. Given differences in browser
+        software support for
         {{RTCRtpEncodingParameters/scalabilityMode}} values,
-        knowledge of the values supported by the {{RTCRtpSender}}
+        the supported values supported by the {{RTCRtpSender}}
         can be used to differentiate between browsers. As this
-        specification is more widely implemented the usefulness
+        specification is more widely implemented, the usefulness
         for browser differentiation is expected to decrease.
       </p>
     </section>
