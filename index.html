@@ -23,10 +23,9 @@
     <h2>Introduction</h2>
     <p>
       This specification extends the WebRTC specification [[WEBRTC]] to
-      enable configuration of encoding parameters, as well as the
-      discovery of Scalable Video Coding (SVC) encoder capabilities. The
-      discovery of decoder capabilities and configuration of decoding
-      parameters is not supported.
+      enable configuration of encoding parameters for Scalable Video
+      Coding (SVC). Discovery of SVC encoder and decoder capabilities
+      is out of scope.
     </p>
     <p>
       Since this specification does not change the behavior of WebRTC
@@ -307,22 +306,14 @@
       </section>
     </section>
   </section>
-  <section id="discovery">
+  <section id="discovery" class="informative">
     <h2>Discovery</h2>
       <p>
-        The [[?Media-Capabilities]] API provides information on encoder support
-        for spatial scalability modes. {{VideoConfiguration//scalabilityMode}} is
+        Discovery of SVC encoder and decoder capabilities is out of scope for
+        this specification. The [[?Media-Capabilities]] API provides information
+        on encoder support for spatial scalability modes.
+        {{VideoConfiguration//scalabilityMode}} is
         used to query whether an encoder has the ability to support this mode.
-        The <a title="Selective Forwarding Middlebox">SFM</a>
-        can provide information on the codecs and scalability modes it can
-        decode by providing its receiver capabilities.
-        After exchanging capabilities, the application can compute the
-        intersection of codecs and {{RTCRtpEncodingParameters/scalabilityMode}}
-        values supported by the browser's {{RTCRtpSender}} and the
-        <a title="Selective Forwarding Middlebox">SFM</a>'s receiver. This
-        can be used to determine the arguments passed to the browser's
-        {{RTCPeerConnection/addTransceiver()}} and {{RTCRtpSender/setParameters()}}
-        methods.
       </p>
       <p>
         The [[?Media-Capabilities]] API also provides information on decoder support
@@ -336,6 +327,18 @@
         or is absent, the decoder cannot decode spatial scalability modes, but can
         can decode all other {{RTCRtpEncodingParameters/scalabilityMode}} values
         supported by the encoder.
+      </p>
+      <p>
+        The <a title="Selective Forwarding Middlebox">SFM</a>
+        can provide information on the codecs and scalability modes it can
+        decode by providing its receiver capabilities.
+        After exchanging capabilities, the application can compute the
+        intersection of codecs and {{RTCRtpEncodingParameters/scalabilityMode}}
+        values supported by the browser's {{RTCRtpSender}} and the
+        <a title="Selective Forwarding Middlebox">SFM</a>'s receiver. This
+        can be used to determine the arguments passed to the browser's
+        {{RTCPeerConnection/addTransceiver()}} and {{RTCRtpSender/setParameters()}}
+        methods.
       </p>
       <section id="sfmnegotiation">
         <h2>Negotiation</h2>
