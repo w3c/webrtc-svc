@@ -906,19 +906,36 @@ try {
       <h2>Persistent information</h2>
       <p>
         In WebRTC, the use of scalable coding tools is not negotiated
-        between peers, and therefore SVC support is not exposed in SDP.
-        However, {{RTCRtpSender/getCapabilities()}} does expose the
-        {{RTCRtpEncodingParameters/scalabilityMode}} values supported for
-        encoding by each codec.  Currently, hardware encoders rarely
-        support {{RTCRtpEncodingParameters/scalabilityMode}} values beyond
-        two and three layer temporal scalability, so that support for
-        other {{RTCRtpEncodingParameters/scalabilityMode}} values needs
-        to be provided in software. As a result, knowledge of the
+        between peers, and therefore supported
+        {{RTCRtpEncodingParameters/scalabilityMode}} values
+        are not exposed in SDP.
+      </p>
+      <p>
+        An application can discover the
         {{RTCRtpEncodingParameters/scalabilityMode}} values supported
-        by the {{RTCRtpSender}} provides little information about the
-        underlying hardware, but can permit differentiation between
-        browsers. This additional fingerprint surface is expected to
-        decrease as this specification is more widely implemented.
+        for encoding by each codec by attempting to configure them
+        using the {{RTCRtpSender/setParameters()}} API, and noting
+        which configuration attempts fail and which ones succeed.
+        This provides a subset of the information available from
+        the [[?Media-Capabilities]] API, which indicates not only
+        whether a proposed configuration is "supported", but also
+        whether it is expected to be "smooth" and "power efficient".
+        As a result, this specification does not extend the
+        fingerprinting surface.
+      </p> 
+        Support for SVC encoding in hardware is not yet widely
+        available. While some hardware supports encoding
+        of the "L1T2" and "L1T3"
+        {{RTCRtpEncodingParameters/scalabilityMode}} values,
+        support for spatial scalability encoding in hardware
+        is not yet widespread. As a result, support for spatial
+        scalability encoding is most often implemented in
+        software. Given differences in browser support for
+        {{RTCRtpEncodingParameters/scalabilityMode}} values,
+        knowledge of the values supported by the {{RTCRtpSender}}
+        can be used to differentiate between browsers. As this
+        specification is more widely implemented the usefulness
+        for browser differentiation is expected to decrease.
       </p>
     </section>
   </section>
