@@ -911,17 +911,16 @@ try {
         the [[?Media-Capabilities]] API, which
         indicates whether a proposed configuration is "supported",
         "smooth" and "power efficient".  [[?Media-Capabilities]] API
-        also indicates whether the decover supports spatial
+        also indicates whether the decoder supports spatial
         references.
-      </P>
+      </p>
       <p>
         In WebRTC, the use of scalable coding tools is not negotiated
         between peers, so supported
         {{RTCRtpEncodingParameters/scalabilityMode}} values
         are not exposed in SDP. However, an application can discover
         which {{RTCRtpEncodingParameters/scalabilityMode}} values are
-        supported by attempting to set
-        {{RTCRtpEncodingParameters/scalabilityMode}} values for
+        supported by attempting to set values for
         each codec using the {{RTCRtpSender/setParameters()}} API,
         noting which configuration attempts fail and which ones succeed.
       </p>
