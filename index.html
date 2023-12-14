@@ -905,22 +905,21 @@ try {
     <section>
       <h2>Persistent information</h2>
       <p>
-        Consistent and accurate information on encoder and decoder
-        capabilities can be obtained from the [[?Media-Capabilities]]
-        API, which indicates whether a proposed configuration is "supported",
-        "smooth" and "power efficient". [[?Media-Capabilities]] API
+        The [[?Media-Capabilities]] API provides information on
+        encoder and decoder capabilities, indicating whether a
+        proposed configuration is "supported", "smooth" and
+        "power efficient". [[?Media-Capabilities]] API
         also indicates whether the decoder supports spatial
-        references.
+        prediction.
       </p>
       <p>
         In WebRTC, the use of scalable coding tools is not negotiated
-        between peers, so supported
-        {{RTCRtpEncodingParameters/scalabilityMode}} values
-        are not exposed in SDP. However, an application can discover
-        which {{RTCRtpEncodingParameters/scalabilityMode}} values are
-        supported by attempting to set values for
-        each codec using the {{RTCRtpSender/setParameters()}} API,
-        noting which configuration attempts fail and which ones succeed.
+        between peers, so supported {{RTCRtpEncodingParameters/scalabilityMode}}
+        values are not exposed in SDP. However, by attempting to set
+        {{RTCRtpEncodingParameters/scalabilityMode}} values for each
+        codec using the {{RTCRtpSender/setParameters()}} API,
+        an application can determine supported values by noting
+        which configuration attempts succeed and which ones fail.
       </p>
       <p>
         While this could be used to differentiate between
@@ -929,8 +928,8 @@ try {
         information already available to the web pages as a given class of
         device is expected to have very similar decoding/encoding capabilities."
         Currently, only the "L1T2" and "L1T3" {{RTCRtpEncodingParameters/scalabilityMode}}
-        values are widely supported in hardware encoders, with support for
-        spatial scalability modes are typically implemented in software.
+        values are widely supported in hardware encoders, while spatial
+        scalability modes are typically implemented in software.
      </p>
     </section>
   </section>
