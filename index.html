@@ -304,11 +304,12 @@
   <section id="discovery" class="informative">
     <h2>Discovery</h2>
       <p>
-        Discovery of SVC encoder and decoder capabilities is out of scope for
-        this specification. The [[?Media-Capabilities]] API provides information
-        on encoder support for spatial scalability modes.
-        {{VideoConfiguration//scalabilityMode}} is
-        used to query whether an encoder has the ability to support this mode.
+        The [[?Media-Capabilities]] API enables discovery of encoder and decoder
+        support for scalable video coding. {{VideoConfiguration//scalabilityMode}}
+        is used to query whether an encoder supports a particular
+        {{RTCRtpEncodingParameters/scalabilityMode}} value. The API indicates
+        whether the {{RTCRtpEncodingParameters/scalabilityMode}} value
+        is "supported", "smooth" and "power efficient".
       </p>
       <p>
         The [[?Media-Capabilities]] API also provides information on decoder support
