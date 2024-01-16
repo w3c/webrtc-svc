@@ -913,10 +913,12 @@ try {
         prediction.
       </p>
       <p>
-        In WebRTC, the use of scalable coding tools is not negotiated
-        between peers, so neither supported {{RTCRtpEncodingParameters/scalabilityMode}}
-        values nor decoder support for spatial prediction is exposed in SDP.
-        By attempting to set {{RTCRtpEncodingParameters/scalabilityMode}} values for
+        In WebRTC, the use of scalable coding tools is not
+        negotiated between peers, so neither supported
+        {{RTCRtpEncodingParameters/scalabilityMode}} values nor
+        values nor decoder support for spatial prediction is
+        exposed in SDP. By attempting to set
+        {{RTCRtpEncodingParameters/scalabilityMode}} values for
         each codec using the {{RTCRtpSender/setParameters()}} API,
         an application can determine supported values by noting
         which configuration attempts succeed and which ones fail.
