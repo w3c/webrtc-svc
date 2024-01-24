@@ -64,7 +64,7 @@
   <section>
     <h2>Terminology</h2>
       <p>
-        The term "simulcast envelope" is defined in [[!WEBRTC]] Section 5.4.1. 
+        The term "simulcast envelope" is defined in [[!WEBRTC]] Section 5.4.1.
       </p>
       <p>
         This specification references objects, methods, internal slots
@@ -84,10 +84,10 @@
         synchronization source (SSRC). The term "Multiple RTP stream Single
         Transport" (<dfn>MRST</dfn>), also defined in [[RFC7656]] Section 3.7,
         refers to implementations that transmit all layers within a single
-        transport, using multiple RTP streams with a distinct SSRC for each layer. 
+        transport, using multiple RTP streams with a distinct SSRC for each layer.
         This specification only supports <a>SRST</a>, not <a>MRST</a>. Codecs
         with RTP payload specifications supporting <a>SRST</a> include VP8
-        [[?RFC7741]], VP9 [[?VP9-PAYLOAD]], AV1 [[?AV1-RTP]] and H.264/SVC
+        [[?RFC7741]], VP9 [[?VP9-PAYLOAD]], AV1 [[?AV1-RTP-SPEC]] and H.264/SVC
         [[?RFC6190]].
       </p>
       <p>
@@ -104,8 +104,8 @@
   <section id="configuration">
     <h2>Configuration</h2>
       <p>
-        This specification enables the configuration of encoding parameters for SVC 
-        by extending the {{RTCRtpEncodingParameters}} dictionary. 
+        This specification enables the configuration of encoding parameters for SVC
+        by extending the {{RTCRtpEncodingParameters}} dictionary.
       </p>
     <section id="rtcrtpencodingparameters">
       <h3>{{RTCRtpEncodingParameters}} Dictionary Extensions</h3>
@@ -139,7 +139,7 @@
           due to an unsupported encoding parameter, as well as other errors.
           Implementations utilize {{RTCError}} and other errors
           in the prescribed manner when an invalid
-          {{RTCRtpEncodingParameters/scalabilityMode}} value is provided to 
+          {{RTCRtpEncodingParameters/scalabilityMode}} value is provided to
           {{RTCRtpSender/setParameters()}} or {{RTCPeerConnection/addTransceiver()}}.
         </p>
       <section id="addTransceiver">
@@ -159,7 +159,7 @@
              </li>
              <li>
                Else if <var>sendEncodings</var> contains any encoding whose
-               {{RTCRtpEncodingParameters/scalabilityMode}} value is 
+               {{RTCRtpEncodingParameters/scalabilityMode}} value is
                not supported by any codec in the [=RTCRtpSender/list of implemented send codecs=]
                for <var>kind</var>, [= exception/throw =] an {{OperationError}}.
              </li>
@@ -209,7 +209,7 @@
           simulcast encodings with multiple SSRCs and RIDs, or
           alternatively, to send all simulcast encodings on a single
           RTP stream. Simultaneously using both simulcast transport
-          techniques is not permitted. 
+          techniques is not permitted.
         </p>
       </section>
       <section id="setparameters">
@@ -229,7 +229,7 @@
              <li>
                Else if <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=map/is empty=]
                and <var>encodings</var> contains any encoding whose
-               {{RTCRtpEncodingParameters/scalabilityMode}} value is 
+               {{RTCRtpEncodingParameters/scalabilityMode}} value is
                not supported by any codec in the
                [=RTCRtpSender/list of implemented send codecs=] for <var>kind</var>.
              </li>
@@ -288,7 +288,7 @@
          </p>
          <p>
            If {{RTCPeerConnection/addTransceiver()}} or {{RTCRtpSender/setParameters()}}
-           did not provide a {{RTCRtpEncodingParameters/scalabilityMode}} value for    
+           did not provide a {{RTCRtpEncodingParameters/scalabilityMode}} value for
            an encoding in <var>encodings</var>, then after the initial negotiation
            has completed, {{RTCRtpSender/getParameters()}} will not return a
            {{RTCRtpEncodingParameters/scalabilityMode}} value and the encoder will use
@@ -369,7 +369,7 @@
             header extensions.  For example, if the <a title="Selective Forwarding Middlebox">SFM</a>
             cannot parse codec payloads (either because it is not designed to do so, or
             because the payloads are encrypted), then negotiation of an RTP header extension
-            (such as the AV1 Dependency Descriptor defined in Appendix A of [[?AV1-RTP]])
+            (such as the AV1 Dependency Descriptor defined in Appendix A of [[?AV1-RTP-SPEC]])
             could be a prerequisite for the <a title="Selective Forwarding Middlebox">SFM</a>
             to forward a {{RTCRtpEncodingParameters/scalabilityMode}} value. As a result,
             the {{RTCRtpEncodingParameters/scalabilityMode}} values supported by an
@@ -724,7 +724,7 @@
           </li>
           <li>
             A dependency diagram MUST be supplied, in the format provided in Section 10.
-          </li>         
+          </li>
         </ol>
     </section>
   </section>
@@ -769,7 +769,7 @@ async function start() {
         {rid: 'q', scaleResolutionDownBy: 4.0, scalabilityMode: 'L1T3'},
         {rid: 'h', scaleResolutionDownBy: 2.0, scalabilityMode: 'L1T3'},
         {rid: 'f', scalabilityMode: 'L1T3'}
-      ]    
+      ]
     });
   } catch (err) {
     console.error(err);
@@ -795,7 +795,7 @@ signaling.onmessage = async ({data: {description, candidate}}) => {
           </pre>
           <p>
              This is an example with two spatial layers (with a 2:1 ratio) and three temporal layers.
-          </p> 
+          </p>
           <pre class="example highlight">
 let sendEncodings = [
   {scalabilityMode: 'L2T3'}
@@ -803,7 +803,7 @@ let sendEncodings = [
           </pre>
           <p>
              This is an example of mixed codec simulcast, with each simulcast layer having 3 temporal layers.
-          </p> 
+          </p>
           <pre class="example highlight">
 let sendEncodings = [
   {rid: 'q', codec: {clockRate: 90000, mimeType: 'video/AV1'}, scaleResolutionDownBy: 4.0, scalabilityMode: 'L1T3'},
@@ -813,11 +813,11 @@ let sendEncodings = [
           </pre>
           <p>
              This is an example with three spatial simulcast layers each with three temporal layers on a single SSRC.
-          </p> 
+          </p>
           <pre class="example highlight">
 let sendEncodings = [
   {scalabilityMode: 'S3T3'}
-]    
+]
           </pre>
     </section>
     <section id="media-capabilities-example*" class="informative">
@@ -923,7 +923,7 @@ try {
         whether it is expected to be "smooth" and "power efficient".
         As a result, this specification does not extend the
         fingerprinting surface.
-      </p> 
+      </p>
         Support for SVC encoding in hardware is not yet widely
         available. While some hardware supports encoding
         of the "L1T2" and "L1T3"

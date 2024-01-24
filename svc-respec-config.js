@@ -40,15 +40,6 @@ var respecConfig = {
       "href": "https://www.iana.org/assignments/stun-parameters/stun-parameters.xhtml#stun-parameters-6",
       "publisher": "IANA"
     },
-    "AV1-RTP": {
-      "title": "RTP Payload Format for AV1",
-      "href": "https://aomediacodec.github.io/av1-rtp-spec/",
-      "authors": [
-        "AV1 RTC SG"
-      ],
-      "status": "Standard",
-      "publisher": "Alliance for Open Media"
-    },
     "RFC7667": {
       "title": "RTP Topologies",
       "href": "https://datatracker.ietf.org/doc/html/rfc7667",
