@@ -906,37 +906,54 @@ try {
     <section>
       <h2>Persistent information</h2>
       <p>
-        In WebRTC, the use of scalable coding tools is not negotiated
-        between peers, so supported
-        {{RTCRtpEncodingParameters/scalabilityMode}} values
-        are not exposed in SDP.
+        In WebRTC, the use of scalable coding tools is not
+        negotiated between peers, so neither supported
+        {{RTCRtpEncodingParameters/scalabilityMode}} values nor
+        values nor decoder support for spatial prediction is
+        exposed in SDP. 
       </p>
       <p>
-        An application can discover the
-        {{RTCRtpEncodingParameters/scalabilityMode}} values supported
-        for encoding by each codec by attempting to configure them
-        using the {{RTCRtpSender/setParameters()}} API, noting
-        which configuration attempts fail and which ones succeed.
-        This provides a subset of the information available from
-        the [[?Media-Capabilities]] API, which indicates not only
-        whether a proposed configuration is "supported", but also
-        whether it is expected to be "smooth" and "power efficient".
-        As a result, this specification does not extend the
-        fingerprinting surface.
+        By attempting to set
+        {{RTCRtpEncodingParameters/scalabilityMode}} values for
+        each codec using the {{RTCRtpSender/setParameters()}} API,
+        an application can determine the values supported by the
+        encoder, by noting which configuration attempts succeed
+        and which ones fail. However, this does not indicate
+        whether a {{RTCRtpEncodingParameters/scalabilityMode}}
+        value is supported by a hardware or software encoder
+        (or both). Since {{RTCRtpSender/setParameters()}}
+        is not supported for the {{RTCRtpReceiver}}, equivalent
+        experiments cannot be run to determine decoder support.
       </p>
-        Support for SVC encoding in hardware is not yet widely
-        available. While some hardware supports encoding
-        of the "L1T2" and "L1T3"
-        {{RTCRtpEncodingParameters/scalabilityMode}} values,
-        support for spatial scalability encoding is typically
-        only available in software. Given differences in browser
-        software support for
-        {{RTCRtpEncodingParameters/scalabilityMode}} values,
-        the supported values supported by the {{RTCRtpSender}}
-        can be used to differentiate between browsers. As this
-        specification is more widely implemented, the usefulness
-        for browser differentiation is expected to decrease.
+      <p>
+        Since the {{RTCRtpEncodingParameters/scalabilityMode}} 
+        values supported by software encoders are typically
+        a superset of those supported in hardware, the information
+        available from these experiments has a high correlation
+        with the browser in use, which is already available to
+        web pages. Once media is flowing, information on
+        performance characteristics or whether a
+        {{RTCRtpEncodingParameters/scalabilityMode}} value
+        is decodable for the codec in use can be obtained,
+        which provides more information on hardware capabilities.
       </p>
+      <p>
+        As noted in [[?Media-Capabilities]] Section 3.1, the Media
+        Capabilities API "will likely provide more accurate and
+        consistent information" than is available from the
+        WebRTC-SVC API. Media Capabilities provides information
+        on encoder and decoder capabilities, indicating whether
+        a proposed configuration (including a
+        {{RTCRtpEncodingParameters/scalabilityMode}} value) is
+        "supported", "smooth" and "power efficient".
+        [[?Media-Capabilities]] API also indicates whether the
+        decoder supports spatial prediction.  As noted in
+        [[?Media-Capabilities]] Section 3.1, "This information is
+        expected to have a high correlation with other information
+        already available to the web pages as a given class of
+        device is expected to have very similar decoding/encoding
+        capabilities."
+     </p>
     </section>
   </section>
   <section class="informative"  id="security">
