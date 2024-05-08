@@ -10,8 +10,10 @@
 <body>
   <section id="abstract">
     <p>
-      This document defines a set of ECMAScript APIs in WebIDL to extend the WebRTC 1.0 API
-      to enable user agents to support scalable video coding (SVC).
+      This document defines a set of ECMAScript APIs in WebIDL to extend the WebRTC
+      specification to enable configuration of encoding parameters for Scalable
+      Video Coding (SVC). Discovery of SVC encoder and decoder capabilities is
+      handled by the Media Capabilities specification.
     </p>
   </section>
   <section id="sotd">
@@ -24,22 +26,23 @@
     <p>
       This specification extends the WebRTC specification [[WEBRTC]] to
       enable configuration of encoding parameters for Scalable Video
-      Coding (SVC). Discovery of SVC encoder and decoder capabilities
-      is out of scope.
+      Coding (SVC). Discovery of SVC encoder and decoder capabilities is
+      handled by the Media Capabilities API [[?Media-Capabilities]].
     </p>
     <p>
-      Since this specification does not change the behavior of WebRTC
-      objects and methods, restrictions relating to Offer/Answer negotiation and
+      This specification does not change the behavior of WebRTC objects and
+      methods. Therefore, restrictions relating to Offer/Answer negotiation and
       encoding parameters remain, as described in [[WEBRTC]] Section 5.2:
       "{{RTCRtpSender/setParameters()}} does not cause SDP renegotiation and can
       only be used to change what the media stack is sending or receiving within the
       envelope negotiated by Offer/Answer."
     </p>
     <p>
-      The configuration of SVC-capable codecs implemented in browsers fits within this
-      restriction. Codecs such as VP8 [[?RFC6386]], VP9 [[?VP9]] and AV1 [[?AV1]] do not
-      negotiate SVC support within Offer/Answer, enabling encoding parameters to be used
-      for SVC configuration.
+      As a result, this specification can be used to configure encoding parameters
+      within codecs that do not negotiate SVC support within Offer/Answer. The
+      VP8 [[?RFC6386]], VP9 [[?VP9]] and AV1 [[?AV1]] codecs fit within this
+      restriction. Configuraton of temporal scalability can also be supported
+      for the H.264 [[?ITU-T-REC-H.264]] and H.265 [[?ITU-T-REC-H.265]] codecs.
     </p>
   </section>
   <section id="conformance">
