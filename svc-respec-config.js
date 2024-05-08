@@ -40,6 +40,18 @@ var respecConfig = {
       "href": "https://www.iana.org/assignments/stun-parameters/stun-parameters.xhtml#stun-parameters-6",
       "publisher": "IANA"
     },
+    "ITU-T-REC-H.264": {
+      "href": "https://www.itu.int/rec/T-REC-H.264",
+      "title": "H.264 : Advanced video coding for generic audiovisual services",
+      "publisher": "ITU",
+      "date": "June 2019"
+    },
+    "ITU-T-REC-H.265": {
+      "href": "https://www.itu.int/rec/T-REC-H.265",
+      "title": "H.265 : High efficiency video coding",
+      "publisher": "ITU",
+      "date": "August 2021"
+    },
     "RFC7667": {
       "title": "RTP Topologies",
       "href": "https://datatracker.ietf.org/doc/html/rfc7667",
