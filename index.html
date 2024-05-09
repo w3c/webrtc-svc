@@ -125,7 +125,7 @@
               <p>
                 A case-sensitive identifier of the scalability mode to be
                 used for this stream. Scalability modes are defined in
-                Section 6.
+                Section 5.
               </p>
             </dd>
           </dl>
@@ -302,40 +302,25 @@
            temporal scalability modes (e.g. [="L1T1"=],[="L1T2"=],[="L1T3"=], etc.).
          </p>
       </section>
-    </section>
-  </section>
-  <section id="discovery" class="informative">
-    <h2>Discovery</h2>
-      <p>
-        The [[?Media-Capabilities]] API enables discovery of encoder and decoder
-        support for scalable video coding. {{VideoConfiguration//scalabilityMode}}
-        is used to query whether an encoder supports a particular
-        {{RTCRtpEncodingParameters/scalabilityMode}} value. The API indicates
-        whether the {{RTCRtpEncodingParameters/scalabilityMode}} value
-        is "supported", "smooth" and "power efficient".
-      </p>
-      <p>
-        The [[?Media-Capabilities]] API also provides information on decoder support
-        for spatial scalablity modes. {{VideoConfiguration/spatialScalability}}
-        indicates whether a decoder has the ability to support spatial prediction,
-        which requires the ability to use frames of a resolution different than
-        the current resolution as a dependency. If {{VideoConfiguration/spatialScalability}}
-        is set to <code>true</code>, the decoder can decode any
-        {{RTCRtpEncodingParameters/scalabilityMode}} value supported by the encoder.
-        If {{VideoConfiguration/spatialScalability}} is set to <code>false</code>
-        or is absent, the decoder cannot decode spatial scalability modes, but can
-        can decode all other {{RTCRtpEncodingParameters/scalabilityMode}} values
-        supported by the encoder.
-      </p>
       <section id="sfmnegotiation" class="informative">
-        <h2>Negotiation with an SFM</h2>
+        <h2>Negotiation Issues</h2>
           <p>
-            The <a title="Selective Forwarding Middlebox">SFM</a>
-            can provide information on the codecs and scalability modes it can
-            decode by providing its receiver capabilities.
-            After exchanging capabilities, the application can compute the
-            intersection of codecs and {{RTCRtpEncodingParameters/scalabilityMode}}
-            values supported by the browser's {{RTCRtpSender}} and the
+            SVC is most often employed in video conferencing, where a conferencing
+            server such as a <a title="Selective Forwarding Middlebox">SFM</a>
+            selectively forwards layers to participants based on their device
+            characteristics and available bandwidth. In such an environment,
+            the application will negotiate codecs to be sent and received with
+            the conferencing server. However, since scalability modes are not
+            negotiated in Offer/Answer, the application needs to determine
+            which scalability modes are available by other means.
+          </p>
+          <p>  
+            One way in which this can be achieved is for the SFM to provide
+            information on the codecs and scalability modes it can decode in
+            the form of receiver capabilities. After exchanging capabilities,
+            the application can compute the intersection of codecs and
+            {{RTCRtpEncodingParameters/scalabilityMode}} values supported
+            by the browser's {{RTCRtpSender}} and the
             <a title="Selective Forwarding Middlebox">SFM</a>'s receiver. This
             can be used to determine the arguments passed to the browser's
             {{RTCPeerConnection/addTransceiver()}} and {{RTCRtpSender/setParameters()}}
@@ -379,7 +364,8 @@
             <a title="Selective Forwarding Middlebox">SFM</a> may not be determined until
             completion of the Offer/Answer negotiation.
           </p>
-        </section>
+    </section>
+  </section>
   </section>
   <section id="scalabilitymodes*">
     <h3>Scalability modes</h3>
@@ -388,7 +374,7 @@
       as well as their associated identifiers and characteristics, are provided in the table
       below. The names of the {{RTCRtpEncodingParameters/scalabilityMode}} values (which are
       case sensitive) are provided, along with the scalability mode identifiers assigned in
-      [[?AV1]] Section 6.7.5, and links to dependency diagrams provided in Section 10.
+      [[?AV1]] Section 6.7.5, and links to dependency diagrams provided in Section 9.
     </p>
     <p>
       While the [[?AV1]] and VP9 [[?VP9]] specifications support all the
@@ -707,7 +693,7 @@
         <ol>
           <li>
             The proposed {{RTCRtpEncodingParameters/scalabilityMode}} MUST define entries to the table in
-            Section 6, including values for the Scalabilty Mode Identifier, spatial and
+            Section 5, including values for the Scalabilty Mode Identifier, spatial and
             temporal layers, Resolution Ratio, Inter-layer dependency and the corresponding
             AV1 scalability_mode_idc value (if assigned).
           </li>
@@ -727,7 +713,7 @@
             frames have their temporal identifier shifted upward.
           </li>
           <li>
-            A dependency diagram MUST be supplied, in the format provided in Section 10.
+            A dependency diagram MUST be supplied, in the format provided in Section 9.
           </li>
         </ol>
     </section>
@@ -939,6 +925,27 @@ try {
         {{RTCRtpEncodingParameters/scalabilityMode}} value
         is decodable for the codec in use can be obtained,
         which provides more information on hardware capabilities.
+      </p>
+      <p>
+        The [[?Media-Capabilities]] API enables discovery of encoder and decoder
+        support for scalable video coding. {{VideoConfiguration//scalabilityMode}}
+        is used to query whether an encoder supports a particular
+        {{RTCRtpEncodingParameters/scalabilityMode}} value. The API indicates
+        whether the {{RTCRtpEncodingParameters/scalabilityMode}} value
+        is "supported", "smooth" and "power efficient".
+      </p>
+      <p>
+        The [[?Media-Capabilities]] API also provides information on decoder support
+        for spatial scalablity modes. {{VideoConfiguration/spatialScalability}}
+        indicates whether a decoder has the ability to support spatial prediction,
+        which requires the ability to use frames of a resolution different than
+        the current resolution as a dependency. If {{VideoConfiguration/spatialScalability}}
+        is set to <code>true</code>, the decoder can decode any
+        {{RTCRtpEncodingParameters/scalabilityMode}} value supported by the encoder.
+        If {{VideoConfiguration/spatialScalability}} is set to <code>false</code>
+        or is absent, the decoder cannot decode spatial scalability modes, but can
+        can decode all other {{RTCRtpEncodingParameters/scalabilityMode}} values
+        supported by the encoder.
       </p>
       <p>
         As noted in [[?Media-Capabilities]] Section 3.1, the Media
