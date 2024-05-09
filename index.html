@@ -303,7 +303,7 @@
          </p>
       </section>
       <section id="sfmnegotiation" class="informative">
-        <h2>Negotiation Issues</h2>
+        <h2>Negotiation issues</h2>
           <p>
             SVC is most often employed in video conferencing, where a conferencing
             server such as a <a title="Selective Forwarding Middlebox">SFM</a>
@@ -347,7 +347,7 @@
             supported, and if so, what scalability modes the
             <a title="Selective Forwarding Middlebox">SFM</a> can handle. For example,
             an <a title="Selective Forwarding Middlebox">SFM</a> that can only support
-            reception of a maximum of 2 simulcast encodings on a single SSRC with the
+            reception of a maximum of two simulcast encodings on a single SSRC with the
             AV1 codec would only indicate support for the [="S2T1"=] and [="S2T1h"=] scalability
             modes in its receiver capabilities.
           </p>
@@ -929,10 +929,9 @@ try {
       <p>
         The [[?Media-Capabilities]] API enables discovery of encoder and decoder
         support for scalable video coding. {{VideoConfiguration//scalabilityMode}}
-        is used to query whether an encoder supports a particular
-        {{RTCRtpEncodingParameters/scalabilityMode}} value. The API indicates
-        whether the {{RTCRtpEncodingParameters/scalabilityMode}} value
-        is "supported", "smooth" and "power efficient".
+        is used to query whether an encoder supports a 
+        {{RTCRtpEncodingParameters/scalabilityMode}} value, indicating whether
+        it is "supported", "smooth" and "power efficient".
       </p>
       <p>
         The [[?Media-Capabilities]] API also provides information on decoder support
@@ -950,14 +949,8 @@ try {
       <p>
         As noted in [[?Media-Capabilities]] Section 3.1, the Media
         Capabilities API "will likely provide more accurate and
-        consistent information" than is available from the
-        WebRTC-SVC API. Media Capabilities provides information
-        on encoder and decoder capabilities, indicating whether
-        a proposed configuration (including a
-        {{RTCRtpEncodingParameters/scalabilityMode}} value) is
-        "supported", "smooth" and "power efficient".
-        [[?Media-Capabilities]] API also indicates whether the
-        decoder supports spatial prediction.  As noted in
+        consistent information" than is available from this
+        specification. As noted in 
         [[?Media-Capabilities]] Section 3.1, "This information is
         expected to have a high correlation with other information
         already available to the web pages as a given class of
