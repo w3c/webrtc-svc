@@ -312,13 +312,14 @@
             the application will negotiate codecs to be sent and received with
             the conferencing server. However, since scalability modes are not
             negotiated in Offer/Answer, the application needs to determine
-            which scalability modes are available by other means.
+            which scalability modes the conference server supports by other
+            means.
           </p>
           <p>  
-            One way in which this can be achieved is for the SFM to provide
-            information on the codecs and scalability modes it can decode in
-            the form of receiver capabilities. After exchanging capabilities,
-            the application can compute the intersection of codecs and
+            One way to handle this is for the SFM to indicate the codecs
+            and scalability modes it can decode in the form of receiver
+            capabilities. After exchanging capabilities, the application
+            can compute the intersection of codecs and
             {{RTCRtpEncodingParameters/scalabilityMode}} values supported
             by the browser's {{RTCRtpSender}} and the
             <a title="Selective Forwarding Middlebox">SFM</a>'s receiver. This
