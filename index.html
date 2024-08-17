@@ -342,7 +342,7 @@
               <li>
                 An <a title="Selective Forwarding Middlebox">SFM</a> may only support 
                 single stream simulcast using the [="S2T1"=] and [="S2T1h"=] scalability
-                with the AV1 codec, while the browser may support encoding single
+                modes with the AV1 codec, while the browser may support encoding single
                 stream simulcast using the [="S2T1"=], [="S2T1h"=], [="S3T1"=] and
                 [="S3T1h"=] modes with both the VP9 and AV1 codecs. In this example,
                 an application would only be able to use single-stream simulcast with
@@ -354,13 +354,12 @@
           </p>
           <p>
             There are situations in which computing the intersection of the browser and
-            SFM capabilities has implications for RTP header extension negotiation.
-            For example, if the <a title="Selective Forwarding Middlebox">SFM</a>
-            cannot parse codec payloads (either because it is not designed to do so, or
-            because the payloads are encrypted), then negotiation of an RTP header extension
-            (such as the AV1 Dependency Descriptor defined in Appendix A of [[?AV1-RTP-SPEC]])
-            could be required for the <a title="Selective Forwarding Middlebox">SFM</a>
-            to forward a particular codec and {{RTCRtpEncodingParameters/scalabilityMode}} value.
+            SFM capabilities needs to take RTP header extensions into account. If the
+            <a title="Selective Forwarding Middlebox">SFM</a> cannot parse codec payloads
+            (either because it is not designed to do so, or because the payloads are encrypted), 
+            then negotiation of an RTP header extension (such as the AV1 Dependency Descriptor
+            defined in Appendix A of [[?AV1-RTP-SPEC]]) could be required for the
+            <a title="Selective Forwarding Middlebox">SFM</a> to forward a particular codec.
             To take this into account, the RTP header extensions required for forwarding of a 
             codec could be added to the SFM's receiver capabilities. The application could
             then compute the intersection of codec, header extension and
