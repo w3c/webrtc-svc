@@ -123,7 +123,10 @@
             <dt><dfn data-idl>scalabilityMode</dfn> of type {{DOMString}}</dt>
             <dd>
               <p>
-                A case-sensitive identifier of the scalability mode to be
+                This member can only be [=map/exists|present=] if the sender's
+                <code class="gum">kind</code> is <code>"video"</code>.
+                When [=map/exists|present=], indicates the case-sensitive
+                identifier of the scalability mode to be
                 used for this stream. Scalability modes are defined in
                 Section 5.
               </p>
