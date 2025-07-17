@@ -159,22 +159,22 @@
            [=RTCPeerConnection/addTransceiver sendEncodings validation steps=]:
            <ol>
              <li>
-               If <var>sendEncodings</var> contains any encoding with a {{RTCRtpEncodingParameters}}.<code>codec</code>
+               If <var>sendEncodings</var> [=list/contains=] any encoding whose a {{RTCRtpEncodingParameters/codec}}
                value <var>codec</var> [=map/exists=] and where the same encoding's {{RTCRtpEncodingParameters/scalabilityMode}}
                value is not supported by <var>codec</var>, [= exception/throw =] an {{OperationError}}.
              </li>
              <li>
-               Else if <var>sendEncodings</var> contains any encoding whose
+               Else if <var>sendEncodings</var> [=list/contains=] any encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value is
                not supported by any codec in the [=RTCRtpSender/list of implemented send codecs=]
                for <var>kind</var>, [= exception/throw =] an {{OperationError}}.
              </li>
              <li>
                If {{RTCRtpEncodingParameters}} stored in
-               <var>sendEncodings</var> contains more than 1
+               <var>sendEncodings</var> [=list/contains=] more than 1
                encoding with an {{RTCRtpEncodingParameters/active}}
                member with a value of <code>true</code> and
-               <var>sendEncodings</var> contains any encoding whose
+               <var>sendEncodings</var> [=list/contains=] any encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value
                represents an "S mode" and whose
                {{RTCRtpEncodingParameters/active}} member has a
@@ -228,26 +228,26 @@
            [=RTCRtpSender/setParameters validation steps=]:
            <ol>
              <li>
-               If <var>encodings</var> contains any encoding with an existng
+               If <var>encodings</var> [=list/contains=] any encoding with an existng
                {{RTCRtpEncodingParameters}}.codec value <var>codec</var>, where the same encoding's
                {{RTCRtpEncodingParameters/scalabilityMode}} value is not supported by <var>codec</var>.
              </li>
              <li>
-               Else if <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=map/is empty=]
-               and <var>encodings</var> contains any encoding whose
+               Else if <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=list/is empty=]
+               and <var>encodings</var> [=list/contains=] any encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value is
                not supported by any codec in the
                [=RTCRtpSender/list of implemented send codecs=] for <var>kind</var>.
              </li>
              <li>
-               Else if <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=map/is empty | is not empty=]
-               and <var>encodings</var> contains an encoding whose
+               Else if <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=list/is empty | is not empty=]
+               and <var>encodings</var> [=list/contains=] an encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value is
                not supported by the codec used for the encoding's RTP stream.
              </li>
              <li>
                If {{RTCRtpEncodingParameters}} stored in
-               <var>encodings</var> contains more than one
+               <var>encodings</var> [=list/contains=] more than one
                encoding with an {{RTCRtpEncodingParameters/active}}
                member with a value of <code>true</code> and
                <var>encodings</var> contains any encoding whose
