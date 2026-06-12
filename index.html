@@ -242,8 +242,8 @@
              <li>
                Else if <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=list/is empty | is not empty=]
                and <var>encodings</var> [=list/contains=] an encoding whose
-               {{RTCRtpEncodingParameters/scalabilityMode}} value is
-               not supported by the codec used for the encoding's RTP stream.
+               {{RTCRtpEncodingParameters/scalabilityMode}} value cannot be satisfied
+               by any codec in <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}}.
              </li>
              <li>
                If {{RTCRtpEncodingParameters}} stored in
