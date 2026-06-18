@@ -223,30 +223,31 @@
          <p>
            [[!WEBRTC]] Section 5.2 describes validation of <var>parameters</var>
            within {{RTCRtpSender/setParameters()}}. Insert the following
-           conditions under which the operation causes a promise rejected
-           with an {{InvalidModificationError}} (step 4) of
+           conditions into the list of conditions under which the operation causes a promise rejected
+           with an {{InvalidModificationError}} (step 6) of
            [=RTCRtpSender/setParameters validation steps=]:
-           <ol>
+           <ul>
              <li>
-               If <var>encodings</var> [=list/contains=] any encoding with an existng
-               {{RTCRtpEncodingParameters}}.codec value <var>codec</var>, where the same encoding's
-               {{RTCRtpEncodingParameters/scalabilityMode}} value is not supported by <var>codec</var>.
+               <var>encodings</var> [=list/contains=] any <var>encoding</var>
+               with an [=map/exists|existing=] {{RTCRtpEncodingParameters/codec}} value,
+               <var>codec</var>, where <var>encoding</var>'s
+               {{RTCRtpEncodingParameters/scalabilityMode}} value is not supported by
+               <var>codec</var>.
              </li>
              <li>
-               Else if <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=list/is empty=]
+               <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=list/is empty=]
                and <var>encodings</var> [=list/contains=] any encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value is
                not supported by any codec in the
                [=RTCRtpSender/list of implemented send codecs=] for <var>kind</var>.
              </li>
              <li>
-               Else if <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=list/is empty | is not empty=]
-               and <var>encodings</var> [=list/contains=] an encoding whose
+               <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}} [=list/is empty | is not empty=]
+               and <var>encodings</var> [=list/contains=] any encoding whose
                {{RTCRtpEncodingParameters/scalabilityMode}} value cannot be satisfied
                by any codec in <var>sender</var>.{{RTCRtpSender/[[SendCodecs]]}}.
              </li>
              <li>
-               If {{RTCRtpEncodingParameters}} stored in
                <var>encodings</var> [=list/contains=] more than one
                encoding with an {{RTCRtpEncodingParameters/active}}
                member with a value of <code>true</code> and
@@ -256,7 +257,7 @@
                {{RTCRtpEncodingParameters/active}} member has a
                value of <code>true</code>.
              </li>
-           </ol>
+           </ul>
          </p>
          <p>
            The [="L1T1"=] scalability mode enables SVC encoding to be turned off
