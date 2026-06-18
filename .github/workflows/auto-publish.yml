@@ -16,7 +16,7 @@ jobs:
         with:
           W3C_ECHIDNA_TOKEN: ${{ secrets.ECHIDNA_TOKEN }}
           W3C_WG_DECISION_URL: "https://lists.w3.org/Archives/Public/public-webrtc/2016Mar/0031.html"
-          W3C_NOTIFICATIONS_CC: "dom@w3.org"
+          W3C_NOTIFICATIONS_CC: "carine@w3.org"
           VALIDATE_LINKS: false
           W3C_BUILD_OVERRIDE: |
             specStatus: WD
