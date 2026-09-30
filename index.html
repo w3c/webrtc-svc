@@ -135,8 +135,8 @@
         </section>
       </div>
     </section>
-    <section id="behavior">
-      <h2>Behavior</h2>
+    <section id="algorithms">
+      <h2>Algorithms</h2>
         <p>
           [[!WEBRTC]] describes error handling in {{RTCPeerConnection/addTransceiver()}}
           (Section 5.1) and {{RTCRtpSender/setParameters()}} (Section 5.2),
@@ -266,6 +266,55 @@
            to {{RTCRtpSender/getParameters()}}.
          </p>
       </section>
+      <section id="set-description">
+       <h3>{{RTCPeerConnection/setLocalDescription()}}
+       and {{RTCPeerConnection/setRemoteDescription()}}</h3>
+         <p>
+           [[!WEBRTC]] Section 4.4 describes the steps to
+           [=set a session description=], <var>description</var>, on an
+           {{RTCPeerConnection}} <var>connection</var>. Locate
+           step 4.6.14.3. (which clears and
+           [=update the negotiation-needed flag|updates the negotiation-needed flag=]),
+           and insert the following steps immediately ahead of it:
+           <ol>
+             <li id="init-rtcrtpencodingparameters-codec">
+               <p>For each <var>transceiver</var> in <var>connection</var>'s
+               [=set of transceivers=]:</p>
+               <ol>
+                 <li>
+                   <p>Let <var>codecs</var> be
+                   <var>transceiver</var>.{{RTCRtpTransceiver/[[Sender]]}}.{{RTCRtpSender/[[SendCodecs]]}}.
+                   </p>
+                 </li>
+                 <li>
+                   <p>If <var>codecs</var> is not an empty list:</p>
+                   <ol>
+                     <li>
+                       <p>For each <var>encoding</var> in
+                       <var>transceiver</var>.{{RTCRtpTransceiver/[[Sender]]}}.{{RTCRtpSender/[[SendEncodings]]}}
+                       that [=map/exists|contains=] a
+                       {{RTCRtpEncodingParameters/scalabilityMode}} member:</p>
+                       <ol>
+                         <li>Let <var>scalabilityMode</var> be
+                         <var>encoding</var>.{{RTCRtpEncodingParameters/scalabilityMode}}.</li>
+                         <li>If no codec in <var>codecs</var> supports
+                         <var>scalabilityMode</var>, then the user agent MUST set
+                         <var>encoding</var>.{{RTCRtpEncodingParameters/scalabilityMode}}
+                         to a different value representing a scalability mode that at
+                         least one codec in <var>codecs</var> supports, or [="L1T1"=]
+                         if none of them support any scalability modes.</li>
+                       </ol>
+                     </li>
+                   </ol>
+                 </li>
+               </ol>
+             </li>
+           </ol>
+         </p>
+      </section>
+    </section>
+    <section id="behavior" class="informative">
+      <h2>Behavior</h2>
       <section id="getparameters">
        <h3>{{RTCRtpSender/getParameters()}}</h3>
          <p>
@@ -284,13 +333,13 @@
          </p>
          <p>
            After the initial negotiation has completed, {{RTCRtpSender/getParameters()}}
-           returns the currently configured {{RTCRtpEncodingParameters/scalabilityMode}}
+           returns the currently negotiated {{RTCRtpEncodingParameters/scalabilityMode}}
            value for each encoding in <var>encodings</var> which had a value before the
-           initial negotiation. This MAY be different from the values requested in
+           initial negotiation. This might differ from the values requested in
            {{RTCPeerConnection/addTransceiver()}} or {{RTCRtpSender/setParameters()}}.
            For example, if the codecs selected during negotiation do not include an
            encoder supporting the desired {{RTCRtpEncodingParameters/scalabilityMode}}
-           value, the user agent MAY select another value. If the configuration is not
+           value, the user agent can select another value. If the configuration is not
            satisfactory, {{RTCRtpSender/setParameters()}} can be used to change it.
          </p>
          <p>
@@ -306,7 +355,7 @@
            temporal scalability modes (e.g. [="L1T1"=],[="L1T2"=],[="L1T3"=], etc.).
          </p>
       </section>
-      <section id="sfmnegotiation" class="informative">
+      <section id="sfmnegotiation">
         <h2>Negotiation issues</h2>
           <p>
             SVC is most often employed in video conferencing, where a conferencing
