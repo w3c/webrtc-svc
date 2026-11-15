@@ -865,10 +865,10 @@ try {
 
   if (!info.supported) {
     console.log(`${contentType} is unsupported.`);
-    return;
+  } else {
+    console.log(`${contentType} is ${info.smooth ? '' : 'NOT '}smooth, and ` +
+                `${info.powerEfficient ? '' : 'NOT '}power efficient`);
   }
-  console.log(`${contentType} is ${info.smooth || 'NOT '}smooth, and ` +
-              `${info.powerEfficient || 'NOT '}power efficient`);
 } catch (err) {
   console.error(err, ' caused encodingInfo to fail');
 }
